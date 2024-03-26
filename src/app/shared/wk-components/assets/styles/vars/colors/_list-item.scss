@@ -1,0 +1,15 @@
+:root {
+  --list-item-color: var(--color-grey-2);
+  --list-item-color-disabled: var(--color-grey-50);
+
+  --list-item-bg-hover: var(--color-grey-92);
+  --list-item-bg-focused: var(--color-grey-88);
+}
+
+body[data-theme='dark'] {
+  --list-item-color: var(--color-grey-white);
+  --list-item-color-disabled: var(--color-grey-60);
+
+  --list-item-bg-hover: var(--color-grey-30);
+  --list-item-bg-focused: var(--color-grey-26);
+}

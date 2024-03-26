@@ -1,0 +1,109 @@
+<div *ngIf="isUploading" class="loader">
+  <dx-load-indicator></dx-load-indicator>
+</div>
+
+<div class="import">
+  <form [formGroup]="importForm" *ngIf="!isUploading">
+    <dx-select-box
+      formControlName="departmentId"
+      [dataSource]="departmentsDataSource"
+      displayExpr="name"
+      [searchEnabled]="true"
+      valueExpr="id"
+      label="{{ 'Отделы' | translate }}*"
+      placeholder=""
+      stylingMode="outlined"
+      labelMode="floating"
+      [showClearButton]="false"
+      appValidateControl
+    >
+    </dx-select-box>
+  </form>
+
+  <div
+    class="file-upload-container"
+    [ngClass]="{
+      'file-upload-valid': !hasUploadError,
+      'file-upload-invalid': hasUploadError
+    }"
+    *ngIf="!isUploading"
+  >
+    <div class="file-upload-info" (click)="fileInput.click()">
+      <img
+        class="file-upload-icon"
+        src="assets/image/attach-icon.svg"
+        alt="Прикрепить файл"
+      />
+
+      <div class="file-upload-description">
+        <p class="file-upload-title">
+          {{
+            selectedFileName
+              ? formatFileName(selectedFileName)
+              : ("Выберите архив в формате zip" | translate)
+          }}
+        </p>
+        <p class="file-upload-format">
+          {{
+            selectedFileSize || ("Максимальный размер архива 20 МБ" | translate)
+          }}
+        </p>
+      </div>
+    </div>
+
+    <input
+      type="file"
+      #fileInput
+      class="file-input"
+      (change)="onFileChange($event)"
+      accept=".zip,.rar,.7z,.tar"
+    />
+
+    <dx-button
+      *ngIf="!selectedFile"
+      (onClick)="fileInput.click()"
+      text="{{ 'Выбрать' | translate }}"
+      class="custom-dx-success-btn"
+    ></dx-button>
+
+    <img
+      *ngIf="selectedFile"
+      class="file-delete-icon"
+      src="assets/image/red-trash-icon.svg"
+      alt="Удалить файл"
+      (click)="resetSelectedFile()"
+    />
+  </div>
+
+  <div class="import-promt" *ngIf="!isUploading">
+    <p class="import-promt-description">
+      {{
+        "Загрузите архив с фотографиями сотрудников отдела, чтобы добавить новых сотрудников или добавить фотографии к существующим"
+          | translate
+      }}
+    </p>
+
+    <p class="import-instruction">
+      <a
+        href="/zip-import-instructions"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ "Инструкция по импорту" | translate }}
+      </a>
+    </p>
+  </div>
+
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="closeDialog()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+    ></dx-button>
+    <dx-button
+      (onClick)="importFile()"
+      text="{{ 'Импорт' | translate }}"
+      class="custom-dx-success-btn"
+    ></dx-button>
+  </div>
+</div>

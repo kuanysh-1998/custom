@@ -1,0 +1,25 @@
+<label [for]="for" [ngClass]="labelClasses">
+  <div class="label-content">
+    <span>
+      <ng-container *ngFor="let part of secondaryTextParts">
+        <wk-link
+          *ngIf="isLink(part); else textTpl"
+          [link]="getUrl(part)"
+          [text]="getText(part)"
+          [disabled]="disabled"
+          [download]="getIsDownload(part)"
+          (click)="$event.stopPropagation()"
+          class="link"
+        ></wk-link>
+        <ng-template #textTpl>{{ part }}</ng-template>
+      </ng-container>
+      <span *ngIf="required" class="required">*</span>
+    </span>
+
+    <ng-container *ngIf="info && !disabled">
+      <wk-svg *wkTooltip="info" [icon]="iconInfo" class="icon-info"></wk-svg>
+    </ng-container>
+  </div>
+
+  <ng-content></ng-content>
+</label>

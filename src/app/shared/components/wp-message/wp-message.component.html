@@ -1,0 +1,18 @@
+<div class="message-dialog">
+  <p>{{ message | translate }}</p>
+
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="close()"
+      text="{{ 'Нет' | translate }}"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+      class="custom-dx-normal-btn"
+    ></dx-button>
+    <dx-button
+      (onClick)="confirm()"
+      text="{{ 'Да' | translate }}"
+      [ngClass]="{ 'global-highlight': activeButton === 'confirm' }"
+      class="custom-dx-success-btn"
+    ></dx-button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.user-data {
+  &-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
+  &-btns {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 24px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .user-data-form {
+    row-gap: 10px;
+
+    .form-row {
+      flex-direction: column;
+      row-gap: 10px;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+:root {
+  --checkbox-checked-rest: var(--color-brand-100);
+  --checkbox-checked-hover: var(--color-brand-80);
+  --checkbox-checked-focus: var(--color-brand-70);
+
+  --checkbox-unchecked-rest: var(--color-grey-2);
+  --checkbox-unchecked-hover: var(--color-grey-14);
+  --checkbox-unchecked-focus: var(--color-grey-26);
+
+  --checkbox-disabled: var(--color-grey-80);
+  --checkbox-error: var(--color-semantic-red-200);
+}
+
+body[data-theme='dark'] {
+  --checkbox-checked-rest: var(--color-brand-110);
+  --checkbox-checked-hover: var(--color-brand-100);
+  --checkbox-checked-focus: var(--color-brand-80);
+
+  --checkbox-unchecked-rest: var(--color-grey-white);
+  --checkbox-unchecked-hover: var(--color-grey-86);
+  --checkbox-unchecked-focus: var(--color-grey-76);
+
+  --checkbox-disabled: var(--color-grey-40);
+  --checkbox-error: var(--color-semantic-red-150);
+}

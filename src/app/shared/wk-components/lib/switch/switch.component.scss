@@ -1,0 +1,155 @@
+@import "../../styles.scss";
+wk-switch {
+  display: block;
+  width: fit-content;
+  margin-bottom: var(--space-vertical-l);
+
+  .dx-switch {
+    width: 40px;
+    height: 20px;
+
+    .dx-switch-wrapper::before {
+      display: none;
+    }
+
+    .dx-switch-handle::before {
+      width: 14px;
+      height: 14px;
+      background: var(--switch-handle-bg-rest);
+      border-radius: 50%;
+    }
+
+    .dx-switch-container {
+      display: block;
+      width: 40px;
+      height: 20px;
+      margin: 0;
+      background: var(--switch-container-bg-rest);
+      border-color: var(--switch-container-stroke-rest);
+      border-radius: 10px;
+    }
+
+    &.checked {
+      .dx-switch-handle::before {
+        background: var(--switch-handle-checked-bg);
+      }
+
+      .dx-switch-container {
+        background: var(--switch-container-checked-bg-rest);
+        border-color: var(--switch-container-checked-bg-rest);
+      }
+
+      &.dx-state-hover {
+        .dx-switch-handle::before {
+          background: var(--switch-handle-checked-bg);
+        }
+
+        .dx-switch-container {
+          background: var(--switch-container-checked-bg-hover);
+          border-color: var(--switch-container-checked-bg-hover);
+        }
+      }
+
+      &.dx-state-disabled {
+        opacity: 1;
+
+        .dx-switch-handle::before {
+          background: var(--switch-handle-checked-bg);
+        }
+
+        .dx-switch-container {
+          background: var(--switch-container-checked-bg-disabled);
+          border-color: var(--switch-container-checked-bg-disabled);
+        }
+      }
+
+      &.dx-state-focused,
+      &.dx-state-active,
+      &.dx-state-focused.dx-state-active {
+        .dx-switch-handle::before {
+          background: var(--switch-handle-checked-bg);
+        }
+
+        .dx-switch-container {
+          background: var(--switch-container-checked-bg-focus);
+          border-color: var(--switch-container-checked-bg-focus);
+        }
+      }
+    }
+
+    &.dx-state-hover {
+      .dx-switch-handle::before {
+        background: var(--switch-handle-bg-hover);
+      }
+
+      .dx-switch-container {
+        background: var(--switch-container-bg-rest);
+        border-color: var(--switch-container-stroke-rest);
+      }
+    }
+
+    &.dx-state-disabled {
+      opacity: 1;
+
+      .dx-switch-handle::before {
+        background: var(--switch-handle-bg-disabled);
+      }
+
+      .dx-switch-container {
+        background: var(--switch-container-bg-rest);
+        border-color: var(--switch-container-stroke-rest);
+      }
+    }
+
+    &.dx-state-focused,
+    &.dx-state-active,
+    &.dx-state-focused.dx-state-active {
+      .dx-switch-handle::before {
+        background: var(--switch-handle-bg-focus);
+      }
+
+      .dx-switch-container {
+        background: var(--switch-container-bg-rest);
+        border-color: var(--switch-container-stroke-rest);
+      }
+    }
+  }
+
+  .dx-custom-switch-wrapper {
+    &.left {
+      display: flex;
+      align-items: center;
+
+      .dx-custom-switch-label {
+        margin-left: 8px;
+      }
+    }
+
+    &.top {
+      display: flex;
+      flex-direction: column;
+
+      .dx-custom-switch-label {
+        margin-left: 8px;
+      }
+    }
+
+    &.right {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+
+      .dx-custom-switch-label {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .dx-custom-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 36px;
+  }
+}

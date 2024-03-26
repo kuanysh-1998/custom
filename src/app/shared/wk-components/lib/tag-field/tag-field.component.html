@@ -1,0 +1,60 @@
+<div [class.left-label]="labelLocation === 'left'" class="container">
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="inputEl.focus()"
+  ></wk-label>
+
+  <div class="input-wrapper">
+    <wk-text-field
+      #inputEl
+      [formControl]="formControl"
+      [disabled]="isDisabled"
+      [readOnly]="readOnly"
+      [placeholder]="placeholder"
+      [icon]="icon"
+      [iconRight]="iconRight"
+      [prefix]="prefix"
+      [postfix]="postfix"
+      [error]="isError"
+      [attr.data-token]="token"
+      (keydown.enter)="addTag(inputEl.value)"
+      (input)="changeInput(inputEl)"
+      class="input"
+    ></wk-text-field>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="helper-text">{{ helperText }}</div>
+
+    <div class="tags">
+      <wk-badge
+        *ngFor="let tag of value; let i = index"
+        [iconRight]="
+          (firstFixed ? i !== 0 : true) && !isDisabled && !readOnly
+            ? iconClose
+            : undefined
+        "
+        [iconRightClickable]="true"
+        [text]="tag"
+        (clickedIconRight)="deleteTag(i)"
+        stylingMode="contained"
+        variant="secondary"
+        size="large"
+      ></wk-badge>
+    </div>
+  </div>
+</div>

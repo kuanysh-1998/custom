@@ -1,0 +1,16 @@
+@import "../../styles.scss";
+wk-scroll {
+  background: transparent;
+  display: block;
+}
+
+.dx-scrollable-native.dx-scrollable-native-generic .dx-scrollable-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dx-scrollview-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

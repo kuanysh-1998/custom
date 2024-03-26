@@ -1,0 +1,114 @@
+<dx-data-grid
+  [dataSource]="dataSource"
+  (onRowPrepared)="customizeRow($event)"
+  (onRowDblClick)="editTimesheet($event.data)"
+  (pagingChange)="setCurrentPage($event)"
+  (onInitialized)="onGridInitialized()"
+  [elementAttr]="{ class: 'custom-dx-grid custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    [caption]="'Наименование' | translate"
+    width="100"
+    minWidth="400"
+    dataField="name"
+  ></dxi-column>
+  <dxi-column
+    alignment="left"
+    [caption]="'Статус' | translate"
+    dataField="status"
+    width="100"
+    minWidth="200"
+  >
+    <dxo-lookup
+      [dataSource]="timesheetStatuses"
+      valueExpr="value"
+      displayExpr="name"
+      itemTemplate="listItem"
+    >
+      >
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column
+    width="100"
+    minWidth="200"
+    alignment="left"
+    [caption]="'Тип' | translate"
+    dataField="type"
+  >
+    <dxo-lookup
+      [dataSource]="timesheetTypes"
+      valueExpr="value"
+      displayExpr="name"
+    >
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    [caption]="'Цвет' | translate"
+    dataField="color"
+    cellTemplate="color"
+  ></dxi-column>
+
+  <dxi-column
+    caption=""
+    width="50"
+    [allowFiltering]="false"
+    cellTemplate="menuItems"
+    alignment="center"
+  >
+  </dxi-column>
+
+  <ng-container *dxTemplate="let cell of 'color'">
+    <div class="color-cell" [style.background]="cell.value"></div>
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'menuItems'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuStatuses[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuStatuses[cell.rowIndex] = false"
+      [(visible)]="contextMenuStatuses[cell.rowIndex]"
+      [showEvent]
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeLicenseAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+
+  <dxo-toolbar>
+    <dxi-item location="before">
+      <button class="btn btn-success" (click)="createSchedule()">
+        {{ "Добавить график работы" | translate }}
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

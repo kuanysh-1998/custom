@@ -1,0 +1,54 @@
+<div class="status-container">
+  <div class="status-title">{{ "Статус расписания" | translate }}:</div>
+  <div class="status-value">
+    {{ timetable.status | timetableStatus }}
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="date-box-containers">
+    <div class="start">
+      <div class="label">{{ "Дата начала" | translate }}:</div>
+      <dx-date-box
+        [type]="'date'"
+        [min]="minDate"
+        [max]="maxDate"
+        [pickerType]="'calendar'"
+        [displayFormat]="'dd.MM.yyyy'"
+        formControlName="startDate"
+        appValidateControl
+        (onOptionChanged)="onDateChanged($event, 'startDate')"
+      ></dx-date-box>
+    </div>
+
+    <div class="end">
+      <div class="label">{{ "Дата завершения" | translate }}:</div>
+      <dx-date-box
+        [type]="'date'"
+        [min]="minDate"
+        [max]="maxDate"
+        [pickerType]="'calendar'"
+        [displayFormat]="'dd.MM.yyyy'"
+        formControlName="endDate"
+        appValidateControl
+        (onOptionChanged)="onDateChanged($event, 'endDate')"
+      ></dx-date-box>
+    </div>
+  </div>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    [text]="'Отмена' | translate"
+    (onClick)="closeDialog()"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    class="custom-dx-success-btn"
+    [text]="'Сохранить' | translate"
+    (onClick)="edit()"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    [disabled]="isEditing"
+  ></dx-button>
+</div>

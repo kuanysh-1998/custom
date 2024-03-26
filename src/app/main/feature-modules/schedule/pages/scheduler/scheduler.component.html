@@ -1,0 +1,51 @@
+<div class="wp-scheduler">
+  <form [formGroup]="form" class="filter-controls-row report-form-filter-gap">
+    <dx-date-range-box
+      class="adaptiveWidthTable"
+      [showClearButton]="true"
+      [elementAttr]="{ class: 'no-margin-top' }"
+      formControlName="eventDate"
+      endDateLabel="{{ 'Дата завершения' | translate }}"
+      startDateLabel="{{ 'Дата начала' | translate }}"
+      appValidateControl
+    >
+    </dx-date-range-box>
+
+    <combo-dropdown-list
+      [dataSource]="schedulesDataSource"
+      formControlName="schedules"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Графики' | translate }}"
+    ></combo-dropdown-list>
+
+    <combo-dropdown-list
+      [dataSource]="locationsDataSource"
+      formControlName="locations"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Локации' | translate }}"
+    ></combo-dropdown-list>
+
+    <combo-dropdown-list
+      [dataSource]="departmentsDataSource"
+      formControlName="departments"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Отделы' | translate }}"
+    ></combo-dropdown-list>
+  </form>
+
+  <div class="button-container">
+    <button
+      [disabled]="!showContent"
+      class="btn btn-success report-btn"
+      (click)="applyFilter()"
+    >
+      {{ "Сформировать" | translate }}
+    </button>
+  </div>
+
+  <app-scheduler-table
+    [columnHeaderDates]="uniqueDates"
+    [rowHeaderNames]="uniqueEmployees"
+    [days]="data"
+  ></app-scheduler-table>
+</div>

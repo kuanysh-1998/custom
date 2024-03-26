@@ -1,0 +1,50 @@
+@import "selected-tab";
+@import "not-selected-tab";
+@import "../../../styles.scss";
+
+wk-tabs {
+  display: block;
+  width: fit-content;
+  height: 36px;
+  margin-bottom: var(--space-vertical-l);
+
+  &.vertical-tabs {
+    padding-left: var(--space-horizontal-snudge);
+  }
+  .tabs {
+    display: flex;
+    gap: var(--space-horizontal-l);
+    position: relative;
+
+    &.vertical-position {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 0;
+    }
+  }
+
+  .tab {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: fit-content;
+    gap: var(--space-horizontal-xs);
+    padding: var(--space-vertical-s) var(--space-horizontal-xxs)
+      var(--space-vertical-snudge) 0;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    font: var(--font-body-1-strong);
+
+    &:not(.selected) {
+      @include not-selected-tab;
+    }
+
+    &.selected {
+      @include selected-tab;
+    }
+  }
+}

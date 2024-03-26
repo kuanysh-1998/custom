@@ -1,0 +1,19 @@
+<div class="publish-basic-container">
+  <div class="start">
+    <div class="color" [style.background]="schedule.color"></div>
+    <div class="basic">
+      <div class="name">
+        {{ schedule.name }}
+      </div>
+
+      <div class="type">
+        <div class="label">{{ "Тип графика" | translate }}:</div>
+        <span>{{ schedule.type | scheduleType | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="edit-button" (click)="editPublishedTimesheet()">
+    {{ "Редактировать" | translate }}
+  </button>
+</div>

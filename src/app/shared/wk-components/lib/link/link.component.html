@@ -1,0 +1,12 @@
+<a
+  *ngIf="isExternalLink(link); else internalLink"
+  [href]="link"
+  [download]="download"
+  target="_blank"
+  class="link"
+  >{{ text }}</a
+>
+
+<ng-template #internalLink>
+  <a [routerLink]="link" class="link">{{ text }}</a>
+</ng-template>

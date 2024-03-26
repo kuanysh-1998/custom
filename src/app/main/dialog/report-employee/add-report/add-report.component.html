@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+  <div class="form-field">
+    <dx-select-box
+      [dataSource]="employees"
+      displayExpr="fullName"
+      valueExpr="id"
+      [searchEnabled]="true"
+      formControlName="employeeId"
+      placeholder="{{ 'Сотрудники' | translate }}"
+      appValidateControl
+    >
+    </dx-select-box>
+  </div>
+  <div class="form-field">
+    <dx-select-box
+      [dataSource]="locationsDataSource"
+      displayExpr="name"
+      valueExpr="id"
+      [searchEnabled]="true"
+      formControlName="locationId"
+      placeholder="{{ 'Локация' | translate }}"
+      appValidateControl
+    >
+    </dx-select-box>
+  </div>
+
+  <div class="form-field">
+    <dx-date-box
+      type="datetime"
+      formControlName="eventDate"
+      label="{{ 'Дата отметки' | translate }}"
+      stylingMode="outlined"
+      labelMode="floating"
+      dateSerializationFormat="yyyy-MM-ddTHH:mm:ss"
+      appValidateControl
+    >
+    </dx-date-box>
+  </div>
+
+  <div class="form-field">
+    <dx-radio-group
+      [items]="eventTypes"
+      valueExpr="id"
+      displayExpr="text"
+      layout="horizontal"
+      formControlName="eventType"
+      appValidateControl
+    >
+    </dx-radio-group>
+  </div>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeModal()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    (onClick)="addEvent()"
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+  ></dx-button>
+</div>

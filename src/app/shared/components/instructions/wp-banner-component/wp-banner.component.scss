@@ -1,0 +1,187 @@
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: #eef0f6;
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__background-image {
+    width: 100%;
+    height: 281px;
+    object-fit: cover;
+  }
+
+  &__logo {
+    width: 137px;
+    height: 28px;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-family: PTRootUI;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 48px;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  &__text {
+    font-family: PTRootUI;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #ffffff;
+    margin-bottom: 40px;
+  }
+
+  .instructions {
+    padding: 24px;
+    width: 100%;
+    max-width: 652px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: absolute;
+    top: 216px;
+    left: 50%;
+    transform: translate(-50%);
+
+    p {
+      font-family: PTRootUIBold;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    li {
+      font-family: PTRootUI;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      letter-spacing: 0em;
+      color: #060c1f;
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        margin-bottom: 3px;
+      }
+    }
+
+    &__image {
+      border-radius: 6px;
+    }
+
+    &__image-caption {
+      font-family: PTRootUI;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: right;
+      color: #060c1f;
+      opacity: 0.6;
+      margin-top: 8px;
+    }
+
+    &__footer {
+      background-color: #ebecef66;
+      padding: 12px;
+
+      p {
+        font-family: PTRootUI;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+        color: #060c1f;
+        opacity: 0.5;
+      }
+    }
+
+    .custom-list-style ul, dl {
+      list-style-type: disc;
+    }
+  }
+}
+
+@media screen and (max-width: 785px) {
+  .banner {
+    &__title {
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .instructions {
+      padding: 24px;
+      max-width: 550px;
+      top: 216px;
+    }
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .banner {
+    &__title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    &__text {
+      font-size: 13px;
+    }
+
+    &__logo {
+      margin-bottom: 16px;
+    }
+
+    .instructions {
+      padding: 24px;
+      max-width: 450px;
+      top: 216px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner {
+    &__title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    &__text {
+      font-size: 11px;
+    }
+
+    .instructions {
+      max-width: 350px;
+    }
+  }
+}
+
+

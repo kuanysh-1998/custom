@@ -1,0 +1,75 @@
+<div class="message" [class.short]="shortLabel" *ngIf="control && control.errors && control.touched">
+  <ng-container *ngIf="control.errors['required'] && !shortLabel">
+    Поле обязательно для заполнения
+  </ng-container>
+  <ng-container *ngIf="control.errors['required'] && shortLabel"> Обязательное поле</ng-container>
+  <ng-container *ngIf="control.errors['minlength']">
+    Минимум символов
+    {{ control.errors["minlength"]["requiredLength"] }}
+  </ng-container>
+  <ng-container *ngIf="control.errors['maxlength']">
+    Нельзя ввести в поле больше
+    {{ control.errors["maxlength"]["requiredLength"] }} символов
+  </ng-container>
+  <ng-container *ngIf="control.errors['maxArrayLengthExceeded']">
+    Нельзя ввести в поле больше
+    {{ control.errors["maxArrayLengthExceeded"] }} значений
+  </ng-container>
+  <ng-container *ngIf="control.errors['incorrectBarcodeFormat']"> Неверный формат</ng-container>
+  <ng-container *ngIf="control.errors['duplicateBarcode']">
+    Товар с таким штрих-кодом уже добавлен
+  </ng-container>
+  <ng-container *ngIf="control.errors['barcodeAlreadyExists']">
+    Товар с штрих-кодом: {{ control.errors["barcodeAlreadyExists"] }} уже существует
+  </ng-container>
+  <ng-container *ngIf="control.errors['min'] as minError">
+    <ng-container *ngIf="minError['message']; else minErrorDefaultTemplate">
+      {{ minError["message"] }}
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="control.errors['max'] as maxError">
+    <ng-container *ngIf="maxError['message']; else maxErrorDefaultTemplate">
+      {{ maxError["message"] }}
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors['pattern']">
+    {{ control.errors["pattern"]["message"] }}
+  </ng-container>
+  <ng-container *ngIf="control.errors['phoneExist']">Данный номер существует в базе</ng-container>
+  <ng-container *ngIf="control.errors['phoneNotExist']"
+    >Пользователь с указанным номером не найден в системе
+  </ng-container>
+  <ng-container *ngIf="control.errors['email']">Неверный формат Email</ng-container>
+
+  <ng-template #minErrorDefaultTemplate>
+    <ng-container *ngIf="control.errors['min'] && !shortLabel && !isWeight">
+      Минимальное значение
+      {{ control.errors["min"]["min"] | number: "1.0-0" }}
+    </ng-container>
+    <ng-container *ngIf="control.errors['min'] && !shortLabel && isWeight">
+      Минимальное значение
+      {{ control.errors["min"]["min"] | number }}
+    </ng-container>
+    <ng-container *ngIf="control.errors['min'] && shortLabel">
+      Мин.
+      {{ control.errors["min"]["min"] | number }}
+    </ng-container>
+  </ng-template>
+  <ng-template #maxErrorDefaultTemplate>
+    <ng-container *ngIf="control.errors['max'] && !shortLabel">
+      Максимальное значение
+      {{ control.errors["max"]["max"] | number: "1.0-3" }}
+    </ng-container>
+    <ng-container *ngIf="control.errors['max'] && shortLabel">
+      Макс.
+      {{ control.errors["max"]["max"] | number }}
+    </ng-container>
+  </ng-template>
+</div>
+
+<small class="message" *ngIf="control && isCalendarControl && control.touched">
+  <ng-container *ngIf="control.value !== null && control?.value[1] === null">
+    Нужно выбрать промежуток дат
+  </ng-container>
+</small>

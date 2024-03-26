@@ -1,0 +1,68 @@
+<div
+  [class.dx-custom-number-input-left-label]="labelLocation === 'left'"
+  class="dx-custom-number-input-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="textField.focus()"
+  ></wk-label>
+
+  <div
+    [class.dx-custom-number-input-with-buttons]="shouldBeControls"
+    class="dx-custom-number-input"
+  >
+    <button
+      *ngIf="shouldBeControls"
+      (click)="textField.focus(); increase()"
+      class="dx-custom-number-input-button dx-custom-number-input-inc"
+    >
+      <wk-svg [icon]="arrowUpIcon"></wk-svg>
+    </button>
+
+    <button
+      *ngIf="shouldBeControls"
+      (click)="textField.focus(); decrease()"
+      class="dx-custom-number-input-button dx-custom-number-input-dec"
+    >
+      <wk-svg [icon]="arrowDownIcon"></wk-svg>
+    </button>
+
+    <wk-text-field
+      #textField
+      [value]="value"
+      [maskito]="maskOptions"
+      [disabled]="isDisabled"
+      [icon]="icon"
+      [required]="isRequired"
+      [readOnly]="readOnly"
+      [placeholder]="placeholder"
+      [error]="isError"
+      [prefix]="prefix"
+      [size]="size"
+      [token]="token"
+      [postfix]="postfix"
+      (input)="onChange($event)"
+      (blurred)="onTouched?.()"
+    ></wk-text-field>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="dx-custom-number-input-error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="dx-custom-number-input-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

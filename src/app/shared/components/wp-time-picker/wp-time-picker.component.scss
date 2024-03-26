@@ -1,0 +1,102 @@
+.time-picker-container {
+  position: relative;
+  display: inline-block;
+  max-width: 190px;
+  width: 100%;
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    input {
+      width: 100%;
+      border-radius: 8px;
+      padding: 5px;
+      padding-right: 30px;
+      border: 1px solid #dbdfeb;
+
+      &:focus {
+        border: 1px solid rgb(108, 108, 196);
+        outline: none;
+      }
+
+      &.error {
+        border: 1px solid #be1111;
+      }
+    }
+
+    .dx-icon-clock {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .error-icon {
+      font-weight: 700;
+      position: absolute;
+      top: 50%;
+      margin-top: -9px;
+      right: 33px;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      line-height: 18px;
+      font-size: 13px;
+      background-color: #be1111;
+      color: #fff;
+      content: "!";
+      border-radius: 50%;
+    }
+  }
+
+  .error-message {
+    margin-top: 5px;
+    position: absolute;
+    z-index: 2500;
+    top: 100%;
+    left: 0;
+    color: #ffffff;
+    background-color: #be1111;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+
+  .custom-dropdown {
+    position: absolute;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 5000;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &.position-top {
+      bottom: 100%;
+    }
+
+    &.position-bottom {
+      top: 100%;
+    }
+
+    div {
+      padding: 7px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0000001a;
+        color: black;
+      }
+
+      &.active {
+        background-color: #0000001a;
+        color: black;
+      }
+    }
+  }
+}

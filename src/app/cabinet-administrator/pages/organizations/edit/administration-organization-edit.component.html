@@ -1,0 +1,76 @@
+<div class="loader" *ngIf="isLoadingResults">
+  <dx-load-indicator></dx-load-indicator>
+</div>
+
+<div *ngIf="!isLoadingResults">
+  <form [formGroup]="form">
+    <div *ngIf="!organization?.isPartner">
+      <label class="organization-type">
+        {{ "Тип организации" | translate }}:
+      </label>
+      <dx-radio-group
+        formControlName="scType"
+        [items]="types"
+        displayExpr="display"
+        valueExpr="value"
+        class="custom-dx-radio-group"
+        layout="horizontal"
+        appValidateControl
+      ></dx-radio-group>
+    </div>
+
+    <dx-text-box
+      label="{{ 'Наименование' | translate }}*"
+      formControlName="name"
+      stylingMode="outlined"
+      labelMode="floating"
+      appValidateControl
+    ></dx-text-box>
+
+    <dx-select-box
+      formControlName="servingOrganizationId"
+      [dataSource]="organizationsCtoDataSource"
+      displayExpr="name"
+      [searchEnabled]="true"
+      valueExpr="id"
+      label="{{ 'Выберите ЦТО' | translate }}*"
+      placeholder=""
+      stylingMode="outlined"
+      labelMode="floating"
+      [showClearButton]="false"
+      appValidateControl
+    >
+    </dx-select-box>
+
+    <dx-select-box
+      formControlName="level"
+      [dataSource]="LevelTypes"
+      displayExpr="display"
+      valueExpr="value"
+      label="{{ 'Уровень ЦТО*' | translate }}"
+      placeholder=""
+      [showClearButton]="false"
+      stylingMode="outlined"
+      labelMode="floating"
+      [searchEnabled]="false"
+      appValidateControl
+    >
+    </dx-select-box>
+  </form>
+
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="closeDialog()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    ></dx-button>
+    <dx-button
+      (onClick)="update()"
+      text="{{ 'Сохранить' | translate }}"
+      class="custom-dx-success-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+      [disabled]="isSubmitting"
+    ></dx-button>
+  </div>
+</div>

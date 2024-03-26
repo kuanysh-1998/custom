@@ -1,0 +1,113 @@
+<div class="user-data">
+  <form [formGroup]="form" class="user-data-form">
+    <div class="form-row">
+      <dx-select-box
+        formControlName="organizationId"
+        [dataSource]="organizationsDataSource"
+        displayExpr="name"
+        [searchEnabled]="true"
+        valueExpr="id"
+        label="{{ 'Организация' | translate }}*"
+        placeholder=""
+        stylingMode="outlined"
+        labelMode="floating"
+        [showClearButton]="false"
+        appValidateControl
+        [width]="widthForSelectBoxes"
+        [disabled]="true"
+      >
+      </dx-select-box>
+
+      <dx-select-box
+        formControlName="departmentId"
+        [dataSource]="departmentsDataSource"
+        displayExpr="name"
+        [searchEnabled]="true"
+        valueExpr="id"
+        label="{{ 'Отдел' | translate }}*"
+        placeholder=""
+        stylingMode="outlined"
+        labelMode="floating"
+        [showClearButton]="false"
+        [width]="widthForSelectBoxes"
+        appValidateControl
+      >
+      </dx-select-box>
+    </div>
+
+    <div class="form-row">
+      <dx-text-box
+        formControlName="lastName"
+        label="{{ 'Фамилия' | translate }}*"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="widthForTextFields"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-text-box
+        formControlName="firstName"
+        label="{{ 'Имя' | translate }}*"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="widthForTextFields"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-text-box
+        formControlName="middleName"
+        label="{{ 'Отчество' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="widthForTextFields"
+        appValidateControl
+      ></dx-text-box>
+    </div>
+
+    <div class="form-row">
+      <dx-text-box
+        formControlName="email"
+        label="{{ 'Логин' | translate }}*"
+        stylingMode="outlined"
+        labelMode="floating"
+        placeholder="example@example.com"
+        [width]="widthForTextFields"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-text-box
+        formControlName="password"
+        label="{{ 'Новый пароль' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="widthForTextFields"
+        appValidateControl
+        [mode]="passwordVisibility.passwordMode$ | async"
+        class="custom-dxi-btn"
+      >
+        <dxi-button
+          name="password"
+          location="after"
+          [options]="passwordVisibility.passwordButton$ | async"
+        ></dxi-button>
+      </dx-text-box>
+    </div>
+  </form>
+
+  <div class="user-data-btns">
+    <dx-button
+      class="custom-dx-normal-btn"
+      text="{{ 'Отмена' | translate }}"
+      (onClick)="returnToUsersPage()"
+    ></dx-button>
+    <dx-button
+      (onClick)="edit()"
+      text="{{ 'Сохранить' | translate }}"
+      type="success"
+      class="custom-dx-success-btn"
+    ></dx-button>
+  </div>
+</div>

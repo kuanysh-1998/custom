@@ -1,0 +1,37 @@
+.custom-grid-class .dx-row.dx-selection,
+.custom-grid-class .dx-row.dx-selection > td {
+  background-color: #ECF9EF !important;
+}
+
+.custom-grid-class .dx-row.day-off-row,
+.custom-grid-class .dx-row.day-off-row > td {
+  background-color: #f7f7fa;
+}
+
+.custom-grid-class .dx-row.day-off-row-selected,
+.custom-grid-class .dx-row.day-off-row-selected > td {
+  background-color: #ECF9EF !important;
+}
+
+.dx-custom-menu {
+  .dx-context-menu-container-border {
+    border: 0;
+    box-shadow: none;
+    text-decoration: none;
+  }
+  .dx-submenu {
+    border: 0;
+    border-radius: 4px;
+    .dx-menu-item {
+      border-radius: 4px;
+      padding: 2px;
+    }
+  }
+
+  .dx-menu-item-text {
+    font-family: PTRootUIMedium;
+    font-size: 14px;
+    font-weight: 500;
+    color: #060c1f;
+  }
+}

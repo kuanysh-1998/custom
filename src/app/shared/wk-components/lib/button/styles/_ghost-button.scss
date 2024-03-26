@@ -1,0 +1,43 @@
+@mixin ghost-button($type) {
+  $bg-hover: "--btn-#{$type}-ghost-bg-hover";
+  $bg-focused: "--btn-#{$type}-ghost-bg-focused";
+  $bg-active: "--btn-#{$type}-ghost-bg-active";
+  $color: "--btn-#{$type}-ghost-color";
+  $color-disabled: "--btn-#{$type}-ghost-color-disabled";
+
+  color: var(#{$color});
+  background-color: transparent;
+  border: transparent;
+
+  svg {
+    fill: var(#{$color});
+  }
+
+  &:hover {
+    color: var(#{$color});
+    background-color: var(#{$bg-hover});
+    border: transparent;
+  }
+
+  &:focus {
+    color: var(#{$color});
+    background-color: var(#{$bg-focused});
+    border: transparent;
+  }
+
+  &:active {
+    color: var(#{$color});
+    background-color: var(#{$bg-active});
+    border: transparent;
+  }
+
+  &.dx-state-disabled {
+    color: var(#{$color-disabled});
+    background-color: transparent;
+    border: transparent;
+
+    svg {
+      fill: var(#{$color-disabled});
+    }
+  }
+}

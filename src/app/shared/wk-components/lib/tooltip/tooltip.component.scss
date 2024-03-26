@@ -1,0 +1,46 @@
+@import "../../styles.scss";
+.dx-custom-tooltip {
+  .dx-overlay-content.dx-popup-normal {
+    max-width: 240px;
+    padding: 0;
+    color: var(--tooltip-color);
+    background: var(--tooltip-bg);
+    border: none;
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-8);
+    opacity: 1;
+
+    .dx-popup-content.dx-popup-content-scrollable {
+      max-width: 240px;
+      padding: var(--space-vertical-s) var(--space-horizontal-m);
+      text-align: start;
+      white-space: normal;
+    }
+
+    .dx-popover-arrow::after {
+      background: var(--tooltip-bg);
+    }
+  }
+
+  &.dx-tooltip-wrapper .dx-overlay-content .dx-popup-content {
+    font: var(--font-body-1);
+  }
+
+  &.right.dx-tooltip-wrapper.dx-popover-wrapper,
+  &.left.dx-tooltip-wrapper.dx-popover-wrapper {
+    .dx-popover-arrow::after {
+      border: none;
+      border-radius: 2px;
+      margin: 0 -2px;
+    }
+  }
+
+  &.top.dx-tooltip-wrapper.dx-popover-wrapper,
+  &.bottom.dx-tooltip-wrapper.dx-popover-wrapper {
+    .dx-popover-arrow::after {
+      border: none;
+      border-radius: 2px;
+      margin: -2px 0;
+    }
+  }
+}

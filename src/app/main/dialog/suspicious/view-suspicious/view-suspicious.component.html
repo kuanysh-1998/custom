@@ -1,0 +1,315 @@
+<div class="view-suspicious-container" *ngIf="suspicious; else loader">
+  <hr />
+
+  <div class="view-suspicious-wrapper" #modalContent>
+    <ng-container *ngIf="showContent; else loader">
+      <div class="view-suspicious-header">
+        <div class="employee-block">
+          <app-employee-event-info
+            [eventType]="eventType"
+            [employeeName]="currentItem?.employeeName"
+            [eventDate]="currentItem?.markDate"
+            [eventDateOffset]="currentItem?.markDateOffset"
+          ></app-employee-event-info>
+
+          <app-employee-block
+            [employeeBlockData]="currentItem"
+          ></app-employee-block>
+        </div>
+      </div>
+
+      <div class="suspiciouses" [formGroup]="form">
+        <app-single-accordion
+          *ngIf="causeExist(suspiciousCauses.PhotoNotRecognized)"
+          [opened]="causeIsFirst(suspiciousCauses.PhotoNotRecognized)"
+          headerTitle="Фотография не распознана"
+          [containerMode]="true"
+          [showTitleIcon]="true"
+        >
+          <div class="photo-container">
+            <img
+              *ngIf="suspicious"
+              [src]="PhotosBaseUrl | secure : currentItem?.fileId | async"
+              class="photo"
+              alt=""
+            />
+          </div>
+
+          <dx-check-box
+            class="confirm checkbox-text"
+            [readOnly]="this.employeePhotos.length >= 5"
+            formControlName="recognition"
+            [(value)]="checkRecognition"
+            text="{{
+              'Добавить это фото в список для распознавания' | translate
+            }}"
+          >
+          </dx-check-box>
+
+          <app-photo-block [photos]="employeePhotos"></app-photo-block>
+        </app-single-accordion>
+
+        <app-single-accordion
+          *ngIf="causeExist(suspiciousCauses.LocationNotDefined)"
+          [opened]="causeIsFirst(suspiciousCauses.LocationNotDefined)"
+          [formError]="form.invalid && form.touched"
+          headerTitle="Локация не определена"
+          [containerMode]="true"
+          [showTitleIcon]="true"
+        >
+          <div class="form-field">
+            <p class="title">{{ "Выберите локацию" | translate }}:</p>
+            <dx-select-box
+              [dataSource]="location$ | async"
+              displayExpr="name"
+              valueExpr="id"
+              [searchEnabled]="true"
+              formControlName="locationId"
+              [elementAttr]="{
+                class: form.invalid && form.touched ? 'error' : ''
+              }"
+              placeholder="{{ 'Локация' | translate }}"
+            >
+            </dx-select-box>
+            <error-messages
+              type="text"
+              [control]="form.get('locationId')"
+            ></error-messages>
+          </div>
+          <app-view-location
+            class="view-location"
+            [suspicious]="currentItem"
+          ></app-view-location>
+        </app-single-accordion>
+
+        <app-single-accordion
+          *ngIf="causeExist(suspiciousCauses.TimeSpoofing)"
+          [opened]="causeIsFirst(suspiciousCauses.TimeSpoofing)"
+          [formError]="form.invalid && form.touched"
+          headerTitle="Подмена времени"
+          [containerMode]="true"
+          [showTitleIcon]="true"
+        >
+          <div class="container-time-substitution">
+            <div>
+              <p class="label">
+                {{
+                  "Дата и время отметки на устройстве сотрудника" | translate
+                }}:
+              </p>
+              <p class="mark-data">
+                {{
+                  currentItem?.markDate | date : "dd.MM.yyyy, EEEE 'в' HH:mm"
+                }}
+                <span>|</span> UTC{{ currentItem.markDateOffset >= 0 ? "+" : ""
+                }}{{ currentItem.markDateOffset }}
+              </p>
+            </div>
+
+            <div>
+              <p class="label">
+                {{ "Дата и время отметки в системе" | translate }}:
+              </p>
+              <p class="proven-local-data">
+                {{
+                  currentItem?.provenLocalTime
+                    | date : "dd.MM.yyyy, EEEE 'в' HH:mm"
+                }}
+                <span>|</span> UTC{{ currentItem.markDateOffset >= 0 ? "+" : ""
+                }}{{ currentItem.markDateOffset }}
+              </p>
+            </div>
+
+            <div>
+              <p class="label">
+                {{ "Выберите, какое время принять" | translate }}:
+              </p>
+
+              <dx-radio-group
+                [dataSource]="timeOptions"
+                displayExpr="text"
+                valueExpr="value"
+                formControlName="useProvenLocalTime"
+                class="custom-dx-radio-group"
+              >
+              </dx-radio-group>
+            </div>
+          </div>
+        </app-single-accordion>
+
+        <app-single-accordion
+          *ngIf="causeExist(suspiciousCauses.TimetableSpanNotDefined)"
+          [opened]="causeIsFirst(suspiciousCauses.TimetableSpanNotDefined)"
+          headerTitle="Расписание не определено"
+          [containerMode]="true"
+          [showTitleIcon]="true"
+        >
+          <div class="timestamp">
+            <p class="label">{{ "Дата и время отметки" | translate }}:</p>
+            <p class="timestamp-item">
+              {{ currentItem?.markDate | date : "short" }}
+              <span class="gray">|</span>
+              UTC{{ currentItem.markDateOffset >= 0 ? "+" : ""
+              }}{{ currentItem.markDateOffset }}
+            </p>
+          </div>
+          <p class="label">{{ "Расписание сотрудника" | translate }}:</p>
+
+          <dx-select-box
+            class="schedule-select-box"
+            displayExpr="scheduleName"
+            valueExpr="id"
+            fieldTemplate="field"
+            [dataSource]="dataTimeTableList"
+            formControlName="timetableSpanId"
+            [noDataText]="noDataText"
+          >
+            <div *dxTemplate="let data of 'field'">
+              <dx-text-box
+                class="item-name"
+                [value]="
+                  data
+                    ? data.scheduleName +
+                      ' (' +
+                      (data.date | date : 'dd.MM.yy') +
+                      ')'
+                    : null
+                "
+                [readOnly]="true"
+                placeholder="{{ 'Выберите' | translate }}"
+              ></dx-text-box>
+            </div>
+            <div *dxTemplate="let data of 'item'">
+              <ng-container *ngIf="data.dayType === 1; else offDay">
+                <div class="schedule-name">
+                  {{ data.scheduleName }} ({{ data.date | date : "dd.MM.yy" }})
+                </div>
+                <div class="d-flex justify-content-start">
+                  <div class="suspicious-info">
+                    <div class="mark-time" *ngIf="eventType.value === 0">
+                      <p class="mark-time-title">
+                        {{ "Границы прихода" | translate }}:
+                        <span
+                          >{{ data.boundaryInTime.start | date : "shortTime" }}
+                          -
+                          {{
+                            data.boundaryInTime.end | date : "shortTime"
+                          }}</span
+                        >
+                      </p>
+                    </div>
+                    <div class="mark-time" *ngIf="eventType.value === 1">
+                      <p class="mark-time-title">
+                        {{ "Границы ухода" | translate }}:
+                        <span
+                          >{{ data.boundaryOutTime.start | date : "shortTime" }}
+                          -
+                          {{
+                            data.boundaryOutTime.end | date : "shortTime"
+                          }}</span
+                        >
+                      </p>
+                    </div>
+                    <div class="work-time">
+                      <p class="work-time-title">
+                        {{ "Рабочее время" | translate }}:
+                        <span class="work-time-item"
+                          >{{ data.workTime?.start | date : "shortTime" }}
+                          -
+                          {{ data.workTime?.end | date : "shortTime" }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="location">
+                    <p class="work-time-title">
+                      {{ "Локация" | translate }}:
+                      <span>
+                        {{
+                          data.locationName
+                            ? (data.locationName | translate)
+                            : "-"
+                        }}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #offDay>
+                <div class="schedule-name">
+                  {{ data.scheduleName }} ({{ data.date | date : "dd.MM.yy" }})
+                </div>
+                <p class="work-time-title">{{ "Выходной" | translate }}</p>
+              </ng-template>
+            </div>
+          </dx-select-box>
+        </app-single-accordion>
+
+        <app-single-accordion
+          *ngIf="causeExist(suspiciousCauses.PhotoSpoofDetected)"
+          [opened]="causeIsFirst(suspiciousCauses.PhotoSpoofDetected)"
+          headerTitle="{{ 'Подмена фотографии' | translate }}"
+          [containerMode]="true"
+          [showTitleIcon]="true"
+        >
+          <p class="important-title">
+            {{ "Обнаружена подмена фотографии сотрудника" | translate }}:
+          </p>
+          <div class="photo-container">
+            <img
+              *ngIf="suspicious"
+              [src]="PhotosBaseUrl | secure : currentItem?.fileId | async"
+              class="photo"
+              alt=""
+            />
+          </div>
+          <p class="photo-substitution-description">
+            {{
+              "Алгоритм проверки допускает возможность ошибочного определения 'живой' фотографии как подмены. В этом случае вы можете принять подозрительную отметку с данным фото"
+                | translate
+            }}
+          </p>
+        </app-single-accordion>
+      </div>
+    </ng-container>
+  </div>
+
+  <hr />
+  <div class="dialog-action-buttons">
+    <button class="dialog-button green" (click)="solution(true)">
+      <i class="bi bi-check"></i>
+      <span class="label"> {{ "Подтвердить" | translate }} </span>
+    </button>
+
+    <button class="dialog-button red" (click)="solution(false)">
+      <i class="bi bi-ban-circle"></i>
+      <img
+        src="../../../../../assets/image/suspicious-dialog/bx_bx-block.svg"
+      />
+      <span class="label"> {{ "Отклонить" | translate }} </span>
+    </button>
+  </div>
+</div>
+
+<div class="arrows" *ngIf="suspicious">
+  <div class="arrow left desktop">
+    <img
+      ngSrc="assets/image/arrow-left.svg"
+      (click)="prev()"
+      alt=""
+      height="32"
+      width="32"
+    />
+  </div>
+
+  <div class="arrow right desktop" (click)="next()">
+    <img ngSrc="assets/image/arrow-left.svg" alt="" height="32" width="32" />
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+</ng-template>

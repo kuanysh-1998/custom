@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+  <p>{{ (organization$ | async)?.name }}</p>
+  <p>{{ balance.description }}</p>
+
+  <dx-text-box
+    formControlName="sum"
+    label="{{ 'Сумма' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    (keydown)="handleInput($event)"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-area
+    formControlName="comment"
+    label="{{ 'Комментарий' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  ></dx-text-area>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeDialog()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    (onClick)="save()"
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+  ></dx-button>
+</div>

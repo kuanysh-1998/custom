@@ -1,0 +1,67 @@
+@import "../../../styles.scss";
+@mixin selected-tab {
+  color: var(--tabs-selected-color-rest);
+  transition: color 0.3s;
+
+  .icon {
+    transition: fill 0.3s;
+    fill: var(--tabs-selected-icon-fill);
+  }
+
+  & ~ .border {
+    background-color: var(--tabs-selected-bg-rest);
+    transition: background-color 0.3s, left 0.3s, top 0.3s;
+    position: absolute;
+    border-radius: var(--radius-small);
+  }
+
+  &.vertical ~ .border {
+    width: 3px;
+    left: -6px;
+    height: 28px;
+  }
+
+  &:not(.vertical) ~ .border {
+    width: auto;
+    bottom: -2px;
+    height: 2px;
+  }
+
+  &.disabled {
+    cursor: default;
+    color: var(--tabs-selected-color-disabled);
+
+    .icon {
+      fill: var(--tabs-icon-fill-disabled);
+    }
+
+    & ~ .border {
+      background: var(--tabs-selected-bg-disabled);
+    }
+  }
+
+  &:not(.disabled):hover {
+    color: var(--tabs-selected-color-hover);
+
+    .icon {
+      fill: var(--tabs-selected-icon-fill-hover);
+    }
+
+    & ~ .border {
+      background: var(--tabs-selected-bg-hover);
+    }
+  }
+
+  &:not(.disabled):active,
+  &:not(.disabled):focus {
+    color: var(--tabs-selected-color-focus);
+
+    .icon {
+      fill: var(--tabs-selected-icon-fill-focus);
+    }
+
+    & ~ .border {
+      background: var(--tabs-selected-bg-focus);
+    }
+  }
+}

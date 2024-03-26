@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+  margin-bottom: 14px;
+
+  &__field {
+    div {
+      display: flex;
+      justify-content: space-between;
+
+      dx-slider {
+        flex: 1;
+      }
+
+      dx-number-box {
+        margin-left: 10px;
+        width: 100px;
+      }
+    }
+
+    &--label {
+      font-family: PTRootUIMedium;
+      font-size: 14px;
+      font-weight: 500;
+      color: #060c1f;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__map {
+    margin-top: 10px;
+
+    .google-map {
+      width: 100%;
+      height: 250px;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,19 @@
+:root {
+  --avatar-bg-primary: var(--color-brand-100);
+  --avatar-bg-secondary: var(--color-grey-92);
+  --avatar-bg-alternative: var(--color-semantic-blue-10);
+
+  --avatar-color-primary: var(--color-grey-white);
+  --avatar-color-secondary: var(--color-grey-50);
+  --avatar-color-alternative: var(--color-semantic-blue-400);
+}
+
+body[data-theme='dark'] {
+  --avatar-bg-primary: var(--color-brand-100);
+  --avatar-bg-secondary: var(--color-grey-20);
+  --avatar-bg-alternative: var(--color-semantic-blue-300);
+
+  --avatar-color-primary: var(--color-grey-white);
+  --avatar-color-secondary: var(--color-grey-60);
+  --avatar-color-alternative: var(--color-semantic-blue-10);
+}

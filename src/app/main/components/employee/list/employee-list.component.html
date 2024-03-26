@@ -1,0 +1,213 @@
+<div class="total-count">
+  <div class="total-count-block">
+    <span class="quantity">{{ employeeRegistered }}</span>
+    <p class="text">{{ "Зарегистрировано" | translate }}</p>
+  </div>
+  <div class="line"></div>
+  <div class="total-count-block">
+    <span class="quantity">{{ employeeMaxNumber }}</span>
+    <p class="text">{{ "Доступно по текущему тарифу" | translate }}</p>
+  </div>
+</div>
+
+<dx-data-grid
+  #grid
+  [dataSource]="employee"
+  [remoteOperations]="true"
+  (onRowDblClick)="editEmployee($event.data)"
+  [elementAttr]="{ class: 'custom-dx-grid-employee custom-dx-grid' }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ 'Сотрудники' | translate }}"
+  ></dxo-export>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="fullName"
+    minWidth="200"
+    caption="{{ 'ФИО' | translate }}"
+    dataType="string"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="dateOfBirth"
+    minWidth="130"
+    width="130"
+    caption="{{ 'Дата рождения' | translate }}"
+    dataType="date"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentId"
+    minWidth="170"
+    width="170"
+    caption="{{ 'Отдел' | translate }}"
+  >
+    >
+    <dxo-lookup
+      [dataSource]="department$ | async"
+      valueExpr="id"
+      displayExpr="name"
+    >
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column
+    minWidth="165"
+    width="165"
+    caption="{{ 'Дата регистрации' | translate }}"
+    dataField="createdOn"
+    sortOrder="desc"
+    dataType="date"
+    format="shortDate"
+    cellTemplate="dateWithMinutesTemplate"
+  >
+  </dxi-column>
+  <dxi-column
+    *ngIf="hasIntegrationWith_1C"
+    dataField="externalId_1C"
+    caption="{{ 'Табельный номер 1С' | translate }}"
+    [allowFiltering]="false"
+    [allowSorting]="false"
+    dataType="string"
+    minWidth="165"
+    width="165"
+  >
+  </dxi-column>
+  <dxi-column
+    caption="{{ 'Статус' | translate }}"
+    dataField="isDeleted"
+    dataType="boolean"
+    falseText="{{ 'Активен' | translate }}"
+    trueText="{{ 'Удалён' | translate }}"
+    [showEditorAlways]="false"
+    minWidth="130"
+    width="130"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+    cellTemplate="selectionCellTemplate"
+  >
+  </dxi-column>
+  <ng-container *dxTemplate="let cellInfo of 'dateWithMinutesTemplate'">
+    {{ cellInfo.value | date : "short" }}
+  </ng-container>
+  <ng-container *dxTemplate="let cell of 'selectionCellTemplate'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuCondition[cell.rowIndex] = false"
+      [(visible)]="contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.isDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.fullName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+
+  <dxo-toolbar>
+    <dxi-item location="before" locateInMenu="auto">
+      <div *dxTemplate>
+        <dx-button
+          (onClick)="createEmployee()"
+          text="{{ 'Добавить сотрудника' | translate }}"
+          class="custom-dx-success-btn"
+        >
+        </dx-button>
+      </div>
+    </dxi-item>
+
+    <dxi-item location="before" locateInMenu="auto">
+      <div *dxTemplate>
+        <dx-check-box
+          [(value)]="showDeleted"
+          (onValueChanged)="changeFilter()"
+          text="{{ 'Показать удалённых сотрудников' | translate }}"
+        ></dx-check-box>
+      </div>
+    </dxi-item>
+
+    <dxi-item location="after" locateInMenu="auto">
+      <div class="custom-dropdown">
+        <button class="custom-btn" type="button" (click)="toggleDropdown()">
+          <img
+            src="assets/image/import-excel-icon.svg"
+            alt="{{ 'Импорт' | translate }}"
+          />
+          {{ "Импорт" | translate }}
+          <img
+            class="chevron"
+            [src]="
+              isDropdownVisible
+                ? 'assets/image/suspicious-dialog/accordion-close.icon.svg'
+                : 'assets/image/suspicious-dialog/accordion-open.icon.svg'
+            "
+            alt=""
+            height="6"
+            width="8"
+          />
+        </button>
+        <div class="custom-menu" [class.show]="isDropdownVisible">
+          <p
+            class="custom-menu-item"
+            (click)="importToExcel(); toggleDropdown()"
+          >
+            {{ "Импорт Excel" | translate }}
+          </p>
+          <p (click)="importToZip(); toggleDropdown()" class="custom-menu-item">
+            {{ "Импорт ZIP" | translate }}
+          </p>
+        </div>
+      </div>
+    </dxi-item>
+
+    <dxi-item name="exportButton" location="after" locateInMenu="auto">
+      <button class="btn btn-excel" (click)="exportToExcel(grid)">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

@@ -1,0 +1,166 @@
+<form [formGroup]="filterForm" class="filter-controls-row">
+  <!-- <dx-date-range-box
+    [showClearButton]="true"
+    formControlName="eventDate"
+    [elementAttr]="{ class: 'no-margin-top' }"
+    class="adaptiveWidthTable"
+    [max]="maxDate"
+    appValidateControl
+    endDateLabel="{{ 'Дата завершения' | translate }}"
+    startDateLabel="{{ 'Дата начала' | translate }}"
+  >
+  </dx-date-range-box>
+
+  <error-messages [control]="filterForm.controls.eventDate"></error-messages> -->
+
+  <wk-dropdown
+    [options]="departmentsDataSource"
+    [placeholder]="'Отделы'"
+    (requestLoadMoreData)="loadMoreData()"
+  ></wk-dropdown>
+
+  <combo-dropdown-list
+    [dataSource]="departmentsDataSource"
+    formControlName="departments"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Отделы' | translate }}"
+  ></combo-dropdown-list>
+  <error-messages [control]="filterForm.controls.departments"></error-messages>
+
+  <combo-dropdown-list
+    [dataSource]="employeeDataSource"
+    [searchExpression]="'fullName'"
+    formControlName="employees"
+    placeholder="{{ 'Сотрудники' | translate }}"
+  ></combo-dropdown-list>
+
+  <error-messages [control]="filterForm.controls.employees"></error-messages>
+
+  <dx-check-box
+    [(value)]="showDeletedEmployees"
+    (onValueChanged)="changeFilter()"
+    text="{{ 'Отображать удалённых сотрудников в фильтре' | translate }}"
+  ></dx-check-box>
+</form>
+
+<div class="button-container">
+  <button class="btn btn-success report-btn" (click)="createReport()">
+    {{ "Сформировать" | translate }}
+  </button>
+</div>
+
+<dx-data-grid
+  #dataGrid
+  [dataSource]="dataActualHoursWorked"
+  [remoteOperations]="true"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    [fileName]="'Фактически отработанные часы' | translate"
+  ></dxo-export>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="employeeName"
+    caption="{{ 'ФИО' | translate }}"
+    sortOrder="asc"
+    sortIndex="0"
+    minWidth="200"
+    alignment="left"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    minWidth="200"
+    width="200"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="date"
+    dataType="date"
+    minWidth="100"
+    width="100"
+    caption="{{ 'Дата' | translate }}"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="inMarkDateTime"
+    minWidth="100"
+    width="100"
+    dataType="date"
+    format="HH:mm"
+    caption="{{ 'Приход' | translate }}"
+    [allowGrouping]="false"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="outMarkDateTime"
+    minWidth="100"
+    width="100"
+    dataType="date"
+    format="HH:mm"
+    caption="{{ 'Уход' | translate }}"
+    [allowGrouping]="false"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="presence"
+    minWidth="100"
+    width="100"
+    caption="{{ 'Отработано' | translate }}"
+    cellTemplate="minutesTemplate"
+    [allowGrouping]="false"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'minutesTemplate'">
+    {{ utilsService.formatMinutes(data.value) }}
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+  <dxo-grouping [autoExpandAll]="expanded"></dxo-grouping>
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

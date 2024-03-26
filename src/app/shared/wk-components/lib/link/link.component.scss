@@ -1,0 +1,44 @@
+@import "../../styles.scss";
+
+wk-link {
+  width: fit-content;
+  font: var(--font-body-1-strong);
+
+  .link {
+    color: var(--color-font-link);
+    text-decoration: none;
+    text-underline-offset: 2px;
+    transition: all 0.2s;
+
+    &:hover {
+      color: var(--color-font-link-hover);
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: var(--color-font-link-active);
+      text-decoration: underline;
+    }
+  }
+
+  &.secondary {
+    .link {
+      color: var(--color-font-link-secondary);
+
+      &:hover {
+        color: var(--color-font-link-secondary-hover);
+      }
+
+      &:active {
+        color: var(--color-font-link-secondary-active);
+      }
+    }
+  }
+
+  &.disabled {
+    .link {
+      pointer-events: none;
+      color: var(--color-font-link-disabled);
+    }
+  }
+}

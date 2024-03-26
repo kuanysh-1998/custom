@@ -1,0 +1,29 @@
+<div [ngClass]="cardClasses" (click)="click()">
+  <div *ngIf="header" [ngClass]="headerClasses" (click)="toggleContent()">
+    <div class="header">
+      <wk-svg *ngIf="icon" [icon]="icon" class="icon"></wk-svg>
+      {{ header }}
+    </div>
+
+    <ng-container *ngIf="iconRight || isClickableHeader">
+      <wk-svg
+        *ngIf="isClickableHeader; else iconRightTmpl"
+        [icon]="iconChevron"
+        [class.open]="isExpanded"
+        class="chevron"
+      ></wk-svg>
+      <ng-template #iconRightTmpl>
+        <wk-svg [icon]="iconRight!" class="icon"></wk-svg>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <div
+    [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+    class="content-wrapper"
+  >
+    <div [ngClass]="contentClasses">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div
+  [class.dx-custom-text-area-left-label]="labelLocation === 'left'"
+  class="dx-custom-text-area-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="dxTextBox.instance.focus()"
+  ></wk-label>
+
+  <div class="dx-custom-text-area-wrapper">
+    <dx-text-area
+      #dxTextBox
+      [value]="value"
+      [minHeight]="minHeight"
+      [maxHeight]="maxHeight"
+      [readOnly]="readOnly"
+      [isValid]="!isError"
+      [disabled]="isDisabled"
+      [autoResizeEnabled]="autoResizeEnabled"
+      [attr.data-token]="token"
+      (onInput)="onValueChange($event)"
+      (onBlur)="onTouched?.()"
+      class="'dx-custom-text-field-input"
+    ></dx-text-area>
+
+    <div
+      *ngIf="isError && errorMessage; else errorMsgFromControl"
+      class="dx-custom-text-area-error-message"
+    >
+      {{ errorMessage }}
+    </div>
+    <ng-template #errorMsgFromControl>
+      <wk-error-message [control]="control"></wk-error-message>
+    </ng-template>
+
+    <div *ngIf="helperText" class="dx-custom-text-area-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

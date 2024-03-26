@@ -1,0 +1,72 @@
+<dx-popup
+  [visible]="isVisible"
+  [height]="'fit-content'"
+  [maxHeight]="'90vh'"
+  [width]="getDialogWidth"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [animation]="animationConfigs"
+  [wrapperAttr]="{ class: 'dx-custom-dialog' }"
+  (keydown)="close()"
+  (onHiding)="close(); closed.emit()"
+>
+  <div *dxTemplate="let data of 'title'">
+    <div class="dx-custom-dialog-header">
+      <div>{{ header }}</div>
+
+      <wk-svg
+        [icon]="closeIcon"
+        (click)="close()"
+        class="dx-custom-dialog-close"
+      ></wk-svg>
+    </div>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <div class="dx-custom-dialog-main">
+      <ng-container *ngComponentOutlet="componentType"></ng-container>
+      <ng-container *ngIf="text">{{ text }}</ng-container>
+
+      <ng-content></ng-content>
+    </div>
+
+    <div
+      *ngIf="
+        cancelButtonConfig || submitButtonConfig || additionalActionButtonConfig
+      "
+      class="dx-custom-dialog-footer-wrapper"
+    >
+      <wk-button
+        *ngIf="additionalActionButtonConfig"
+        [label]="additionalActionButtonConfig.label"
+        [stylingMode]="additionalActionButtonConfig.stylingMode ?? 'outlined'"
+        [variant]="additionalActionButtonConfig.variant ?? 'secondary'"
+        [icon]="additionalActionButtonConfig.icon"
+        [iconRight]="additionalActionButtonConfig.iconRight"
+        (clicked)="action()"
+      ></wk-button>
+
+      <div class="dx-custom-dialog-footer">
+        <wk-button
+          *ngIf="cancelButtonConfig"
+          [label]="cancelButtonConfig.label"
+          [stylingMode]="cancelButtonConfig.stylingMode ?? 'outlined'"
+          [variant]="cancelButtonConfig.variant ?? 'secondary'"
+          [icon]="cancelButtonConfig.icon"
+          [iconRight]="cancelButtonConfig.iconRight"
+          (clicked)="cancel()"
+        ></wk-button>
+
+        <wk-button
+          *ngIf="submitButtonConfig"
+          [label]="submitButtonConfig.label"
+          [stylingMode]="submitButtonConfig.stylingMode ?? 'contained'"
+          [variant]="submitButtonConfig.variant ?? 'default'"
+          [icon]="submitButtonConfig.icon"
+          [iconRight]="submitButtonConfig.iconRight"
+          (clicked)="submit()"
+        ></wk-button>
+      </div>
+    </div>
+  </div>
+</dx-popup>

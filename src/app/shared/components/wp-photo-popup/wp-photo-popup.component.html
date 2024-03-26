@@ -1,0 +1,19 @@
+<dx-popup
+  [hideOnOutsideClick]="false"
+  [focusStateEnabled]="false"
+  [visible]="isVisible"
+  [showTitle]="false"
+  [showCloseButton]="false"
+  [width]="500"
+  [height]="500"
+  [wrapperAttr]="{ class: 'dx-custom-popup-for-photo' }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <div class="close-button" (click)="closeModal()">
+      <i class="dx-icon dx-icon-close"></i>
+      <span class="close-button-text"> {{ "Закрыть" | translate }} </span>
+    </div>
+
+    <img [src]="photoUrl" class="selected-photo" alt="Выбранное фото" />
+  </div>
+</dx-popup>

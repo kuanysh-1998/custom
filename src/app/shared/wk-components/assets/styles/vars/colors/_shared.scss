@@ -1,0 +1,45 @@
+:root {
+  --border-color: var(--color-grey-90);
+
+  --main-background: var(--color-grey-white);
+  --main-background-secondary: var(--color-grey-98);
+
+  --logo-wk-color: var(--color-brand-90);
+
+  --license-icon-avatar-success: var(--color-semantic-green-150);
+  --license-icon-avatar-expired: var(--color-semantic-red-150);
+  --license-icon-avatar-warning: var(--color-semantic-orange-150);
+  --license-icon-avatar-none: var(--color-grey-2);
+
+  --license-badge-success: var(--color-semantic-green-150);
+  --license-badge-expired: var(--color-semantic-red-150);
+  --license-badge-warning: var(--color-semantic-orange-150);
+  --license-badge-none: var(--color-grey-50);
+
+  --license-bg-success: var(--color-semantic-green-10);
+  --license-bg-expired: var(--color-semantic-red-10);
+  --license-bg-warning: var(--color-semantic-orange-10);
+}
+
+body[data-theme="dark"] {
+  --border-color: var(--color-grey-30);
+
+  --main-background: var(--color-grey-20);
+  --main-background-secondary: var(--color-grey-16);
+
+  --logo-wk-color: var(--color-brand-100);
+
+  --license-icon-avatar-success: var(--color-semantic-green-100);
+  --license-icon-avatar-expired: var(--color-semantic-red-100);
+  --license-icon-avatar-warning: var(--color-semantic-orange-100);
+  --license-icon-avatar-none: var(--color-grey-white);
+
+  --license-badge-success: var(--color-semantic-green-150);
+  --license-badge-expired: var(--color-semantic-red-150);
+  --license-badge-warning: var(--color-semantic-orange-150);
+  --license-badge-none: var(--color-grey-50);
+
+  --license-bg-success: var(--color-semantic-green-250);
+  --license-bg-expired: var(--color-semantic-red-250);
+  --license-bg-warning: var(--color-semantic-orange-250);
+}

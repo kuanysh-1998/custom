@@ -1,0 +1,30 @@
+@import "../../../styles.scss";
+@mixin time {
+  .dx-item-content.dx-box-item-content {
+    color: var(--date-picker-color);
+  }
+
+  .dx-numberbox-spin-button.dx-numberbox-spin-down.dx-state-active,
+  .dx-numberbox-spin-button.dx-numberbox-spin-down.dx-state-hover {
+    .dx-numberbox-spin-down-icon {
+      background: var(--date-picker-bg-button-hover);
+      border-radius: var(--radius-medium);
+    }
+  }
+
+  .dx-numberbox-spin-button.dx-numberbox-spin-up.dx-state-active,
+  .dx-numberbox-spin-button.dx-numberbox-spin-up.dx-state-hover {
+    .dx-numberbox-spin-up-icon {
+      background: var(--date-picker-bg-button-hover);
+      border-radius: var(--radius-medium);
+    }
+  }
+
+  .dx-numberbox-spin-up-icon::before {
+    color: var(--date-picker-color-icon);
+  }
+
+  .dx-numberbox-spin-down-icon::before {
+    color: var(--date-picker-color-icon);
+  }
+}

@@ -1,0 +1,51 @@
+:root {
+  --date-picker-bg: var(--color-grey-white);
+  --date-picker-bg-cell-active: var(--color-brand-100);
+  --date-picker-bg-cell-hover: var(--color-brand-100);
+  --date-picker-bg-cell-other-hover: var(--color-grey-50);
+  --date-picker-bg-cell-range: var(--color-grey-94);
+
+  --date-picker-stroke-cell-contoured: rgb(48 145 153 / 40%);
+  --date-picker-stroke-cell-in-range: var(--color-brand-100);
+  --date-picker-divider: var(--color-grey-90);
+
+  --date-picker-color: var(--color-grey-2);
+  --date-picker-color-icon: var(--color-grey-50);
+  --date-picker-color-active: var(--color-grey-white);
+  --date-picker-color-hover: var(--color-grey-white);
+  --date-picker-color-other: var(--color-grey-50);
+  --date-picker-color-other-hover: var(--color-grey-white);
+
+  --date-picker-icon-calendar: url("../../../../assets/svg/i_calendar_light.svg") center no-repeat;
+  --date-picker-icon-calendar-hover: url("../../../../assets/svg/i_calendar_light.svg") center no-repeat, var(--color-grey-94);
+  --date-picker-icon-arrow: url("../../../../assets/svg/i_arrow_right_light.svg") center no-repeat;
+  --date-picker-icon-cross: url("../../../../assets/svg/i_cross_light.svg") center no-repeat;
+
+  --date-picker-bg-button-hover: var(--color-grey-94);
+}
+
+body[data-theme='dark'] {
+  --date-picker-bg: var(--color-grey-20);
+  --date-picker-bg-cell-active: var(--color-brand-110);
+  --date-picker-bg-cell-hover: var(--color-brand-110);
+  --date-picker-bg-cell-other-hover: var(--color-grey-40);
+  --date-picker-bg-cell-range: var(--color-grey-30);
+
+  --date-picker-stroke-cell-contoured: rgb(48 145 153 / 40%);
+  --date-picker-stroke-cell-in-range: var(--color-brand-110);
+  --date-picker-divider: var(--color-grey-40);
+
+  --date-picker-color: var(--color-grey-white);
+  --date-picker-color-icon: var(--color-grey-60);
+  --date-picker-color-active: var(--color-grey-white);
+  --date-picker-color-hover: var(--color-grey-white);
+  --date-picker-color-other: var(--color-grey-40);
+  --date-picker-color-other-hover: var(--color-grey-white);
+
+  --date-picker-icon-calendar: url("../../../../assets/svg/i_calendar_dark.svg") center no-repeat;
+  --date-picker-icon-calendar-hover: url("../../../../assets/svg/i_calendar_dark.svg") center no-repeat, var(--color-grey-24);
+  --date-picker-icon-arrow: url("../../../../assets/svg/i_arrow_right_dark.svg") center no-repeat;
+  --date-picker-icon-cross: url("../../../../assets/svg/i_cross_dark.svg") center no-repeat;
+
+  --date-picker-bg-button-hover: var(--color-grey-24);
+}

@@ -1,0 +1,135 @@
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+.submenu-item {
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.submenu-item:hover {
+  background: #232c49;
+}
+
+.accordion-menu {
+  cursor: pointer;
+  margin: 0 10px 5px 10px;
+  border-radius: 4px;
+  font-family: "PTRootUI";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}
+
+.accordion-menu .menu {
+  position: relative;
+  padding: 15px 15px 15px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.accordion-menu .menu:hover {
+  background: rgba(35, 44, 73, 0.5);
+}
+
+.blue {
+  background: #3d44e4 !important;
+  color: #ffffff !important;
+}
+
+.accordion-menu li i {
+  position: absolute;
+  top: 1.2rem;
+  left: 1rem;
+}
+
+.text-menu {
+  margin-left: 12px;
+}
+
+.img-rotate {
+  left: auto;
+  margin-left: 7rem;
+}
+
+.expand .img-rotate {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  height: 0;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.submenu li {
+  color: #a7b1cf;
+}
+
+.accordion-menu li:last-child .submenu {
+  border-radius: 0 0 4px 4px;
+}
+
+.submenu a {
+  border-radius: 4px;
+  font-family: "PTRootUI";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  color: inherit;
+  display: block;
+  text-decoration: none;
+  padding: 12px;
+  padding-left: 42px;
+}
+
+.submenu a:hover {
+  color: #ffffff;
+}
+
+.menu-section {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  overflow: scroll;
+}
+
+.open {
+  height: 100%;
+}
+
+.dark-grey {
+  background: #232c49;
+}
+
+.management-items {
+  padding: 16px;
+  background: #060c1f;
+  border-radius: 6px;
+
+  span {
+    font-family: "PTRootUIBold";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+  }
+
+  li {
+    font-family: "PTRootUIBold";
+    font-style: normal;
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    list-style-type: none;
+    cursor: pointer;
+    color: #a7b1cf;
+  }
+}

@@ -1,0 +1,44 @@
+<div class="menu-section">
+  <ul>
+    <ng-container *ngFor="let menu of menus; let i = index">
+      <li
+      *ngIf="isSectionVisible(menu)"
+       class="accordion-menu"
+       id="{{'menu-item-'+i}}"
+       [class.expand]="menu.expand"
+       >
+        <div class="menu" [ngClass]="{ 'dark-grey': isOpen && menu.expand }"
+          (click)="isOpen ? toggleChildrenSubmenu(menu, i) : showChildrenPopup(menu, i)">
+          <div class="d-flex justify-content-between">
+            <img [src]="menu.icon" />
+            <span class="text-menu" *ngIf="isOpen"> {{ menu.text }}</span>
+          </div>
+          <img *ngIf="isOpen" class="img-rotate" src="assets/image/expand-logo-bottom.svg" />
+        </div>
+        <ul class="submenu" [ngClass]="{ open: isOpen && menu.expand }">
+          <ng-container *ngFor="let item of menu.children">
+            <li class="submenu-item" *ngIf="item.visible">
+              <a [routerLink]="[item.url]" routerLinkActive="blue">{{ item.text }}</a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+
+  <dx-popover *ngIf="childrenPopupVisible" [target]="'#menu-item-'+selectedMenuIndex" showEvent="click" [width]="300" [wrapperAttr]="{ class: 'menu-popover' }">
+    <dxo-position my='left' at='right'>
+      <dxo-offset [x]='10'></dxo-offset>
+    </dxo-position>
+    <div *dxTemplate="let data = model; of: 'content'">
+      <div class="management-items">
+        <span> {{ menuItem.text }}:</span>
+        <ng-container *ngFor="let item of menuItem.children">
+          <li (click)="hideChildrenPopup(menuItem)" [routerLink]="[item.url]">
+            {{ item.text }}
+          </li>
+        </ng-container>
+      </div>
+    </div>
+  </dx-popover>
+</div>

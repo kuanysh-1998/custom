@@ -1,0 +1,26 @@
+<dx-popover
+  *ngIf="isAllItemsInvisible"
+  [target]="target"
+  [visible]="isOpen"
+  [position]="position"
+  [minWidth]="minWidth"
+  [hideOnOutsideClick]="true"
+  [animation]="{ show: { duration: 0 }, hide: { duration: 0 } }"
+  [wrapperAttr]="{ class: 'dx-custom-menu ' + padding }"
+  (onHiding)="close()"
+>
+  <div *ngIf="header" class="dx-custom-menu-header">{{ header }}</div>
+
+  <ng-container *ngFor="let item of items; trackBy: trackByFn">
+    <wk-list-item
+      *ngIf="item.visible || item.visible === undefined"
+      [icon]="item.icon"
+      [iconRight]="item.iconRight"
+      [text]="item.text"
+      [active]="item.active"
+      [link]="item.link"
+      [withGap]="item.withGap"
+      (clicked)="clickItem(item)"
+    ></wk-list-item>
+  </ng-container>
+</dx-popover>

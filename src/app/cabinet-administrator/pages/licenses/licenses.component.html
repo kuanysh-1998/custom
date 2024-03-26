@@ -1,0 +1,187 @@
+<dx-data-grid
+  #grid
+  [dataSource]="licensesDataSource"
+  [remoteOperations]="true"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ 'Все лицензии' | translate }}"
+  ></dxo-export>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxi-column
+    minWidth="200"
+    width="200"
+    dataField="subjectName"
+    [caption]="'Клиент' | translate"
+    alignment="left"
+    name="client"
+    [allowSorting]="false"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    dataField="ownerName"
+    [caption]="'ЦТО' | translate"
+    alignment="left"
+    name="cto"
+    [allowSorting]="false"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="150"
+    dataField="number"
+    [caption]="'Номер лицензии' | translate"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="200"
+    dataField="name"
+    [caption]="'Тариф' | translate"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="days"
+    [caption]="'Период' | translate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="employeeMaxNumber"
+    [caption]="'Количество сотрудников' | translate"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="status"
+    [caption]="'Статус' | translate"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="statuses"
+      valueExpr="value"
+      displayExpr="name"
+    ></dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    cellTemplate="date"
+    dataField="created"
+    [caption]="'Дата создания' | translate"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    dataField="activated"
+    cellTemplate="onlyDate"
+    [caption]="'Дата активации' | translate"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    dataField="expiring"
+    cellTemplate="onlyDate"
+    [caption]="'Дата истечения' | translate"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="150"
+    dataField="initialPrice"
+    [caption]="'Цена изначальная' | translate"
+    alignment="left"
+    [allowFiltering]="false"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="150"
+    dataField="actualPrice"
+    [caption]="'Цена итоговая' | translate"
+    alignment="left"
+    [allowFiltering]="false"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="150"
+    dataField="clientPrice"
+    [caption]="'Цена для клиента' | translate"
+    alignment="left"
+    [allowFiltering]="false"
+  ></dxi-column>
+
+  <dxi-column
+    cellTemplate="options"
+    minWidth="50"
+    width="50"
+    alignment="center"
+    fixed="true"
+    fixedPosition="right"
+  ></dxi-column>
+
+  <ng-container *dxTemplate="let cell of 'onlyDate'">
+    {{ cell.value | date : "dd.MM.yyyy" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'date'">
+    {{ cell.value | date : "short" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'options'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuStatuses[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuStatuses[cell.rowIndex] = false"
+      [(visible)]="contextMenuStatuses[cell.rowIndex]"
+      [showEvent]
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeLicenseAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+
+  <dxo-toolbar>
+    <dxi-item name="exportButton" location="after" locateInMenu="auto">
+      <button class="btn btn-excel" (click)="exportToExcel(grid)">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

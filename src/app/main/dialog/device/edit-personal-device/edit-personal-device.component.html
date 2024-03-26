@@ -1,0 +1,32 @@
+<p class="description-text">
+  {{
+    "Выберите локации для данного личного устройства, чтобы ограничить места для отметки прихода и ухода"
+      | translate
+  }}
+</p>
+
+<form [formGroup]="deviceForm">
+  <combo-dropdown-list
+    [dataSource]="availableLocations"
+    [width]="'100%'"
+    formControlName="locationsId"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Добавьте локацию...' | translate }}"
+    appValidateControl
+  ></combo-dropdown-list>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeModal()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    (onClick)="update()"
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+  ></dx-button>
+</div>

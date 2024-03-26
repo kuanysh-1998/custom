@@ -1,0 +1,57 @@
+.employee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dropdown-container,
+.schedule-time {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-boxes,
+.date-box-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-employee-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+}
+
+.conflict-employee {
+  padding: 8px;
+  border-radius: 4px;
+  background: rgba(190, 17, 17, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .conflicts {
+    color: #be1111;
+    font-size: 14px;
+    font-family: "PTRootUIMedium";
+    font-weight: 500;
+  }
+
+  .conflict-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .label {
+      padding-top: 5px; // кривая иконка, нужен отступ для выравнивания
+      color: #060c1f;
+      font-size: 14px;
+      font-family: "PTRootUIMedium";
+      font-weight: 700;
+    }
+  }
+}

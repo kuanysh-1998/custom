@@ -1,0 +1,73 @@
+<div [class.left-label]="labelLocation === 'left'" class="container">
+  <div class="title">
+    <wk-label
+      *ngIf="label"
+      [required]="isRequired"
+      [info]="labelInfo"
+      [label]="label"
+      [disabled]="isDisabled"
+    ></wk-label>
+  </div>
+  <div class="input-wrapper">
+    <wk-button
+      stylingMode="outlined"
+      label="Выбрать файл"
+      [variant]="isError ? 'danger' : 'secondary'"
+      [icon]="folderIcon"
+      [disabled]="isDisabled"
+      (click)="triggerFileInputClick()"
+    ></wk-button>
+    <input
+      #fileInputElement
+      (change)="fileUploaded($event)"
+      type="file"
+      name="file"
+      id="file"
+      style="display: none"
+    />
+
+    <div class="file-wrapper">
+      <wk-svg
+        *ngIf="fileControl.value"
+        [class.disabled]="isDisabled"
+        [icon]="documentIcon"
+        class="icon"
+      ></wk-svg>
+
+      <div
+        class="file"
+        [class.disabled]="isDisabled"
+        *ngIf="fileControl.value; else notUploadedFile"
+      >
+        <span class="file-name">
+          {{ getFilename(fileControl.value) }}
+        </span>
+
+        <span class="extension">.{{ fileExtension }}</span>
+      </div>
+      <ng-template #notUploadedFile>
+        <span class="not-uploaded-file"> Файл не выбран...</span>
+      </ng-template>
+    </div>
+
+    <wk-svg
+      *ngIf="fileControl.value && !isDisabled"
+      [icon]="crossIcon"
+      (click)="resetFile()"
+      class="icon cross-icon"
+    ></wk-svg>
+  </div>
+</div>
+<ng-container *ngIf="!isDisabled">
+  <div
+    *ngIf="isError && errorMessage; else errorMsgFromControl"
+    class="error-message"
+  >
+    {{ errorMessage }}
+  </div>
+  <ng-template #errorMsgFromControl>
+    <wk-error-message [control]="control"></wk-error-message>
+  </ng-template>
+</ng-container>
+
+<div *ngIf="helperText" class="helper-text">{{ helperText }}</div>

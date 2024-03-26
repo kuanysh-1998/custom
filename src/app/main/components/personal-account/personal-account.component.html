@@ -1,0 +1,102 @@
+<div class="personal-information">
+  <div class="information">
+    <p class="information-title">{{ "Баланс" | translate }}:</p>
+    <p class="information-description">
+      {{ personalAccount?.balance | number }}
+    </p>
+  </div>
+  <div class="information">
+    <p class="information-title">{{ "Овердрафт" | translate }}:</p>
+    <p class="information-description">
+      {{ personalAccount?.overdraft | number }}
+    </p>
+  </div>
+  <div class="information">
+    <p class="information-title">{{ "Уровень" | translate }}:</p>
+    <p class="information-description">{{ levelName }}</p>
+  </div>
+  <div class="information">
+    <p class="information-title">{{ "Баллы" | translate }}:</p>
+    <p class="information-description">
+      {{ personalAccount?.points | number }}
+    </p>
+  </div>
+</div>
+<ng-container *hasPermission="PermissionType.OwnBalanceHistoryView">
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="balanceHistory"
+    [remoteOperations]="true"
+    keyExpr="ownerId"
+    [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+  >
+    <dxo-filter-row [visible]="true"> </dxo-filter-row>
+    <dxi-column
+      minWidth="40"
+      width="40"
+      caption="№"
+      cellTemplate="rowIndexTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      minWidth="130"
+      width="130"
+      dataField="date"
+      caption="{{ 'Дата' | translate }}"
+      dataType="date"
+      format="shortDate"
+      cellTemplate="dateTemplate"
+      [sortOrder]="'desc'"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      minWidth="130"
+      width="130"
+      dataField="operationSum"
+      caption="{{ 'Сумма' | translate }}"
+      dataType="number"
+      format="fixedPoint"
+      [allowFiltering]="false"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      minWidth="130"
+      width="130"
+      dataField="balance"
+      caption="{{ 'Баланс' | translate }}"
+      dataType="number"
+      format="fixedPoint"
+      [allowFiltering]="false"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="comment"
+      caption="{{ 'Комментарий' | translate }}"
+      minWidth="200"
+      dataType="string"
+      alignment="left"
+    >
+    </dxi-column>
+
+    <div *dxTemplate="let data of 'rowIndexTemplate'">
+      {{
+        data.component.pageIndex() * data.component.pageSize() +
+          data.rowIndex +
+          1
+      }}
+    </div>
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[10, 20, 50, 100]"
+      [visible]="true"
+    ></dxo-pager>
+    <div *dxTemplate="let cellInfo of 'dateTemplate'">
+      {{ cellInfo.value | date : "short" }}
+    </div>
+  </dx-data-grid>
+</ng-container>

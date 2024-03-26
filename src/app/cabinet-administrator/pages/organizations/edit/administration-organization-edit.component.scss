@@ -1,0 +1,19 @@
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+
+  .organization-type {
+    font-family: PTRootUIMedium;
+    font-size: 14px;
+    font-weight: 500;
+    color: #060c1f;
+    margin-bottom: 8px;
+  }
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  min-height: 325px;
+}

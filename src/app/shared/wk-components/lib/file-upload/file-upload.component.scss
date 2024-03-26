@@ -1,0 +1,83 @@
+@import "../../styles.scss";
+
+wk-file-upload {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-xxl);
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    &.left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .title {
+    margin-bottom: var(--space-vertical-s);
+  }
+
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-horizontal-s);
+    word-break: break-all;
+
+    .file-wrapper {
+      display: flex;
+      align-items: center;
+      gap: var(--space-horizontal-s);
+
+      .not-uploaded-file {
+        font: var(--font-body-1);
+        color: var(--file-non-upload-color);
+      }
+
+      .file {
+        font: var(--font-body-1);
+        display: flex;
+        &.disabled {
+          color: var(--label-color-secondary);
+        }
+      }
+
+      .file-name {
+        display: -webkit-box;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        width: 100%;
+      }
+    }
+
+    .cross-icon {
+      cursor: pointer;
+    }
+
+    .extension {
+      white-space: nowrap;
+    }
+
+    .icon {
+      fill: var(--file-upload-color);
+      &.disabled {
+        fill: var(--file-non-upload-color);
+      }
+    }
+  }
+  .error-message {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-color-error);
+  }
+
+  .helper-text {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-stroke-helper-text);
+  }
+}

@@ -1,0 +1,20 @@
+<dx-tab-panel
+  [dataSource]="tabs"
+  itemTitleTemplate="title"
+  itemTemplate="item"
+  [deferRendering]="true"
+  [showNavButtons]="true"
+  [repaintChangesOnly]="false"
+  [animationEnabled]="false"
+  [swipeEnabled]="false"
+  [selectedIndex]="selectedIndex"
+  (onSelectionChanged)="tabChanged($event)"
+ 
+>
+  <div *dxTemplate="let content of 'title'">
+    <span>{{ content.title }}</span>
+  </div>
+  <div *dxTemplate="let tab of 'item'">
+    <ng-container *ngComponentOutlet="tab.component"></ng-container>
+  </div>
+</dx-tab-panel>

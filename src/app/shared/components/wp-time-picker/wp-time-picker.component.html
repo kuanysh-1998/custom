@@ -1,0 +1,42 @@
+<div class="time-picker-container">
+  <div class="input-wrapper">
+    <input
+      type="text"
+      [(ngModel)]="selectedTime"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+      (input)="onInput($event)"
+      [class.error]="invalid"
+      #inputElement
+    />
+
+    <i #toggleIcon class="dx-icon-clock" (click)="toggleDropdown()"></i>
+    <span
+      *ngIf="invalid && !ngControl?.errors?.customError"
+      class="error-icon"
+      (click)="onFocus()"
+      >!</span
+    >
+  </div>
+  <div
+    *ngIf="invalid && isInputFocused && !ngControl?.errors?.customError"
+    class="error-message"
+  >
+    {{ errorMessage }}
+  </div>
+  
+  <div
+    #dropdown
+    *ngIf="showDropdown"
+    class="custom-dropdown"
+    [class.position-top]="dropdownPosition === 'top'"
+  >
+    <div
+      *ngFor="let time of timeOptions"
+      (click)="selectTime(time)"
+      [ngClass]="{ active: time === selectedTime }"
+    >
+      {{ time }}
+    </div>
+  </div>
+</div>

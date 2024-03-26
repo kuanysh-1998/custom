@@ -1,0 +1,146 @@
+.mr-right {
+  margin-right: 5px;
+}
+
+.work-day {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(6, 12, 31, 1);
+  padding: 2px 3px;
+  padding: 0px 3px;
+  margin: 3px 0;
+  width: 100%;
+  height: 25px;
+  border-radius: 1px;
+}
+
+.work-off {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3px 0;
+  height: 100%;
+  padding: 2px;
+  font-size: 13px;
+  font-style: normal;
+  &-text {
+    color: #060c1f;
+    opacity: 0.3;
+  }
+}
+
+.triangle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-top: 25px solid;
+}
+
+.current-day {
+  background-color: rgba(219, 223, 235, 1) !important;
+}
+
+.custom-grid-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-grid-container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(202, 202, 202, 1);
+}
+
+.custom-grid-container {
+  width: 100%;
+  height: 500px;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid rgba(219, 223, 235, 1);
+}
+
+.custom-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.grid-header {
+  display: flex;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.header-cell {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.wrapper-grid-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.employee-cell-empty {
+  flex: 0 0 158px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(219, 223, 235, 1);
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 25;
+}
+
+.employee-cell {
+  flex: 0 0 158px;
+  background-color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+  text-align: left !important;
+  border: 1px solid rgba(219, 223, 235, 1);
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  padding-left: 5px;
+  max-width: 158px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid-cell {
+  position: relative;
+  min-width: 165px;
+  padding: 3px;
+  text-align: center;
+  border: 1px solid rgba(219, 223, 235, 1);
+}
+
+.grid-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.no-data-text {
+  min-height: 50px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.remove-border {
+  border-left: none;
+  border-right: none;
+  flex-grow: 1;
+  flex-basis: 0;
+}

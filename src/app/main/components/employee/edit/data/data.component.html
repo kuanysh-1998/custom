@@ -1,0 +1,109 @@
+<div class="user-data" *ngIf="currentEmployee">
+  <form [formGroup]="form" class="user-data-form">
+    <div class="form-row">
+      <dx-text-box
+        formControlName="lastName"
+        label="{{ 'Фамилия' | translate }}*"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="width"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-text-box
+        formControlName="firstName"
+        label="{{ 'Имя' | translate }}*"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="width"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-text-box
+        formControlName="middleName"
+        label="{{ 'Отчество' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="width"
+        appValidateControl
+      ></dx-text-box>
+    </div>
+
+    <div class="form-row">
+      <dx-text-box
+        formControlName="email"
+        label="{{ 'Email' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        placeholder="example@example.com"
+        [width]="width"
+        appValidateControl
+      >
+      </dx-text-box>
+
+      <dx-date-box
+        formControlName="dateOfBirth"
+        dataField="dateOfBirth"
+        label="{{ 'Дата рождения' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        [max]="maxDate"
+        [width]="width"
+        appValidateControl
+        (onOptionChanged)="onDateChanged($event)"
+      >
+      </dx-date-box>
+
+      <dx-select-box
+        formControlName="departmentId"
+        [dataSource]="departmentsDataSource"
+        displayExpr="name"
+        [searchEnabled]="true"
+        valueExpr="id"
+        label="{{ 'Отдел' | translate }}*"
+        placeholder=""
+        stylingMode="outlined"
+        labelMode="floating"
+        [showClearButton]="false"
+        [width]="width"
+        appValidateControl
+      >
+      </dx-select-box>
+    </div>
+
+    <div class="form-row">
+      <wp-text-box
+        formControlName="iin"
+        [width]="width"
+        label="{{ 'ИИН' | translate }}"
+        appValidateControl
+      >
+      </wp-text-box>
+      <dx-text-box
+        formControlName="externalId_1C"
+        label="{{ 'Табельный номер 1С' | translate }}"
+        stylingMode="outlined"
+        labelMode="floating"
+        [width]="width"
+        appValidateControl
+        *ngIf="hasIntegrationWith_1C"
+      ></dx-text-box>
+    </div>
+  </form>
+
+  <div class="user-data-btns">
+    <dx-button
+      class="custom-dx-normal-btn"
+      text="{{ 'Отмена' | translate }}"
+      (onClick)="navigateToEmployeeList()"
+    ></dx-button>
+    <dx-button
+      text="{{ 'Сохранить' | translate }}"
+      type="success"
+      class="custom-dx-success-btn"
+      (onClick)="edit()"
+    ></dx-button>
+  </div>
+</div>

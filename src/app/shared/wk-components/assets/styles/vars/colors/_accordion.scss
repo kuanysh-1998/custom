@@ -1,0 +1,11 @@
+:root {
+  --accordion-color-rest: var(--color-grey-30);
+  --accordion-color-hover: var(--color-grey-2);
+  --accordion-bg-hover: var(--color-grey-94);
+}
+
+body[data-theme='dark'] {
+  --accordion-color-rest: var(--color-grey-70);
+  --accordion-color-hover: var(--color-grey-white);
+  --accordion-bg-hover: var(--color-grey-18);
+}

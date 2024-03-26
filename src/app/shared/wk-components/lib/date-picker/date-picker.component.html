@@ -1,0 +1,86 @@
+<div
+  [class.dx-custom-datepicker-left-label]="labelLocation === 'left'"
+  class="dx-custom-datepicker-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [for]="'id'"
+    [label]="label"
+    [disabled]="isDisabled || disabled"
+    [info]="labelInfo"
+    (click)="activeComponent?.instance?.focus()"
+    label="Label"
+  ></wk-label>
+
+  <div class="dx-custom-datepicker-wrapper">
+    <dx-date-range-box
+      #dateRangeBox
+      *ngIf="isRange; else dateBoxTmpl"
+      [value]="arrayValue"
+      [applyButtonText]="'Применить'"
+      [cancelButtonText]="'Отмена'"
+      [showClearButton]="showClearButton"
+      [startDateLabel]="''"
+      [endDateLabel]="''"
+      [useMaskBehavior]="true"
+      [isValid]="!isError"
+      [attr.data-token]="token"
+      [disabled]="isDisabled"
+      [min]="minDate"
+      [max]="maxDate"
+      [startDatePlaceholder]="startDatePlaceholder"
+      [endDatePlaceholder]="endDatePlaceholder"
+      [calendarOptions]="{ minZoomLevel: 'decade' }"
+      [dropDownOptions]="{
+        wrapperAttr: { class: 'dx-custom-datepicker-wrapper' }
+      }"
+      (onValueChanged)="onDateChange($event)"
+      (onBlur)="onTouched?.()"
+      applyValueMode="useButtons"
+      displayFormat="dd.MM.yyyy"
+    ></dx-date-range-box>
+
+    <ng-template #dateBoxTmpl>
+      <dx-date-box
+        #dateBox
+        [value]="onlyValue"
+        [openOnFieldClick]="true"
+        [useMaskBehavior]="true"
+        [disabled]="isDisabled"
+        [attr.data-token]="token"
+        [isValid]="!isError"
+        [applyButtonText]="'Применить'"
+        [dropDownOptions]="{
+          wrapperAttr: {
+            class: 'dx-custom-datepicker-wrapper dx-custom-date-picker'
+          }
+        }"
+        [calendarOptions]="{ minZoomLevel: 'decade' }"
+        [showClearButton]="showClearButton"
+        [min]="minDate"
+        [max]="maxDate"
+        [type]="format"
+        [displayFormat]="dateMask"
+        (onValueChanged)="onDateChange($event)"
+        (onBlur)="onTouched?.()"
+      ></dx-date-box>
+    </ng-template>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="dx-custom-datepicker-error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="dx-custom-datepicker-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.photo-block {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+
+  .photo-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .photo {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+
+  .text {
+    font-family: "PTRootUI";
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+  }
+}

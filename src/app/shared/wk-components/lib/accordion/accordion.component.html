@@ -1,0 +1,24 @@
+<dx-accordion
+  [(selectedIndex)]="selectedIndex"
+  [collapsible]="true"
+  (onContentReady)="contentReady.emit()"
+>
+  <div *dxTemplate="let data of 'title'">
+    <div [ngClass]="accordionTitleClasses">
+      <div class="dx-custom-accordion-header">
+        <wk-svg
+          *ngIf="icon"
+          [icon]="icon"
+          class="dx-custom-accordion-icon"
+        ></wk-svg>
+        {{ title }}
+      </div>
+
+      <wk-svg [icon]="iconChevron" class="dx-custom-accordion-chevron"></wk-svg>
+    </div>
+  </div>
+
+  <dxi-item [class.dx-custom-accordion-padding]="padding">
+    <ng-content></ng-content>
+  </dxi-item>
+</dx-accordion>

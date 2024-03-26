@@ -1,0 +1,9 @@
+:root {
+  --autocomplete-color-empty: var(--color-grey-50);
+  --autocomplete-bg-rest: var(--color-grey-white);
+}
+
+body[data-theme='dark'] {
+  --autocomplete-color-empty: var(--color-grey-70);
+  --autocomplete-bg-rest: var(--color-grey-20);
+}

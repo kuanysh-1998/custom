@@ -1,0 +1,29 @@
+.counter-section {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: PTRootUI;
+}
+
+.date-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    font-family: PTRootUI;
+
+    .checkbox {
+        display: flex;
+        font-size: 12px;
+        font-weight: 700;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .date {
+        display: flex;
+        font-size: 12px;
+        font-weight: 700;
+        flex-direction: column;
+        gap: 5px;
+    }
+}

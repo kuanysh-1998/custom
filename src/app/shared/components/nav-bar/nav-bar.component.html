@@ -1,0 +1,69 @@
+<div class="navigation-container">
+  <div
+    #tabBar
+    [class]="
+      isCollapsed
+        ? 'navigation-container-closed'
+        : isOpen
+        ? 'tab-bar'
+        : 'tab-bar-close'
+    "
+  >
+    <div class="scrollable-content">
+      <div class="header">
+        <button class="custom-icon-button" (click)="toggleCollapse()">
+          <i class="dx-icon-close"></i>
+        </button>
+      </div>
+      <img
+        class="img"
+        [src]="
+          isOpen ? 'assets/image/logo.svg' : 'assets/image/logo-workpace.svg'
+        "
+      />
+
+      <app-left-menu [isOpen]="isOpen"></app-left-menu>
+    </div>
+    <button
+      (click)="isOpen = !isOpen"
+      [class]="isOpen ? 'sidenav-action-btn' : 'sidenav-action-btn-close'"
+    >
+      <span *ngIf="isOpen">{{ "Скрыть меню" | translate }}</span>
+      <img
+        [src]="
+          !isOpen
+            ? 'assets/image/left-arrow.svg'
+            : 'assets/image/right-arrow.svg'
+        "
+      />
+    </button>
+  </div>
+
+  <div class="main-section">
+    <div class="toolbar">
+      <button (click)="toggleCollapse()" class="custom-icon-button">
+        <i class="dx-icon-menu"></i>
+      </button>
+      <img
+        [src]="
+          isCollapsed || isOpen
+            ? 'assets/image/logo.svg'
+            : 'assets/image/logo-workpace.svg'
+        "
+        class="toolbar-logo"
+      />
+      <app-dropdown-menu class="menu mr-3"></app-dropdown-menu>
+    </div>
+
+    <div class="main-content">
+      <app-header></app-header>
+      <div class="container-fluid content">
+        <div class="container-wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isOpen" class="overlay" (click)="toggleDrawer()"></div>

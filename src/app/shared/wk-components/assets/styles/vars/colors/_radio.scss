@@ -1,0 +1,23 @@
+:root {
+  --radio-checked-rest: var(--color-brand-100);
+  --radio-checked-hover: var(--color-brand-80);
+  --radio-checked-focus: var(--color-brand-70);
+
+  --radio-unchecked-rest: var(--color-grey-2);
+  --radio-unchecked-hover: var(--color-grey-14);
+  --radio-unchecked-focus: var(--color-grey-26);
+
+  --radio-disabled: var(--color-grey-80);
+}
+
+body[data-theme='dark'] {
+  --radio-checked-rest: var(--color-brand-110);
+  --radio-checked-hover: var(--color-brand-100);
+  --radio-checked-focus: var(--color-brand-80);
+
+  --radio-unchecked-rest: var(--color-grey-white);
+  --radio-unchecked-hover: var(--color-grey-86);
+  --radio-unchecked-focus: var(--color-grey-76);
+
+  --radio-disabled: var(--color-grey-40);
+}

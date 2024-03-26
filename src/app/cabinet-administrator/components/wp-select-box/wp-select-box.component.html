@@ -1,0 +1,11 @@
+<dx-select-box
+  [width]="254"
+  [dataSource]="dataSource"
+  displayExpr="name"
+  valueExpr="id"
+  [searchEnabled]="true"
+  [(ngModel)]="selectedValue"
+  (onValueChanged)="onValueChanged($event)"
+  placeholder="{{ placeholder | translate }}"
+>
+</dx-select-box>

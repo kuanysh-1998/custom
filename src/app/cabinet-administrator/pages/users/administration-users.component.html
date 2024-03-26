@@ -1,0 +1,132 @@
+<dx-data-grid
+  #grid
+  [dataSource]="users"
+  [remoteOperations]="true"
+  (onRowDblClick)="editUser($event.data)"
+  [elementAttr]="{ class: 'custom-dx-grid custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ 'Пользователи' | translate }}"
+  ></dxo-export>
+
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="email"
+    minWidth="200"
+    width="200"
+    caption="{{ 'Логин' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="fullName"
+    minWidth="200"
+    caption="{{ 'ФИО' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="organizationId"
+    minWidth="200"
+    caption="{{ 'Организация' | translate }}"
+    dataType="string"
+  >
+    <dxo-lookup
+      [dataSource]="organization$ | async"
+      valueExpr="id"
+      displayExpr="name"
+    >
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    minWidth="200"
+    width="200"
+    dataType="date"
+    cellTemplate="date"
+    dataField="createdOn"
+    [caption]="'Дата создания' | translate"
+    [sortIndex]="0"
+    sortOrder="desc"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    dataField="blockAuthentication"
+    minWidth="130"
+    width="130"
+    caption="{{ 'Заблокирован' | translate }}"
+    dataType="boolean"
+    alignment="center"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+    cellTemplate="actionsCellTemplate"
+  >
+  </dxi-column>
+
+  <ng-container *dxTemplate="let cell of 'date'">
+    {{ cell.value | date : "short" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'actionsCellTemplate'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuCondition[cell.rowIndex] = false"
+      [(visible)]="contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+  <dxo-toolbar>
+    <dxi-item location="before">
+      <button class="btn btn-success" (click)="createUser()">
+        {{ "Добавить пользователя" | translate }}
+      </button>
+    </dxi-item>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

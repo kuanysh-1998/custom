@@ -1,0 +1,9 @@
+:root {
+  --tooltip-bg: var(--color-grey-20);
+  --tooltip-color: var(--color-grey-white);
+}
+
+body[data-theme='dark'] {
+  --tooltip-bg: var(--color-grey-white);
+  --tooltip-color: var(--color-grey-2);
+}

@@ -1,0 +1,33 @@
+@import "src/assets/styles/mixins/text-mixins.scss";
+
+.employee-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .name {
+    font-family: "PTROOTUIMEDIUM";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: left;
+
+    @include row-limit(1);
+  }
+
+  .date-info {
+    font-family: "PTROOTUIMEDIUM";
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    color: rgba(6, 12, 31, 0.7);
+  }
+}

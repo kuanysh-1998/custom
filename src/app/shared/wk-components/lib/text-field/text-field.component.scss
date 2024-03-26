@@ -1,0 +1,149 @@
+@import "../../styles.scss";
+
+wk-text-field {
+  margin-bottom: var(--space-vertical-l);
+  display: block;
+  width: 100%;
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    &.left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .additional-text {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-vertical-s) 0 var(--space-vertical-s);
+    font: var(--font-body-1);
+    color: var(--form-field-color-prefix);
+    white-space: nowrap;
+    user-select: none;
+    background-color: var(--form-field-bg-prefix);
+    border: 1px solid var(--form-field-stroke-rest);
+  }
+
+  .prefix {
+    border-right: none;
+    border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+  }
+
+  .postfix {
+    border-left: none;
+    border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+  }
+
+  .icon-container {
+    position: relative;
+    width: 100%;
+
+    .icon {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      fill: var(--form-field-svg-fill);
+
+      &.small {
+        top: 4px;
+      }
+    }
+
+    .icon-right {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      fill: var(--form-field-svg-fill);
+
+      &.small {
+        top: 4px;
+      }
+    }
+  }
+
+  .input {
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    padding: var(--space-vertical-s) var(--space-horizontal-mnudge);
+    font: var(--font-body-1);
+    color: var(--form-field-color);
+    background-color: var(--form-field-bg-rest);
+    border: 1px solid var(--form-field-stroke-rest);
+    border-radius: var(--radius-medium);
+
+    &.small {
+      height: 28px;
+      min-height: 28px;
+    }
+
+    &.default {
+      height: 36px;
+      min-height: 36px;
+    }
+
+    &.with-icon {
+      padding-left: 40px;
+    }
+
+    &.with-icon-right {
+      padding-right: 40px;
+    }
+
+    &.with-prefix {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &.with-postfix {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:hover {
+      border-color: var(--form-field-stroke-hover);
+    }
+
+    &:focus {
+      border-color: var(--form-field-stroke-focus);
+    }
+
+    &.invalid {
+      border-color: var(--form-field-stroke-error);
+    }
+
+    &:disabled {
+      color: var(--form-field-color-disabled);
+      border-color: var(--form-field-stroke-disabled);
+      opacity: 1;
+    }
+
+    &::placeholder {
+      font: var(--font-body-1);
+      color: var(--form-field-color-placeholder);
+    }
+  }
+
+  .error-message {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-color-error);
+  }
+
+  .helper-text {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-stroke-helper-text);
+  }
+}

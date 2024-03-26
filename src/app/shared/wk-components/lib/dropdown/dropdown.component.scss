@@ -1,0 +1,188 @@
+@import "../../styles.scss";
+wk-dropdown {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-l);
+
+  .dx-custom-dropdown-container {
+    display: flex;
+    flex-direction: column;
+
+    &.dx-custom-dropdown-left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+  .dropdown-container {
+    width: 100%;
+  }
+  .dx-dropdowneditor-icon {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    background: var(--dropdown-arrow-icon) no-repeat center;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon {
+    background-color: var(--dropdown-bg-arrow-icon);
+  }
+
+  .dx-dropdowneditor-button {
+    width: 34px;
+    min-width: 34px;
+    height: 32px;
+  }
+
+  .dx-textbox.dx-texteditor {
+    overflow: hidden;
+    background-color: var(--form-field-bg-rest);
+    border-color: var(--form-field-stroke-rest);
+    border-radius: var(--radius-medium);
+
+    .dx-texteditor-input {
+      padding: var(--space-vertical-s) var(--space-horizontal-xxxl)
+        var(--space-vertical-s) var(--space-horizontal-mnudge);
+      font: var(--font-body-1);
+      color: var(--form-field-color);
+    }
+
+    .dx-texteditor-input-container::after {
+      display: none;
+    }
+
+    &.with-icon {
+      .dx-texteditor-input {
+        padding: var(--space-vertical-s) 40px;
+      }
+    }
+
+    &.dx-state-hover {
+      border-color: var(--form-field-stroke-hover);
+
+      .dx-dropdowneditor-icon {
+        background-color: var(--dropdown-bg-arrow-icon);
+      }
+    }
+
+    &.dx-state-focused {
+      border-color: var(--form-field-stroke-focus);
+
+      .dx-dropdowneditor-icon {
+        background-color: var(--dropdown-bg-arrow-icon);
+      }
+    }
+
+    &.dx-state-active {
+      border-color: var(--form-field-stroke-focus);
+
+      .dx-dropdowneditor-icon {
+        background-color: var(--dropdown-bg-arrow-icon);
+      }
+    }
+
+    &.dx-invalid {
+      border-color: var(--form-field-stroke-error);
+    }
+
+    &.dx-state-readonly {
+      border-style: solid;
+    }
+
+    .dx-invalid-badge {
+      display: none;
+    }
+
+    &.dx-state-disabled {
+      border-color: var(--form-field-stroke-disabled);
+      opacity: 1;
+
+      input {
+        color: var(--form-field-color-disabled);
+      }
+    }
+  }
+
+  .dropdown-wrapper {
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      z-index: 1;
+      fill: var(--form-field-svg-fill);
+    }
+
+    .dx-custom-dropdown-cross-icon {
+      position: absolute;
+      top: 10px;
+      right: 42px;
+      z-index: 1;
+      cursor: pointer;
+      fill: var(--dropdown-fill-icon);
+
+      &:hover ~ .dx-textbox.dx-texteditor {
+        .dx-dropdowneditor-icon {
+          background-color: var(--dropdown-bg-arrow-icon);
+        }
+
+        &:not(.dx-invalid) {
+          border-color: var(--form-field-stroke-hover);
+        }
+      }
+    }
+  }
+
+  .dx-custom-dropdown-error-message {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-color-error);
+  }
+
+  .dx-custom-dropdown-helper-text {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-stroke-helper-text);
+  }
+}
+
+.dx-custom-dropdown-overlay-wrapper {
+  &.dx-popup-wrapper > .dx-overlay-content {
+    background-color: var(--dropdown-bg-rest);
+    border: none;
+  }
+
+  .dx-popup-flex-height .dx-popup-content {
+    padding: var(--space-vertical-snudge) var(--space-horizontal-snudge);
+    background-color: var(--dropdown-bg-rest);
+  }
+
+  .dx-custom-dropdown-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    .dx-button {
+      border-radius: 0;
+    }
+  }
+
+  &.dx-custom-dropdown-with-button {
+    .dx-popup-flex-height .dx-popup-content {
+      padding-bottom: 42px;
+    }
+  }
+
+  .dx-custom-dropdown-empty-message {
+    padding: var(--space-vertical-snudge) var(--space-horizontal-snudge);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 38px;
+    color: var(--autocomplete-color-empty);
+  }
+}

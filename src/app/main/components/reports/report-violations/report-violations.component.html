@@ -1,0 +1,206 @@
+<form [formGroup]="filterForm" class="filter-controls">
+  <div class="wrapper">
+    <dx-date-range-box
+      class="adaptiveWidthTable"
+      [showClearButton]="true"
+      formControlName="eventDate"
+      [elementAttr]="{ class: 'no-margin-top' }"
+      [max]="maxDate"
+      appValidateControl
+      endDateLabel="{{ 'Дата завершения' | translate }}"
+      startDateLabel="{{ 'Дата начала' | translate }}"
+    >
+    </dx-date-range-box>
+
+    <combo-dropdown-list
+      [dataSource]="departmentsDataSource"
+      formControlName="departments"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Отделы' | translate }}"
+    ></combo-dropdown-list>
+
+    <combo-dropdown-list
+      [dataSource]="employeesDataSource"
+      [searchExpression]="'fullName'"
+      formControlName="employees"
+      placeholder="{{ 'Сотрудники' | translate }}"
+    ></combo-dropdown-list>
+
+    <dx-check-box
+      [(value)]="showDeletedEmployees"
+      (onValueChanged)="changeFilter()"
+      text="{{ 'Отображать удалённых сотрудников в фильтре' | translate }}"
+    >
+    </dx-check-box>
+  </div>
+
+  <div class="wrapper">
+    <combo-dropdown-list
+      [dataSource]="schedulesDataSource"
+      [searchExpression]="'name'"
+      formControlName="schedules"
+      placeholder="{{ 'Графики работы' | translate }}"
+    ></combo-dropdown-list>
+
+    <button class="btn btn-success report-btn" (click)="createReport()">
+      {{ "Сформировать" | translate }}
+    </button>
+
+    <button
+      class="btn btn-excel last-item-to-right"
+      (click)="exportToExcel($event)"
+    >
+      <i class="bi bi-file-earmark-excel"></i>
+    </button>
+  </div>
+</form>
+
+<dx-data-grid
+  #dataGrid
+  [dataSource]="dataReportVialationsTable"
+  [columnAutoWidth]="true"
+  (onContentReady)="onContentReady($event)"
+  class="violations-report-grid"
+>
+  <dxi-column
+    [fixed]="isLargeScreen ? true : null"
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    [fixed]="isLargeScreen ? true : null"
+    dataField="employeeName"
+    caption="{{ 'Сотрудник' | translate }}"
+    minWidth="200"
+    alignment="left"
+    cellTemplate="employeeNameTemplate"
+    sortOrder="asc"
+    sortIndex="0"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    minWidth="200"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="scheduleName"
+    caption="{{ 'График работы' | translate }}"
+    minWidth="200"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    caption="{{ 'Нарушения' | translate }}"
+    [alignment]="maxViolationsCount > 1 ? 'center' : 'left'"
+    cellTemplate="violationTemplate"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="absenceTotal"
+    caption="{{ 'Отсутствия: всего' | translate }}"
+    alignment="left"
+    [allowSorting]="false"
+    cssClass="custom-header-absenceTotal"
+    minWidth="150"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="lateTotal"
+    caption="{{ 'Опоздания: всего' | translate }}"
+    alignment="left"
+    [allowSorting]="false"
+    cssClass="custom-header-lateIn"
+    minWidth="150"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="inOutAbsenceTotal"
+    caption="{{ 'Нет прихода/ухода: всего' | translate }}"
+    alignment="left"
+    [allowSorting]="false"
+    cssClass="custom-header-inOutAbsenceTotal"
+    minWidth="200"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'violationTemplate'" class="violation-cell">
+    <div
+      class="violations-inner-container"
+      [ngStyle]="{
+        width: calculateContainerWidth(data.data.violations.length)
+      }"
+    >
+      <div
+        *ngFor="let violation of data.data.violations; let i = index"
+        class="violation-column"
+        [class.violation-column-border]="
+          data.data.violations.length > 1 &&
+          i !== data.data.violations.length - 1
+        "
+        [class.violation-column-last]="
+          maxViolationsCount > 1 && i === data.data.violations.length - 1
+        "
+      >
+        <div class="violation-date">
+          {{ violation.date | date : "dd.MM.yyyy" }}
+        </div>
+        <div
+          class="violation-text"
+          [ngClass]="{
+            'violation-absence': violation.violationType === 'absence',
+            'violation-no-in': violation.violationType === 'no-in',
+            'violation-no-out': violation.violationType === 'no-out',
+            'violation-late': violation.violationType === 'late'
+          }"
+        >
+          {{ violation.violationText | translate }}
+        </div>
+      </div>
+
+      <div
+        *ngFor="
+          let empty of getEmptyCellsForGrid(
+            maxViolationsCount - data.data.violations.length
+          );
+          let j = index
+        "
+        class="violation-column"
+      ></div>
+    </div>
+  </div>
+
+  <div *dxTemplate="let data of 'employeeNameTemplate'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10" [enabled]="true"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

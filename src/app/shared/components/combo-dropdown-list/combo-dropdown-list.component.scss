@@ -1,0 +1,21 @@
+.list-item {
+  display: flex;
+  justify-content: flex-start;
+
+  &-text {
+    text-align: start;
+    flex-basis: 90%;
+  }
+
+  .error-cicle-icon {
+    width: 14px;
+    height: 19px;
+  }
+}
+
+.deleted-employee {
+  font-family: PTRootUIMedium;
+  font-size: 12px;
+  font-weight: 500;
+  color: #060c1f;
+}

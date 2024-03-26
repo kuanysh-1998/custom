@@ -1,0 +1,22 @@
+<div [ngClass]="position" class="dx-custom-switch-wrapper">
+  <wk-label
+    *ngIf="label"
+    [disabled]="isDisabled"
+    [label]="label"
+    [required]="!!required"
+    (click)="switchToggle()"
+    class="dx-custom-switch-label"
+  ></wk-label>
+
+  <div class="dx-custom-switch-container">
+    <dx-switch
+      [switchedOffText]="''"
+      [switchedOnText]="''"
+      [value]="value"
+      [class.checked]="value"
+      [disabled]="isDisabled"
+      (onValueChanged)="switchChanged($event)"
+      [attr.data-token]="token"
+    ></dx-switch>
+  </div>
+</div>

@@ -1,0 +1,467 @@
+:root {
+  // Default Contained Button
+  --btn-default-contained-bg-rest: var(--color-brand-90);
+  --btn-default-contained-bg-hover: var(--color-brand-80);
+  --btn-default-contained-bg-focused: var(--color-brand-60);
+  --btn-default-contained-bg-active: var(--color-brand-80);
+  --btn-default-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-default-contained-color: var(--color-grey-white);
+  --btn-default-contained-color-disabled: var(--color-grey-50);
+
+  // Secondary Contained Button
+  --btn-secondary-contained-bg-rest: var(--color-grey-90);
+  --btn-secondary-contained-bg-hover: var(--color-grey-80);
+  --btn-secondary-contained-bg-focused: var(--color-grey-70);
+  --btn-secondary-contained-bg-active: var(--color-grey-80);
+  --btn-secondary-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-secondary-contained-color: var(--color-grey-2);
+  --btn-secondary-contained-color-disabled: var(--color-grey-50);
+
+  // Alternative Contained Button
+  --btn-alternative-contained-bg-rest: var(--color-grey-20);
+  --btn-alternative-contained-bg-hover: var(--color-grey-10);
+  --btn-alternative-contained-bg-focused: var(--color-grey-2);
+  --btn-alternative-contained-bg-active: var(--color-grey-10);
+  --btn-alternative-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-alternative-contained-color: var(--color-grey-90);
+  --btn-alternative-contained-color-disabled: var(--color-grey-50);
+
+  // Success Contained Button
+  --btn-success-contained-bg-rest: var(--color-semantic-green-150);
+  --btn-success-contained-bg-hover: var(--color-semantic-green-200);
+  --btn-success-contained-bg-focused: var(--color-semantic-green-250);
+  --btn-success-contained-bg-active: var(--color-semantic-green-200);
+  --btn-success-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-success-contained-color: var(--color-grey-white);
+  --btn-success-contained-color-disabled: var(--color-grey-50);
+
+  // Info Contained Button
+  --btn-info-contained-bg-rest: var(--color-semantic-blue-150);
+  --btn-info-contained-bg-hover: var(--color-semantic-blue-200);
+  --btn-info-contained-bg-focused: var(--color-semantic-blue-250);
+  --btn-info-contained-bg-active: var(--color-semantic-blue-200);
+  --btn-info-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-info-contained-color: var(--color-grey-white);
+  --btn-info-contained-color-disabled: var(--color-grey-50);
+
+  // Warning Contained Button
+  --btn-warning-contained-bg-rest: var(--color-semantic-orange-150);
+  --btn-warning-contained-bg-hover: var(--color-semantic-orange-200);
+  --btn-warning-contained-bg-focused: var(--color-semantic-orange-250);
+  --btn-warning-contained-bg-active: var(--color-semantic-orange-200);
+  --btn-warning-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-warning-contained-color: var(--color-grey-white);
+  --btn-warning-contained-color-disabled: var(--color-grey-50);
+
+  // Danger Contained Button
+  --btn-danger-contained-bg-rest: var(--color-semantic-red-150);
+  --btn-danger-contained-bg-hover: var(--color-semantic-red-200);
+  --btn-danger-contained-bg-focused: var(--color-semantic-red-250);
+  --btn-danger-contained-bg-active: var(--color-semantic-red-200);
+  --btn-danger-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-danger-contained-color: var(--color-grey-white);
+  --btn-danger-contained-color-disabled: var(--color-grey-50);
+
+  // Help Contained Button
+  --btn-help-contained-bg-rest: var(--color-semantic-violet-150);
+  --btn-help-contained-bg-hover: var(--color-semantic-violet-200);
+  --btn-help-contained-bg-focused: var(--color-semantic-violet-250);
+  --btn-help-contained-bg-active: var(--color-semantic-violet-200);
+  --btn-help-contained-bg-disabled: var(--color-grey-94);
+
+  --btn-help-contained-color: var(--color-grey-white);
+  --btn-help-contained-color-disabled: var(--color-grey-50);
+
+  // Default Outlined Button
+  --btn-default-outlined-bg-hover: var(--color-brand-160);
+  --btn-default-outlined-bg-focused: var(--color-brand-140);
+  --btn-default-outlined-bg-active: var(--color-brand-160);
+
+  --btn-default-outlined-stroke-rest: var(--color-brand-90);
+  --btn-default-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-default-outlined-color: var(--color-brand-90);
+  --btn-default-outlined-color-disabled: var(--color-grey-50);
+
+  // Secondary Outlined Button
+  --btn-secondary-outlined-bg-hover: var(--color-grey-94);
+  --btn-secondary-outlined-bg-focused: var(--color-grey-84);
+  --btn-secondary-outlined-bg-active: var(--color-grey-94);
+
+  --btn-secondary-outlined-stroke-rest: var(--color-grey-80);
+  --btn-secondary-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-secondary-outlined-color: var(--color-grey-2);
+  --btn-secondary-outlined-color-disabled: var(--color-grey-50);
+
+  // Alternative Outlined Button
+  --btn-alternative-outlined-bg-hover: var(--color-grey-84);
+  --btn-alternative-outlined-bg-focused: var(--color-grey-74);
+  --btn-alternative-outlined-bg-active: var(--color-grey-84);
+
+  --btn-alternative-outlined-stroke-rest: var(--color-grey-20);
+  --btn-alternative-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-alternative-outlined-color: var(--color-grey-2);
+  --btn-alternative-outlined-color-disabled: var(--color-grey-50);
+
+  // Success Outlined Button
+  --btn-success-outlined-bg-hover: var(--color-semantic-green-10);
+  --btn-success-outlined-bg-focused: var(--color-semantic-green-50);
+  --btn-success-outlined-bg-active: var(--color-semantic-green-10);
+
+  --btn-success-outlined-stroke-rest: var(--color-semantic-green-150);
+  --btn-success-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-success-outlined-color: var(--color-semantic-green-150);
+  --btn-success-outlined-color-disabled: var(--color-grey-50);
+
+  // Info Outlined Button
+  --btn-info-outlined-bg-hover: var(--color-semantic-blue-10);
+  --btn-info-outlined-bg-focused: var(--color-semantic-blue-50);
+  --btn-info-outlined-bg-active: var(--color-semantic-blue-10);
+
+  --btn-info-outlined-stroke-rest: var(--color-semantic-blue-150);
+  --btn-info-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-info-outlined-color: var(--color-semantic-blue-150);
+  --btn-info-outlined-color-disabled: var(--color-grey-50);
+
+  // Warning Outlined Button
+  --btn-warning-outlined-bg-hover: var(--color-semantic-orange-10);
+  --btn-warning-outlined-bg-focused: var(--color-semantic-orange-50);
+  --btn-warning-outlined-bg-active: var(--color-semantic-orange-10);
+
+  --btn-warning-outlined-stroke-rest: var(--color-semantic-orange-150);
+  --btn-warning-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-warning-outlined-color: var(--color-semantic-orange-150);
+  --btn-warning-outlined-color-disabled: var(--color-grey-50);
+
+  // Danger Outlined Button
+  --btn-danger-outlined-bg-hover: var(--color-semantic-red-10);
+  --btn-danger-outlined-bg-focused: var(--color-semantic-red-50);
+  --btn-danger-outlined-bg-active: var(--color-semantic-red-10);
+
+  --btn-danger-outlined-stroke-rest: var(--color-semantic-red-150);
+  --btn-danger-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-danger-outlined-color: var(--color-semantic-red-150);
+  --btn-danger-outlined-color-disabled: var(--color-grey-50);
+
+  // Help Outlined Button
+  --btn-help-outlined-bg-hover: var(--color-semantic-violet-10);
+  --btn-help-outlined-bg-focused: var(--color-semantic-violet-50);
+  --btn-help-outlined-bg-active: var(--color-semantic-violet-10);
+
+  --btn-help-outlined-stroke-rest: var(--color-semantic-violet-150);
+  --btn-help-outlined-stroke-disabled: var(--color-grey-94);
+
+  --btn-help-outlined-color: var(--color-semantic-violet-150);
+  --btn-help-outlined-color-disabled: var(--color-grey-50);
+
+  // Default Ghost Button
+  --btn-default-ghost-bg-hover: var(--color-brand-160);
+  --btn-default-ghost-bg-focused: var(--color-brand-140);
+  --btn-default-ghost-bg-active: var(--color-brand-160);
+
+  --btn-default-ghost-color: var(--color-brand-90);
+  --btn-default-ghost-color-disabled: var(--color-grey-50);
+
+  // Secondary Ghost Button
+  --btn-secondary-ghost-bg-hover: var(--color-grey-94);
+  --btn-secondary-ghost-bg-focused: var(--color-grey-84);
+  --btn-secondary-ghost-bg-active: var(--color-grey-94);
+
+  --btn-secondary-ghost-color: var(--color-grey-2);
+  --btn-secondary-ghost-color-disabled: var(--color-grey-50);
+
+  // Alternative Ghost Button
+  --btn-alternative-ghost-bg-hover: var(--color-grey-84);
+  --btn-alternative-ghost-bg-focused: var(--color-grey-74);
+  --btn-alternative-ghost-bg-active: var(--color-grey-84);
+
+  --btn-alternative-ghost-color: var(--color-grey-2);
+  --btn-alternative-ghost-color-disabled: var(--color-grey-50);
+
+  // Success Ghost Button
+  --btn-success-ghost-bg-hover: var(--color-semantic-green-10);
+  --btn-success-ghost-bg-focused: var(--color-semantic-green-50);
+  --btn-success-ghost-bg-active: var(--color-semantic-green-10);
+
+  --btn-success-ghost-color: var(--color-semantic-green-150);
+  --btn-success-ghost-color-disabled: var(--color-grey-50);
+
+  // Info Ghost Button
+  --btn-info-ghost-bg-hover: var(--color-semantic-blue-10);
+  --btn-info-ghost-bg-focused: var(--color-semantic-blue-50);
+  --btn-info-ghost-bg-active: var(--color-semantic-blue-10);
+
+  --btn-info-ghost-color: var(--color-semantic-blue-150);
+  --btn-info-ghost-color-disabled: var(--color-grey-50);
+
+  // Warning Ghost Button
+  --btn-warning-ghost-bg-hover: var(--color-semantic-orange-10);
+  --btn-warning-ghost-bg-focused: var(--color-semantic-orange-50);
+  --btn-warning-ghost-bg-active: var(--color-semantic-orange-10);
+
+  --btn-warning-ghost-color: var(--color-semantic-orange-150);
+  --btn-warning-ghost-color-disabled: var(--color-grey-50);
+
+  // Danger Ghost Button
+  --btn-danger-ghost-bg-hover: var(--color-semantic-red-10);
+  --btn-danger-ghost-bg-focused: var(--color-semantic-red-50);
+  --btn-danger-ghost-bg-active: var(--color-semantic-red-10);
+
+  --btn-danger-ghost-color: var(--color-semantic-red-150);
+  --btn-danger-ghost-color-disabled: var(--color-grey-50);
+
+  // Help Ghost Button
+  --btn-help-ghost-bg-hover: var(--color-semantic-violet-10);
+  --btn-help-ghost-bg-focused: var(--color-semantic-violet-50);
+  --btn-help-ghost-bg-active: var(--color-semantic-violet-10);
+
+  --btn-help-ghost-color: var(--color-semantic-violet-150);
+  --btn-help-ghost-color-disabled: var(--color-grey-50);
+}
+
+body[data-theme="dark"] {
+  // Default Contained Button
+  --btn-default-contained-bg-rest: var(--color-brand-110);
+  --btn-default-contained-bg-hover: var(--color-brand-100);
+  --btn-default-contained-bg-focused: var(--color-brand-80);
+  --btn-default-contained-bg-active: var(--color-brand-100);
+  --btn-default-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-default-contained-color: var(--color-grey-white);
+  --btn-default-contained-color-disabled: var(--color-grey-60);
+
+  // Secondary Contained Button
+  --btn-secondary-contained-bg-rest: var(--color-grey-40);
+  --btn-secondary-contained-bg-hover: var(--color-grey-30);
+  --btn-secondary-contained-bg-focused: var(--color-grey-18);
+  --btn-secondary-contained-bg-active: var(--color-grey-30);
+  --btn-secondary-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-secondary-contained-color: var(--color-grey-white);
+  --btn-secondary-contained-color-disabled: var(--color-grey-60);
+
+  // Alternative Contained Button
+  --btn-alternative-contained-bg-rest: var(--color-grey-30);
+  --btn-alternative-contained-bg-hover: var(--color-grey-20);
+  --btn-alternative-contained-bg-focused: var(--color-grey-10);
+  --btn-alternative-contained-bg-active: var(--color-grey-20);
+  --btn-alternative-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-alternative-contained-color: var(--color-grey-white);
+  --btn-alternative-contained-color-disabled: var(--color-grey-60);
+
+  // Success Contained Button
+  --btn-success-contained-bg-rest: var(--color-semantic-green-100);
+  --btn-success-contained-bg-hover: var(--color-semantic-green-150);
+  --btn-success-contained-bg-focused: var(--color-semantic-green-200);
+  --btn-success-contained-bg-active: var(--color-semantic-green-150);
+  --btn-success-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-success-contained-color: var(--color-grey-white);
+  --btn-success-contained-color-disabled: var(--color-grey-60);
+
+  // Info Contained Button
+  --btn-info-contained-bg-rest: var(--color-semantic-blue-100);
+  --btn-info-contained-bg-hover: var(--color-semantic-blue-150);
+  --btn-info-contained-bg-focused: var(--color-semantic-blue-200);
+  --btn-info-contained-bg-active: var(--color-semantic-blue-150);
+  --btn-info-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-info-contained-color: var(--color-grey-white);
+  --btn-info-contained-color-disabled: var(--color-grey-60);
+
+  // Warning Contained Button
+  --btn-warning-contained-bg-rest: var(--color-semantic-orange-100);
+  --btn-warning-contained-bg-hover: var(--color-semantic-orange-150);
+  --btn-warning-contained-bg-focused: var(--color-semantic-orange-200);
+  --btn-warning-contained-bg-active: var(--color-semantic-orange-150);
+  --btn-warning-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-warning-contained-color: var(--color-grey-white);
+  --btn-warning-contained-color-disabled: var(--color-grey-60);
+
+  // Danger Contained Button
+  --btn-danger-contained-bg-rest: var(--color-semantic-red-100);
+  --btn-danger-contained-bg-hover: var(--color-semantic-red-150);
+  --btn-danger-contained-bg-focused: var(--color-semantic-red-200);
+  --btn-danger-contained-bg-active: var(--color-semantic-red-150);
+  --btn-danger-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-danger-contained-color: var(--color-grey-white);
+  --btn-danger-contained-color-disabled: var(--color-grey-60);
+
+  // Help Contained Button
+  --btn-help-contained-bg-rest: var(--color-semantic-violet-100);
+  --btn-help-contained-bg-hover: var(--color-semantic-violet-150);
+  --btn-help-contained-bg-focused: var(--color-semantic-violet-200);
+  --btn-help-contained-bg-active: var(--color-semantic-violet-150);
+  --btn-help-contained-bg-disabled: var(--color-grey-24);
+
+  --btn-help-contained-color: var(--color-grey-white);
+  --btn-help-contained-color-disabled: var(--color-grey-60);
+
+  // Default Outlined Button
+  --btn-default-outlined-bg-hover: var(--color-brand-40);
+  --btn-default-outlined-bg-focused: var(--color-brand-30);
+  --btn-default-outlined-bg-active: var(--color-brand-40);
+
+  --btn-default-outlined-stroke-rest: var(--color-brand-110);
+  --btn-default-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-default-outlined-color: var(--color-brand-110);
+  --btn-default-outlined-color-disabled: var(--color-grey-60);
+
+  // Secondary Outlined Button
+  --btn-secondary-outlined-bg-hover: var(--color-grey-30);
+  --btn-secondary-outlined-bg-focused: var(--color-grey-18);
+  --btn-secondary-outlined-bg-active: var(--color-grey-30);
+
+  --btn-secondary-outlined-stroke-rest: var(--color-grey-40);
+  --btn-secondary-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-secondary-outlined-color: var(--color-grey-90);
+  --btn-secondary-outlined-color-disabled: var(--color-grey-60);
+
+  // Alternative Outlined Button
+  --btn-alternative-outlined-bg-hover: var(--color-grey-30);
+  --btn-alternative-outlined-bg-focused: var(--color-grey-18);
+  --btn-alternative-outlined-bg-active: var(--color-grey-30);
+
+  --btn-alternative-outlined-stroke-rest: var(--color-grey-40);
+  --btn-alternative-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-alternative-outlined-color: var(--color-grey-90);
+  --btn-alternative-outlined-color-disabled: var(--color-grey-60);
+
+  // Success Outlined Button
+  --btn-success-outlined-bg-hover: var(--color-semantic-green-300);
+  --btn-success-outlined-bg-focused: var(--color-semantic-green-350);
+  --btn-success-outlined-bg-active: var(--color-semantic-green-300);
+
+  --btn-success-outlined-stroke-rest: var(--color-semantic-green-100);
+  --btn-success-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-success-outlined-color: var(--color-semantic-green-100);
+  --btn-success-outlined-color-disabled: var(--color-grey-60);
+
+  // Info Outlined Button
+  --btn-info-outlined-bg-hover: var(--color-semantic-blue-300);
+  --btn-info-outlined-bg-focused: var(--color-semantic-blue-350);
+  --btn-info-outlined-bg-active: var(--color-semantic-blue-300);
+
+  --btn-info-outlined-stroke-rest: var(--color-semantic-blue-100);
+  --btn-info-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-info-outlined-color: var(--color-semantic-blue-100);
+  --btn-info-outlined-color-disabled: var(--color-grey-60);
+
+  // Warning Outlined Button
+  --btn-warning-outlined-bg-hover: var(--color-semantic-orange-300);
+  --btn-warning-outlined-bg-focused: var(--color-semantic-orange-350);
+  --btn-warning-outlined-bg-active: var(--color-semantic-orange-300);
+
+  --btn-warning-outlined-stroke-rest: var(--color-semantic-orange-100);
+  --btn-warning-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-warning-outlined-color: var(--color-semantic-orange-100);
+  --btn-warning-outlined-color-disabled: var(--color-grey-60);
+
+  // Danger Outlined Button
+  --btn-danger-outlined-bg-hover: var(--color-semantic-red-300);
+  --btn-danger-outlined-bg-focused: var(--color-semantic-red-350);
+  --btn-danger-outlined-bg-active: var(--color-semantic-red-300);
+
+  --btn-danger-outlined-stroke-rest: var(--color-semantic-red-100);
+  --btn-danger-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-danger-outlined-color: var(--color-semantic-red-100);
+  --btn-danger-outlined-color-disabled: var(--color-grey-60);
+
+  // Help Outlined Button
+  --btn-help-outlined-bg-hover: var(--color-semantic-violet-300);
+  --btn-help-outlined-bg-focused: var(--color-semantic-violet-350);
+  --btn-help-outlined-bg-active: var(--color-semantic-violet-300);
+
+  --btn-help-outlined-stroke-rest: var(--color-semantic-violet-100);
+  --btn-help-outlined-stroke-disabled: var(--color-grey-24);
+
+  --btn-help-outlined-color: var(--color-semantic-violet-100);
+  --btn-help-outlined-color-disabled: var(--color-grey-60);
+
+  // Default Ghost Button
+  --btn-default-ghost-bg-hover: var(--color-brand-40);
+  --btn-default-ghost-bg-focused: var(--color-brand-30);
+  --btn-default-ghost-bg-active: var(--color-brand-40);
+
+  --btn-default-ghost-color: var(--color-brand-110);
+  --btn-default-ghost-color-disabled: var(--color-grey-60);
+
+  // Secondary Ghost Button
+  --btn-secondary-ghost-bg-hover: var(--color-grey-30);
+  --btn-secondary-ghost-bg-focused: var(--color-grey-18);
+  --btn-secondary-ghost-bg-active: var(--color-grey-30);
+
+  --btn-secondary-ghost-color: var(--color-grey-90);
+  --btn-secondary-ghost-color-disabled: var(--color-grey-60);
+
+  // Alternative Ghost Button
+  --btn-alternative-ghost-bg-hover: var(--color-grey-30);
+  --btn-alternative-ghost-bg-focused: var(--color-grey-18);
+  --btn-alternative-ghost-bg-active: var(--color-grey-30);
+
+  --btn-alternative-ghost-color: var(--color-grey-90);
+  --btn-alternative-ghost-color-disabled: var(--color-grey-60);
+
+  // Success Ghost Button
+  --btn-success-ghost-bg-hover: var(--color-semantic-green-300);
+  --btn-success-ghost-bg-focused: var(--color-semantic-green-350);
+  --btn-success-ghost-bg-active: var(--color-semantic-green-300);
+
+  --btn-success-ghost-color: var(--color-semantic-green-100);
+  --btn-success-ghost-color-disabled: var(--color-grey-60);
+
+  // Info Ghost Button
+  --btn-info-ghost-bg-hover: var(--color-semantic-blue-300);
+  --btn-info-ghost-bg-focused: var(--color-semantic-blue-350);
+  --btn-info-ghost-bg-active: var(--color-semantic-blue-300);
+
+  --btn-info-ghost-color: var(--color-semantic-blue-100);
+  --btn-info-ghost-color-disabled: var(--color-grey-60);
+
+  // Warning Ghost Button
+  --btn-warning-ghost-bg-hover: var(--color-semantic-orange-300);
+  --btn-warning-ghost-bg-focused: var(--color-semantic-orange-350);
+  --btn-warning-ghost-bg-active: var(--color-semantic-orange-300);
+
+  --btn-warning-ghost-color: var(--color-semantic-orange-100);
+  --btn-warning-ghost-color-disabled: var(--color-grey-60);
+
+  // Danger Ghost Button
+  --btn-danger-ghost-bg-hover: var(--color-semantic-red-300);
+  --btn-danger-ghost-bg-focused: var(--color-semantic-red-350);
+  --btn-danger-ghost-bg-active: var(--color-semantic-red-300);
+
+  --btn-danger-ghost-color: var(--color-semantic-red-100);
+  --btn-danger-ghost-color-disabled: var(--color-grey-60);
+
+  // Help Ghost Button
+  --btn-help-ghost-bg-hover: var(--color-semantic-violet-300);
+  --btn-help-ghost-bg-focused: var(--color-semantic-violet-350);
+  --btn-help-ghost-bg-active: var(--color-semantic-violet-300);
+
+  --btn-help-ghost-color: var(--color-semantic-violet-100);
+  --btn-help-ghost-color-disabled: var(--color-grey-60);
+}

@@ -1,0 +1,10 @@
+<wk-toast
+  *ngFor="let msg of messages"
+  [@messageState]="animations"
+  [message]="msg.message ?? ''"
+  [header]="msg.header ?? ''"
+  [type]="msg.type ?? 'success'"
+  (closed)="messageClose(msg.id)"
+  (mouseenter)="mouseEnter(msg.id)"
+  (mouseleave)="mouseLeave(msg.id)"
+></wk-toast>

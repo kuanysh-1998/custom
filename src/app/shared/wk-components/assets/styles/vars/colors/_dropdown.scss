@@ -1,0 +1,19 @@
+:root {
+  --dropdown-bg-rest: var(--color-grey-white);
+  --dropdown-fill-icon: var(--color-grey-50);
+
+  --dropdown-arrow-icon: url("../../../svg/i_dropdown_arrow_light.svg");
+  --dropdown-bg-arrow-icon: var(--color-grey-94);
+
+  --dropdown-color-empty: var(--color-grey-50);
+}
+
+body[data-theme='dark'] {
+  --dropdown-bg-rest: var(--color-grey-20);
+  --dropdown-fill-icon: var(--color-grey-60);
+
+  --dropdown-arrow-icon: url("../../../svg/i_dropdown_arrow_dark.svg");
+  --dropdown-bg-arrow-icon: var(--color-grey-24);
+
+  --dropdown-color-empty: var(--color-grey-70);
+}

@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "PTRootUI";
+  src: url("assets/font/PTRootUI/PTRootUI-Regular.ttf");
+}
+
+@font-face {
+  font-family: "PTRootUIBold";
+  src: url("assets/font/PTRootUI/PTRootUI-Bold.ttf");
+}
+
+@font-face {
+  font-family: "PTRootUIMedium";
+  src: url("assets/font/PTRootUI/PTRootUI-Medium.ttf");
+}
+
+@font-face {
+  font-family: "RubikRegular";
+  src: url("assets/font/Rubik/RubikRegular.ttf");
+}
+
+@font-face {
+  font-family: "RubikMedium";
+  src: url("assets/font/Rubik/Rubik-Medium.ttf");
+}
+
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "assets/styles/index";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}

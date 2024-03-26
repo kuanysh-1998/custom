@@ -1,0 +1,55 @@
+@import "../../../styles.scss";
+@mixin not-selected-tab {
+  color: var(--tabs-not-selected-color-rest);
+  transition: color 0.3s;
+
+  .icon {
+    transition: fill 0.3s;
+    fill: var(--tabs-unselected-icon-fill);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    border-radius: var(--radius-small);
+    transition: background 0.3s;
+  }
+
+  &.vertical:after {
+    left: -6px;
+    height: 28px;
+    width: 3px;
+  }
+
+  &:not(.vertical):after {
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+  }
+
+  &:not(.disabled):hover {
+    color: var(--tabs-not-selected-color-hover);
+
+    &:after {
+      background: var(--tabs-not-selected-bg-hover);
+    }
+  }
+
+  &:not(.disabled):active,
+  &:not(.disabled):focus {
+    color: var(--tabs-not-selected-color-focus);
+
+    &:after {
+      background: var(--tabs-not-selected-bg-focus);
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    color: var(--tabs-not-selected-color-disabled);
+
+    .icon {
+      fill: var(--tabs-icon-fill-disabled);
+    }
+  }
+}

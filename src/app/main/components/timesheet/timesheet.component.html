@@ -1,0 +1,57 @@
+<div class="timesheet">
+  <div class="loading-shade" *ngIf="isLoadingResults">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+  <button class="btn btn-success mb-3" (click)="showAppointmentPopup($event)">
+    {{ "Добавить график работы" | translate }}
+  </button>
+  <dx-tag-box
+    [items]="resourcesDataSource"
+    displayExpr="name"
+    valueExpr="subjectId"
+    class="mb-3"
+    [searchEnabled]="true"
+    (onValueChanged)="onValueChanged($event)"
+    placeholder="{{ 'Фильтр' | translate }}"
+  >
+  </dx-tag-box>
+  <ng-container *ngIf="!isLoadingResults">
+    <dx-scheduler
+      [dataSource]="dataSource"
+      [views]="['day', 'week', 'workWeek', 'month']"
+      currentView="month"
+      [currentDate]="currentDate"
+      [firstDayOfWeek]="1"
+      [startDayHour]="1"
+      [height]="700"
+      [endDayHour]="24"
+      [adaptivityEnabled]="true"
+      [maxAppointmentsPerCell]="'unlimited'"
+      (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
+      (onAppointmentUpdated)="onAppointmentUpdated($event)"
+      (onAppointmentAdded)="onAppointmentAdded($event)"
+      (onAppointmentDeleted)="onAppointmentDeleted($event)"
+      (onAppointmentRendered)="onAppointmentRendered($event)"
+      appointmentTemplate="tooltip-template"
+    >
+      <div *dxTemplate="let model of 'tooltip-template'">
+        <div class="calendar-tooltip">
+          <div class="calendar-info">
+            <div class="calendar-title">{{ model.appointmentData.text }}</div>
+            <div>
+              {{
+                "с __from__ до __to__"
+                  | translate
+                    : {
+                        from:
+                          (model.appointmentData.startDate | date : "HH:mm"),
+                        to: (model.appointmentData.endDate | date : "HH:mm")
+                      }
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </dx-scheduler>
+  </ng-container>
+</div>

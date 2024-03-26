@@ -1,0 +1,119 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-controls-row report-form-filter-gap"
+>
+  <dx-date-box
+    formControlName="date"
+    class="adaptiveWidth"
+    placeholder="Укажите дату"
+    appValidateControl
+    [min]="minDate"
+  ></dx-date-box>
+
+  <combo-dropdown-list
+    [dataSource]="departmentsDataSource"
+    formControlName="departmentIds"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Отделы' | translate }}"
+  ></combo-dropdown-list>
+
+  <combo-dropdown-list
+    [dataSource]="employeesDataSource"
+    formControlName="employeeIds"
+    [searchExpression]="'fullName'"
+    placeholder="{{ 'Сотрудники' | translate }}"
+  ></combo-dropdown-list>
+
+  <button
+    class="btn btn-success report-btn"
+    (click)="initEmployeesWithoutTimetableDataSource()"
+  >
+    {{ "Сформировать" | translate }}
+  </button>
+  <button class="btn btn-excel last-item-to-right" (click)="exportToExcel()">
+    <i class="bi bi-file-earmark-excel"></i>
+  </button>
+</form>
+
+<dx-data-grid
+  #grid
+  [dataSource]="employeesWithoutTimetableDataSource"
+  [remoteOperations]="true"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="fullName"
+    caption="{{ 'Сотрудник' | translate }}"
+    dataType="string"
+    minWidth="200"
+    alignment="left"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="300"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+    cellTemplate="selectionCellTemplate"
+  >
+  </dxi-column>
+  <ng-container *dxTemplate="let cell of 'selectionCellTemplate'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (closeOnOutsideClickChange)="contextMenuCondition[cell.rowIndex] = false"
+      [(visible)]="contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.isDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.fullName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

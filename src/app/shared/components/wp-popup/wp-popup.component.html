@@ -1,0 +1,18 @@
+<dx-popup
+  [dragEnabled]="false"
+  [showCloseButton]="true"
+  [hideOnOutsideClick]="false"
+  (onHidden)="closeModal()"
+  [visible]="visible"
+  [title]="title | translate"
+  height="auto"
+  maxHeight="700"
+  [position]="position"
+  [width]="width"
+  [wrapperAttr]="{ class: 'dx-custom-popup-content' }"
+>
+  <ng-container
+    *ngIf="componentType"
+    [ngComponentOutlet]="componentType"
+  ></ng-container>
+</dx-popup>

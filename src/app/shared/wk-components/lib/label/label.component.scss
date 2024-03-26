@@ -1,0 +1,52 @@
+@import "../../styles.scss";
+
+wk-label {
+  display: block;
+  width: fit-content;
+  margin-bottom: var(--space-vertical-xxs);
+  .label {
+    color: var(--label-color);
+    user-select: none;
+
+    .label-content {
+      display: flex;
+      align-items: center;
+    }
+
+    .required {
+      color: var(--label-required);
+    }
+
+    &.s {
+      font: var(--font-caption-1);
+
+      &.bold {
+        font: var(--font-caption-1-strong);
+      }
+    }
+
+    &.m {
+      font: var(--font-body-1);
+
+      &.bold {
+        font: var(--font-body-1-strong);
+      }
+    }
+
+    &.l {
+      font: var(--font-subtitle-2);
+    }
+
+    &.disabled {
+      color: var(--label-color-secondary);
+
+      .required {
+        color: var(--label-color-secondary);
+      }
+    }
+
+    .icon-info {
+      fill: var(--label-color);
+    }
+  }
+}

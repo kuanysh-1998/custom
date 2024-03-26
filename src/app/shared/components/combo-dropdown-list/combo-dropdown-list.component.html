@@ -1,0 +1,91 @@
+<dx-drop-down-box
+  [width]="width"
+  [(value)]="displayedText"
+  [(opened)]="isDropDownBoxOpened"
+  fieldTemplate="field"
+  (onOpened)="triggerTouched($event)"
+  [isValid]="isValid"
+  [validationErrors]="validationErrors"
+>
+  <dxo-drop-down-options
+    [wrapperAttr]="{ class: 'combo-dropdown-list-options' }"
+  ></dxo-drop-down-options>
+
+  <div *dxTemplate="let data of 'field'">
+    <dx-text-box [value]="data" [readOnly]="true"></dx-text-box>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <dx-list
+      #list
+      [dataSource]="dataSource"
+      [height]="300"
+      [width]="'auto'"
+      [elementAttr]="{ class: 'combo-dropdown-list-item' }"
+      [selectionMode]="'all'"
+      [selectAllMode]="'allPages'"
+      [(selectedItemKeys)]="selectedIds"
+      (selectedItemsChange)="selectedItemsChange($event)"
+      [showSelectionControls]="true"
+      [searchEnabled]="true"
+      [searchExpr]="searchExpression"
+      searchMode="contains"
+      keyExpr="id"
+      pageLoadMode="scrollBottom"
+    >
+      <div *dxTemplate="let data of 'item'" class="list-item">
+        <div class="list-item-text" [title]="data[searchExpression]">
+          {{
+            data[searchExpression].length > maxLength
+              ? data[searchExpression].slice(0, maxLength) + "..."
+              : data[searchExpression]
+          }}
+        </div>
+        <img
+          class="error-cicle-icon"
+          *ngIf="data.isDeleted"
+          (mouseover)="showDeletedPopup(data)"
+          (mouseout)="hideDeletedPopup()"
+          src="assets/image/error-cicle-icon.svg"
+          [id]="'deleted-icon-' + data.id"
+        />
+        <img
+          *ngIf="!data.isDeleted && isShowPopup"
+          (mouseover)="showPopup(data)"
+          src="assets/image/exclamation-point.svg"
+          [id]="'list-item-' + data.id"
+        />
+      </div>
+    </dx-list>
+  </div>
+</dx-drop-down-box>
+
+<dx-popover
+  *ngIf="isShowPopup"
+  [target]="'#list-item-' + selectedItemIndexForPopup"
+  [showEvent]="{ name: 'mouseover', delay: 200 }"
+  [hideEvent]="{ name: 'mouseout', delay: 200 }"
+  [width]="200"
+  [wrapperAttr]="{ class: 'combo-dropdown-list-popover' }"
+>
+  <dxo-position my="left" at="right">
+    <dxo-offset [x]="0"></dxo-offset>
+  </dxo-position>
+  <div *dxTemplate="let data = model; of: 'content'">
+    <span>{{ showTooltip(selectedItemIndexForPopup) }}</span>
+  </div>
+</dx-popover>
+
+<dx-popover
+  *ngIf="isDeletedPopupVisible"
+  [target]="'#deleted-icon-' + selectedItemIndexForDeletedPopup"
+  [showEvent]="{ name: 'mouseover', delay: 200 }"
+  [hideEvent]="{ name: 'mouseout', delay: 200 }"
+  [width]="200"
+  [wrapperAttr]="{ class: 'custom-popover' }"
+>
+  <dxo-position my="left" at="right">
+    <dxo-offset [x]="0"></dxo-offset>
+  </dxo-position>
+  <div class="deleted-employee">{{ "Удалённый сотрудник" | translate }}</div>
+</dx-popover>

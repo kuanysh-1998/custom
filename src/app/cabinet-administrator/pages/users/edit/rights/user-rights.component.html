@@ -1,0 +1,45 @@
+<div
+  *ngIf="permissionsWithSelection$ | async as permissionsData"
+  class="permissions-container"
+>
+  <div *ngFor="let category of categories" class="permissions-block">
+    <div
+      *ngIf="
+        filterPermissionsByCategory(permissionsData.permissions, category.codes)
+          .length > 0
+      "
+    >
+      <h3>{{ category.name | translate }}</h3>
+      <div
+        *ngFor="
+          let permission of filterPermissionsByCategory(
+            permissionsData.permissions,
+            category.codes
+          )
+        "
+      >
+        <dx-check-box
+          class="custom-checkbox"
+          [text]="permission.name"
+          [value]="isPermissionSelected(permission)"
+          (onValueChanged)="onPermissionChange(permission, $event.value)"
+        >
+        </dx-check-box>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="permissionsBtn-container">
+  <dx-button
+    (onClick)="returnToUsersPage()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+  ></dx-button>
+  <dx-button
+    (onClick)="savePermissions()"
+    text="{{ 'Сохранить' | translate }}"
+    type="success"
+    class="custom-dx-success-btn"
+  ></dx-button>
+</div>

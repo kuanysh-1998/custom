@@ -1,0 +1,9 @@
+:root {
+  --divider-stroke-rest: #E6E6E6;
+  --divider-color-rest: #424242;
+}
+
+body[data-theme='dark'] {
+  --divider-stroke-rest: #666;
+  --divider-color-rest: #CCCCCC;
+}

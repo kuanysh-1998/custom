@@ -1,0 +1,77 @@
+.file-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .file-error {
+    color: #be1111;
+    font-family: PTRootUI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+
+  .file {
+    border-radius: 500px;
+    margin: 24px 0;
+    width: 139px;
+    height: 139px;
+    background-color: #ebecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
+    &.error {
+      border: 2px solid #be1111;
+    }
+
+    img {
+      object-fit: cover;
+      border-radius: 500px;
+    }
+
+    button {
+      position: absolute;
+      top: 110px;
+      font-family: PTRootUI;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 14px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      border: none;
+    }
+    button:focus {
+      outline: none;
+      border: none;
+    }
+  }
+  .file-access {
+    font-family: PTRootUI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+
+    color: rgba(6, 12, 31, 0.5);
+  }
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}

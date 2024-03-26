@@ -1,0 +1,18 @@
+<dx-drop-down-box [(value)]="value" [(opened)]="isPickerOpened" (onClosed)="onClosed($event)" fieldTemplate="field"
+  [disabled]="disabled" [width]="width" [placeholder]='placeholder' [label]='label'>
+  <dxo-drop-down-options [width]="324"></dxo-drop-down-options>
+
+  <div *dxTemplate="let data of 'field'">
+    <dx-text-box
+      [value]="internalValue == null ? null : (formatDate(internalValue.start) + ' - ' + formatDate(internalValue.end))"
+      [readOnly]="true" [placeholder]='placeholder'></dx-text-box>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <dx-calendar *ngIf='showStartComponent' [cellTemplate]="startCellTemplate"
+      (onValueChanged)="onStartValueChanged($event)" [value]='start' ></dx-calendar>
+    <dx-calendar *ngIf='!showStartComponent' [cellTemplate]="endCellTemplate"
+      (onValueChanged)="onEndValueChanged($event)" [min]='internalValue.start'
+      [value]='end'></dx-calendar>
+  </div>
+</dx-drop-down-box>

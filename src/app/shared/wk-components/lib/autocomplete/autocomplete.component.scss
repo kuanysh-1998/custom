@@ -1,0 +1,151 @@
+@import "../../styles.scss";
+wk-autocomplete {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-l);
+
+  .dx-custom-autocomplete-container {
+    display: flex;
+    flex-direction: column;
+
+    &.dx-custom-autocomplete-left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .dx-custom-autocomplete-wrapper {
+    width: 100%;
+  }
+
+  .dx-custom-autocomplete-input {
+    margin-bottom: 0;
+
+    .input {
+      padding-right: 64px;
+    }
+  }
+
+  .dx-custom-autocomplete {
+    position: relative;
+    width: 100%;
+
+    &:hover {
+      .dx-custom-autocomplete-open-button {
+        background: var(--form-field-button-bg-rest);
+
+        & ~ wk-text-field {
+          .input:not(.invalid) {
+            border-color: var(--form-field-stroke-hover);
+          }
+
+          .input:not(.invalid):focus {
+            border-color: var(--form-field-stroke-focus);
+          }
+        }
+
+        &:active {
+          & ~ wk-text-field {
+            .input:not(.invalid) {
+              border-color: var(--form-field-stroke-focus);
+            }
+          }
+        }
+      }
+    }
+
+    .dx-custom-autocomplete-open-button {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      background: transparent;
+      border-radius: var(--radius-medium);
+
+      &.dx-custom-autocomplete-open {
+        background: var(--form-field-button-bg-rest);
+      }
+
+      .dx-custom-autocomplete-open-icon {
+        fill: var(--form-field-icon-rest);
+      }
+    }
+
+    .dx-custom-autocomplete-cross-icon {
+      position: absolute;
+      top: 10px;
+      right: 42px;
+      z-index: 1;
+      cursor: pointer;
+      fill: var(--form-field-icon-rest);
+    }
+  }
+
+  .dx-custom-autocomplete-error-message {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-color-error);
+  }
+
+  .dx-custom-autocomplete-helper-text {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-stroke-helper-text);
+  }
+}
+
+.dx-custom-autocomplete-popover {
+  .dx-popup-content.dx-popup-content-scrollable {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--autocomplete-bg-rest);
+    border-radius: var(--radius-medium);
+  }
+
+  .dx-popover-arrow {
+    display: none;
+  }
+
+  &.dx-popup-wrapper > .dx-overlay-content {
+    background-color: var(--autocomplete-bg-rest);
+    border: none;
+  }
+
+  .dx-custom-autocomplete-list-wrapper {
+    padding: var(--space-vertical-snudge) var(--space-horizontal-snudge) 0;
+  }
+
+  .dx-custom-autocomplete-scroll-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+  }
+
+  .dx-custom-autocomplete-button {
+    .dx-button {
+      border-radius: 0;
+    }
+  }
+
+  .dx-custom-autocomplete-plug {
+    width: 100%;
+    height: var(--space-vertical-snudge);
+  }
+
+  .dx-custom-autocomplete-empty-message {
+    padding: var(--space-vertical-snudge) var(--space-horizontal-snudge);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 38px;
+    color: var(--autocomplete-color-empty);
+  }
+}

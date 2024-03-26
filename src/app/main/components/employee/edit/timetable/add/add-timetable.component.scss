@@ -1,0 +1,18 @@
+.date-boxes {
+  display: flex;
+  column-gap: 16px;
+  margin-top: 24px;
+
+  .date-box-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    .label {
+      font-family: PTRootUIMedium;
+      font-size: 14px;
+      font-weight: 500;
+      color: #060C1F;
+    }
+  }
+}

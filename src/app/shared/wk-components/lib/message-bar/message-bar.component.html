@@ -1,0 +1,34 @@
+<div [ngClass]="type" [class.full-size]="fullSize" class="message-bar">
+  <div [class.vertical]="orientation === 'vertical'" class="text-container">
+    <div class="title">
+      <wk-svg [icon]="iconType" class="icon"></wk-svg>
+      {{ title }}
+    </div>
+
+    <div class="info-text">
+      <ng-container *ngFor="let part of secondaryTextParts">
+        <wk-link
+          *ngIf="isLink(part); else textTpl"
+          [link]="getUrl(part)"
+          [text]="getText(part)"
+          [download]="getIsDownload(part)"
+          class="link"
+        ></wk-link>
+        <ng-template #textTpl>{{ part }}</ng-template>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div *ngIf="template">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
+    </div>
+
+    <wk-svg
+      *ngIf="isClosable"
+      [icon]="closeButtonIcon"
+      (click)="hide()"
+      class="close-icon"
+    ></wk-svg>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+@import "../../../styles.scss";
+@mixin buttons {
+  .dx-calendar-navigator .dx-calendar-navigator-previous-view,
+  .dx-calendar-navigator .dx-calendar-navigator-next-view,
+  .dx-calendar-navigator .dx-calendar-caption-button {
+    background: transparent;
+    border-color: var(--btn-secondary-outlined-stroke-rest);
+    color: var(--btn-secondary-outlined-color);
+
+    &.dx-state-hover {
+      background: var(--btn-secondary-outlined-bg-hover);
+    }
+
+    &.dx-state-focused {
+      background: var(--btn-secondary-outlined-bg-focused);
+    }
+
+    &.dx-state-active {
+      background: var(--btn-secondary-outlined-bg-active);
+    }
+  }
+
+  .dx-calendar-caption-button .dx-button-text {
+    font: var(--font-body-1-strong);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  .dx-button-has-icon .dx-button-content {
+    width: 36px;
+  }
+
+  .dx-button-mode-outlined .dx-icon {
+    color: var(--btn-secondary-outlined-color);
+  }
+}

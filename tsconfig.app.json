@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "types": [],
+    "paths": {
+      "jszip": ["node_modules/jszip/dist/jszip.min.js"],
+      "exceljs": ["node_modules/exceljs/dist/exceljs.js"]
+    }
+  },
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"]
+}

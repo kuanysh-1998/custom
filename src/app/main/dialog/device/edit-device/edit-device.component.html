@@ -1,0 +1,70 @@
+
+<div class="container-dialog">
+  <div *ngIf="isLoading" class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <form [formGroup]="form">
+      <div class="form-field">
+        <dx-text-box
+          formControlName="name"
+          [maxLength]="100"
+          label="{{ 'Наименование устройства' | translate }}"
+          appValidateControl
+        ></dx-text-box>
+      </div>
+
+      <div class="form-field">
+        <span>{{ "Тип локации" | translate }}:</span>
+        <dx-radio-group
+          [items]="eventTypes"
+          valueExpr="id"
+          displayExpr="text"
+          layout="horizontal"
+          formControlName="isDynamic"
+          appValidateControl
+        >
+        </dx-radio-group>
+      </div>
+
+      <div class="form-field" *ngIf="!form.get('isDynamic').value">
+        <dx-select-box
+          [dataSource]="location$ | async"
+          displayExpr="name"
+          valueExpr="id"
+          label="{{ 'Выберите локацию' | translate }}"
+          [searchEnabled]="true"
+          formControlName="locationId"
+          placeholder="{{ 'Локация' | translate }}"
+          appValidateControl
+        >
+        </dx-select-box>
+      </div>
+
+      <div class="form-field">
+        <dx-text-box
+          formControlName="pinCode"
+          [maxLength]="4"
+          label="{{ 'ПИН-код' | translate }}"
+          appValidateControl
+        ></dx-text-box>
+      </div>
+    </form>
+  </div>
+
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="closeModal()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    ></dx-button>
+    <dx-button
+      (onClick)="update()"
+      text="{{ 'Сохранить' | translate }}"
+      class="custom-dx-success-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    ></dx-button>
+  </div>
+</div>

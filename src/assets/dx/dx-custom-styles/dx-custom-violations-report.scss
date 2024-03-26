@@ -1,0 +1,47 @@
+.dx-datagrid .dx-header-row .custom-header-absenceTotal {
+  background-color: #ffdbb1;
+}
+
+.dx-datagrid .dx-header-row .custom-header-lateIn {
+  background-color: #f2f2f2;
+}
+
+.dx-datagrid .dx-header-row .custom-header-inOutAbsenceTotal {
+  background-color: #fff0b3;
+}
+
+.violations-report-grid .dx-datagrid-content .dx-datagrid-table .dx-row > td {
+  vertical-align: middle;
+}
+
+.violation-cell .violations-inner-container {
+  display: flex;
+  height: 100%;
+  margin: -7px;
+  align-items: stretch;
+}
+
+.violation-cell .violation-column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  justify-content: flex-start;
+  padding: 7px;
+  min-width: 170px;
+  flex-grow: 0;
+  border-right: 1px solid #dbdfeb;
+}
+
+.violation-cell .violation-column:last-child {
+  border-right: none;
+}
+
+.violation-column .violation-date,
+.violation-column .violation-text {
+  text-align: left;
+}
+
+.violations-report-grid {
+  max-height: 75vh;
+  overflow: auto;
+}

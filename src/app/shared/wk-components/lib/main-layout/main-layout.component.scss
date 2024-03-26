@@ -1,0 +1,45 @@
+@import "../../assets/styles/vars/viewport.scss";
+@import "../../styles.scss";
+wk-main-layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: var(--main-background);
+  width: 100%;
+
+  &.dx-custom-secondary {
+    background: var(--main-background-secondary);
+  }
+}
+
+.dx-custom-grid-container {
+  width: 100%;
+  display: grid;
+  flex-grow: 1;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: min-content;
+  gap: 20px;
+  max-width: var(--max-witdh-content);
+  padding: var(--space-vertical-l) var(--space-vertical-xxl);
+  margin: auto;
+
+  & > * {
+    grid-column: 1 / -1;
+  }
+
+  @include respond-to(tablet) {
+    & {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @include respond-to(mobile) {
+    & {
+      grid-template-columns: repeat(6, 1fr);
+
+      & > * {
+        grid-column: 1 / -1 !important;
+      }
+    }
+  }
+}

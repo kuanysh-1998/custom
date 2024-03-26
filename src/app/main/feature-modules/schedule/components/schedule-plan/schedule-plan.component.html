@@ -1,0 +1,197 @@
+<ng-container *ngIf="scheduleDays$ | async as scheduleDays">
+  <div
+    class="schedule-edit-alert"
+    *ngIf="context === ScheduleContext.EDIT_PUBLISHED"
+  >
+    <div class="alert-title">{{ "Внимание" | translate }}!</div>
+    <div class="alert-text">
+      {{ "schedule_message" | translate : { count: schedule.timetableCount } }}
+    </div>
+  </div>
+
+  <app-schedule-action-control
+    *ngIf="
+      schedule.status !== ScheduleStatus.published ||
+      context === ScheduleContext.EDIT_PUBLISHED
+    "
+    [locations]="locations"
+    [scheduleType]="schedule.type"
+    [scheduleDays]="scheduleDays"
+    [editingScheduleDays]="schedule.days"
+    (scheduleTypeChanged)="scheduleTypeChange($event)"
+    (editCompleted)="onEditCompleted($event)"
+  ></app-schedule-action-control>
+
+  <dx-data-grid
+    #dataGrid
+    [dataSource]="scheduleDays"
+    (onSelectionChanged)="handleSelectionChange($event)"
+    (onRowPrepared)="onRowPrepared($event)"
+    class="custom-grid-class"
+  >
+    <dxo-selection
+      *ngIf="
+        schedule.status !== ScheduleStatus.published ||
+        context === ScheduleContext.EDIT_PUBLISHED
+      "
+      allowSelectAll="true"
+      selectAllMode="allPages"
+      showCheckBoxesMode="always"
+      mode="multiple"
+    ></dxo-selection>
+    <dxi-column
+      dataField="dayNumber"
+      caption="{{ 'Название' | translate }}"
+      minWidth="150"
+      width="150"
+      cellTemplate="dayNameTemplate"
+      alignment="left"
+      [allowSorting]="false"
+    >
+    </dxi-column>
+
+    <dxi-column
+      caption="{{ 'Рабочее время' | translate }}"
+      minWidth="150"
+      width="150"
+      cellTemplate="workTime"
+    >
+    </dxi-column>
+
+    <dxi-column
+      caption="{{ 'Перерыв' | translate }}"
+      minWidth="150"
+      width="150"
+      cellTemplate="breakTime"
+    >
+    </dxi-column>
+    <dxi-column
+      caption="{{ 'Границы прихода' | translate }}"
+      minWidth="150"
+      width="150"
+      cellTemplate="boundaryInTime"
+    >
+    </dxi-column>
+
+    <dxi-column
+      caption="{{ 'Границы ухода' | translate }}"
+      minWidth="150"
+      width="150"
+      cellTemplate="boundaryOutTime"
+    >
+    </dxi-column>
+
+    <dxi-column
+      caption="{{ 'Локация' | translate }}"
+      minWidth="200"
+      cellTemplate="locationTemplate"
+    >
+    </dxi-column>
+
+    <dxi-column
+      width="50"
+      alignment="center"
+      cellTemplate="contextMenuCell"
+      *ngIf="isDraft || context === ScheduleContext.EDIT_PUBLISHED"
+    >
+    </dxi-column>
+
+    <ng-container *dxTemplate="let cellInfo of 'contextMenuCell'">
+      <i
+        *ngIf="true"
+        class="bi bi-three-dots"
+        (click)="openContextMenu(cellInfo)"
+        [attr.id]="'cell' + cellInfo.rowIndex"
+      ></i>
+
+      <dx-context-menu
+        (hideOnOutsideClickChange)="
+          contextMenuStatuses[cellInfo.rowIndex] = false
+        "
+        [(visible)]="contextMenuStatuses[cellInfo.rowIndex]"
+        [dataSource]="editMenuItems"
+        cssClass="dx-custom-menu"
+        [width]="200"
+        [target]="'#cell' + cellInfo.rowIndex"
+        (onItemClick)="executeAction($event.itemData, cellInfo.data)"
+      >
+      </dx-context-menu>
+    </ng-container>
+
+    <div *dxTemplate="let data of 'dayNameTemplate'">
+      {{ data.value | dayNumber : schedule.type }}
+    </div>
+
+    <div *dxTemplate="let data of 'workTime'">
+      <ng-container *ngIf="!data.data.isOffday">
+        <ng-container *ngFor="let workSpan of data.data.workSpans">
+          {{ workSpan.workTime | scheduleTime }}
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="data.data.isOffday">
+        <div>
+          {{ "Выходной день" | translate }}
+        </div>
+      </ng-container>
+    </div>
+
+    <div *dxTemplate="let data of 'boundaryInTime'">
+      <ng-container *ngFor="let workSpan of data.data.workSpans">
+        {{ calculateBoundaryInTime(workSpan) }}
+      </ng-container>
+    </div>
+
+    <div *dxTemplate="let data of 'boundaryOutTime'">
+      <ng-container *ngFor="let workSpan of data.data.workSpans">
+        {{ calculateBoundaryOutTime(workSpan) }}
+      </ng-container>
+    </div>
+
+    <div *dxTemplate="let data of 'breakTime'">
+      <ng-container *ngFor="let workSpan of data.data.workSpans">
+        <ng-container *ngFor="let breakTime of workSpan.breaks">
+          {{ breakTime.time | scheduleTime }}
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div *dxTemplate="let data of 'locationTemplate'">
+      <ng-container *ngFor="let workSpan of data.data.workSpans">
+        {{ workSpan.locationId | locationName : locations }}
+      </ng-container>
+    </div>
+  </dx-data-grid>
+
+  <div class="footer-container">
+    <dx-button
+      *ngIf="isDraft || context === ScheduleContext.EDIT_PUBLISHED"
+      class="custom-dx-normal-btn"
+      [text]="'Отмена' | translate"
+      (onClick)="returnToTable()"
+    >
+    </dx-button>
+    <dx-button
+      *ngIf="isDraft"
+      class="custom-dx-normal-btn"
+      (onClick)="saveChangesRequested.emit(scheduleDays)"
+      [text]="'Сохранить как черновик' | translate"
+    >
+    </dx-button>
+
+    <dx-button
+      *ngIf="context === ScheduleContext.EDIT_PUBLISHED"
+      class="custom-dx-success-btn"
+      (onClick)="saveChangesRequested.emit(scheduleDays)"
+      [text]="'Сохранить' | translate"
+    >
+    </dx-button>
+
+    <dx-button
+      *ngIf="isDraft"
+      class="custom-dx-success-btn"
+      (onClick)="publishRequested.emit(scheduleDays)"
+      [text]="'Опубликовать' | translate"
+    >
+    </dx-button>
+  </div>
+</ng-container>

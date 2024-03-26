@@ -1,0 +1,209 @@
+@import "../../../styles.scss";
+@mixin cell {
+  .dx-calendar-cell {
+    height: 28px;
+    font: var(--font-body-1);
+    color: var(--date-picker-color);
+
+    &.dx-calendar-contoured-date.dx-calendar-cell-in-range.dx-calendar-range-start-date.dx-calendar-range-end-date {
+      span {
+        border-radius: var(--radius-medium) !important;
+      }
+    }
+
+    &.dx-calendar-contoured-date.dx-calendar-selected-date.dx-calendar-range-start-date {
+      span {
+        border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+      }
+    }
+
+    &.dx-calendar-cell-range-hover-end {
+      span {
+        border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+      }
+    }
+
+    &.dx-calendar-cell-range-hover-start {
+      span {
+        border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+      }
+    }
+
+    &.dx-calendar-cell-in-range {
+      &::before {
+        background: var(--date-picker-bg-cell-range);
+      }
+
+      &.dx-calendar-range-start-date::before {
+        border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+      }
+
+      &.dx-calendar-range-end-date::before {
+        border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+      }
+
+      &.dx-calendar-other-view.dx-calendar-other-month {
+        &.dx-state-hover span {
+          color: var(--date-picker-color-other-hover);
+          background: var(--date-picker-bg-cell-other-hover);
+        }
+
+        &.dx-state-active span {
+          color: var(--date-picker-color-other-hover);
+          background: var(--date-picker-bg-cell-other-hover);
+        }
+      }
+
+      &.dx-calendar-selected-date.dx-calendar-range-start-date {
+        span {
+          border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+        }
+
+        &.dx-calendar-contoured-date span {
+          border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+        }
+
+        &.dx-calendar-cell-start-in-row span {
+          border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+        }
+      }
+
+      &.dx-calendar-selected-date.dx-calendar-range-end-date {
+        border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+
+        span {
+          border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+        }
+
+        &.dx-calendar-cell-end-in-row span {
+          border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+        }
+      }
+    }
+
+    &.dx-calendar-cell-range-hover {
+      &::after {
+        border-top-color: var(--date-picker-stroke-cell-in-range);
+        border-bottom-color: var(--date-picker-stroke-cell-in-range);
+      }
+
+      &:last-child::after {
+        border-right-color: var(--date-picker-stroke-cell-in-range);
+      }
+
+      &:first-child::after {
+        border-left-color: var(--date-picker-stroke-cell-in-range);
+      }
+
+      &.dx-calendar-other-view.dx-calendar-other-month {
+        &.dx-calendar-cell-range-hover-start span {
+          color: var(--date-picker-color-other-hover);
+          background: var(--date-picker-bg-cell-other-hover);
+        }
+
+        &.dx-calendar-cell-range-hover-end span {
+          color: var(--date-picker-color-other-hover);
+          background: var(--date-picker-bg-cell-other-hover);
+        }
+      }
+    }
+
+    &.dx-calendar-other-view.dx-calendar-other-month {
+      span {
+        color: var(--date-picker-color-other);
+      }
+
+      &.dx-state-hover span {
+        color: var(--date-picker-color-other-hover);
+      }
+
+      &.dx-state-active span {
+        color: var(--date-picker-color-active);
+      }
+
+      &.dx-calendar-selected-date.dx-calendar-cell-in-range {
+        span {
+          color: var(--date-picker-color-active);
+        }
+
+        &.dx-state-hover span {
+          background: var(--date-picker-bg-cell-active);
+        }
+      }
+
+      &.dx-calendar-selected-date.dx-calendar-range-start-date {
+        span {
+          color: var(--date-picker-color-active);
+        }
+      }
+    }
+
+    &.dx-state-hover span {
+      color: var(--date-picker-color-hover);
+      background: var(--date-picker-bg-cell-hover);
+    }
+
+    &.dx-state-active span {
+      color: var(--date-picker-color-hover);
+      background: var(--date-picker-bg-cell-hover);
+    }
+
+    &.dx-calendar-selected-date span {
+      overflow: hidden;
+      color: var(--date-picker-color-active);
+      background: var(--date-picker-bg-cell-active);
+      border: none;
+      box-shadow: none;
+    }
+
+    &.dx-calendar-selected-date.dx-calendar-other-month span {
+      overflow: hidden;
+      color: var(--date-picker-color-active);
+      background: var(--date-picker-bg-cell-active);
+      border: none;
+      box-shadow: none;
+    }
+
+    &.dx-calendar-today span {
+      border-color: var(--date-picker-bg-cell-active);
+      box-shadow: none;
+    }
+
+    &.dx-calendar-contoured-date span {
+      box-shadow: 0 0 0 2px var(--date-picker-stroke-cell-contoured);
+    }
+
+    &.dx-calendar-empty-cell {
+      opacity: 0.4;
+
+      span {
+        color: var(--date-picker-color-other);
+      }
+
+      &.dx-state-hover span {
+        color: var(--date-picker-color-other);
+        background: transparent;
+      }
+
+      &.dx-state-hover.dx-calendar-other-month span {
+        color: var(--date-picker-color-other);
+      }
+
+      &.dx-state-active span {
+        color: var(--date-picker-color-other);
+        background: transparent;
+      }
+
+      &.dx-state-active.dx-calendar-other-month span {
+        color: var(--date-picker-color-other);
+      }
+    }
+  }
+
+  &.dx-custom-calendar {
+    .dx-calendar-cell.dx-calendar-other-view.dx-calendar-other-month.dx-calendar-selected-date
+      span {
+      color: var(--date-picker-color-active);
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<div class="checkbox-wrapper">
+  <div class="checkbox-container">
+    <div
+      [tabindex]="tabIndex"
+      [class.disabled]="isDisabled"
+      [class.error]="error || (control?.invalid && control?.touched)"
+      [attr.data-token]="token"
+      (click)="toggleCheckbox()"
+      (keydown.enter)="toggleCheckbox()"
+      role="checkbox"
+      class="checkbox"
+    >
+      <wk-svg *ngIf="value" [icon]="filledCheckboxIcon" class="icon"></wk-svg>
+      <wk-svg
+        *ngIf="!value"
+        [icon]="emptyCheckboxIcon"
+        class="icon icon-empty"
+      ></wk-svg>
+    </div>
+  </div>
+
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [disabled]="isDisabled"
+    [label]="label"
+    [links]="links"
+    (click)="toggleCheckbox()"
+    class="label"
+  ></wk-label>
+</div>

@@ -1,0 +1,70 @@
+@import "../../styles.scss";
+
+wk-radio {
+  display: block;
+  width: fit-content;
+  .radio-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .radio {
+    outline: none;
+    cursor: pointer;
+
+    .icon {
+      fill: var(--radio-checked-rest);
+    }
+
+    .icon-empty {
+      fill: var(--radio-unchecked-rest);
+    }
+
+    &:hover {
+      .icon {
+        fill: var(--radio-checked-hover);
+      }
+
+      .icon-empty {
+        fill: var(--radio-unchecked-hover);
+      }
+    }
+
+    &:focus,
+    &:active {
+      .icon {
+        fill: var(--radio-checked-focus);
+      }
+
+      .icon-empty {
+        fill: var(--radio-unchecked-focus);
+      }
+    }
+
+    .disabled {
+      &.icon {
+        cursor: default;
+        fill: var(--radio-disabled);
+      }
+
+      &.icon-empty {
+        cursor: default;
+        fill: var(--radio-disabled);
+      }
+    }
+  }
+
+  .radio-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+  }
+
+  .label-wrapper {
+    margin-right: 12px;
+    margin-left: 4px;
+    margin-bottom: 0;
+  }
+}

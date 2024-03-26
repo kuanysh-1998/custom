@@ -1,0 +1,180 @@
+.custom-checkbox .dx-checkbox-text {
+  font-family: PTRootUI;
+  font-size: 14px;
+  font-weight: 400;
+  color: #15292b;
+}
+
+.custom-checkbox {
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width: 900px) {
+  .dx-checkbox-container {
+    max-width: 250px;
+  }
+
+  .dx-calendar.dx-calendar-multiview {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 408px) {
+  .dx-toolbar-menu-section .dx-list-item-content,
+  .dx-toolbar-menu-section
+    .dx-toolbar-hidden-button
+    .dx-button
+    .dx-button-content,
+  .dx-toolbar-menu-section
+    .dx-toolbar-hidden-button-group
+    .dx-button
+    .dx-button-content,
+  .dx-toolbar-menu-section .dx-toolbar-item-auto-hide {
+    padding: 10px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .dx-menu-base .dx-menu-item-wrapper,
+  .dx-menu-base .dx-menu-items-container {
+    width: 175px;
+  }
+}
+
+.dx-button.custom-dx-success-btn {
+  background-color: #39bf5e;
+  font-family: PTRootUI;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #ffffff;
+  border: none;
+  outline: none;
+
+  &:hover,
+  &:active {
+    background: #198754;
+  }
+}
+
+.dx-button.custom-dx-normal-btn {
+  font-family: PTRootUI;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #060c1f;
+  border: none;
+  outline: none;
+}
+
+.dx-button.custom-dx-export-btn {
+  font-family: PTRootUI;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  background-color: rgba(57, 191, 94, 0.1);
+  color: #39bf5e;
+  outline: none;
+  border: none;
+}
+
+.dx-button-has-text .dx-button-content {
+  padding: 6px 12px;
+}
+
+.custom-dxi-btn {
+  .dx-button-mode-contained.dx-button-default {
+    background: #ffffff;
+    height: 32px;
+  }
+
+  .dx-button-mode-contained {
+    background: transparent;
+    border: none;
+    color: #060c1f;
+  }
+
+  .dx-button-mode-contained .dx-icon {
+    width: 21.33px;
+    height: 16px;
+    color: #060c1f;
+  }
+
+  .dx-button-mode-contained .dx-icon-eyeclose {
+    color: #060c1f;
+    opacity: 0.6;
+  }
+}
+.custom-dx-grid-employee {
+  max-height: 75vh;
+  overflow: auto;
+  .dx-toolbar .dx-toolbar-items-container {
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  .dx-toolbar .dx-toolbar-before {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+  }
+}
+
+.custom-dx-grid {
+  .dx-data-row:hover {
+    background-color: #ebecef !important;
+    cursor: pointer;
+  }
+}
+
+.custom-dx-grid-scroll {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.normal-row:hover {
+  background-color: #ebecef !important;
+  cursor: pointer;
+}
+
+.location-missing {
+  background-color: #f2b3b3 !important;
+
+  &:hover {
+    background-color: #ecb8b8 !important;
+    cursor: pointer;
+  }
+}
+
+.not-verified {
+  background-color: #f8e8e8 !important;
+
+  &:hover {
+    background-color: #ecb8b8 !important;
+    cursor: pointer;
+  }
+}
+
+.custom-dx-radio-group {
+  .dx-collection {
+    display: flex;
+    column-gap: 10px;
+  }
+
+  .dx-item-content {
+    font-family: PTRootUIMedium;
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #060c1f;
+  }
+}
+
+.custom-popover .dx-overlay-content {
+  .dx-popup-content {
+    padding: 8px;
+  }
+}
+
+.custom-dx-grid-selected-column .dx-row.dx-selection > td {
+  background-color: #ecf9ef !important;
+}

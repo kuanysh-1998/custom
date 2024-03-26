@@ -1,0 +1,12 @@
+<dx-text-box
+  [value]="value"
+  (keydown)="handleInput($event)"
+  (valueChange)="onValueChange($event)"
+  stylingMode="outlined"
+  labelMode="floating"
+  [label]="label"
+  [isValid]="isValid"
+  [validationErrors]="validationErrors"
+  [width]="width"
+  (onBlur)="onBlurHandler()"
+></dx-text-box>

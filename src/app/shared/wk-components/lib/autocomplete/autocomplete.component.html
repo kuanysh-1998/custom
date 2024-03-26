@@ -1,0 +1,130 @@
+<div
+  [class.dx-custom-autocomplete-left-label]="labelLocation === 'left'"
+  class="dx-custom-autocomplete-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="textfield.focus()"
+  ></wk-label>
+
+  <div class="dx-custom-autocomplete-wrapper">
+    <div #textfieldWrapper class="dx-custom-autocomplete">
+      <span #textfieldTmpl>
+        <wk-svg
+          *ngIf="hasValue && !isDisabled && !readOnly"
+          [icon]="iconClear"
+          [size]="'small'"
+          (click)="clearValue()"
+          class="dx-custom-autocomplete-cross-icon"
+        ></wk-svg>
+
+        <div
+          *ngIf="!isDisabled && !readOnly"
+          (click)="open()"
+          [class.dx-custom-autocomplete-open]="isOpen"
+          class="dx-custom-autocomplete-open-button"
+          role="button"
+        >
+          <wk-svg
+            [icon]="iconChevron"
+            class="dx-custom-autocomplete-open-icon"
+          ></wk-svg>
+        </div>
+
+        <wk-text-field
+          #textfield
+          [icon]="icon"
+          [value]="searchValue"
+          [readOnly]="!!readOnly"
+          [error]="isError"
+          [disabled]="isDisabled"
+          [attr.data-token]="token"
+          [class.with-icon]="icon"
+          [placeholder]="placeholder"
+          (input)="searchChange($event)"
+          class="dx-custom-autocomplete-input"
+        >
+        </wk-text-field>
+      </span>
+
+      <dx-popover
+        [target]="textfieldTmpl"
+        [visible]="isOpen"
+        [position]="{
+          my: 'top',
+          at: 'bottom',
+          offset: { y: -9, x: 0 }
+        }"
+        [minWidth]="popoverWidth"
+        [hideOnOutsideClick]="true"
+        [width]="0"
+        [enableBodyScroll]="false"
+        [animation]="{ show: { duration: 0 }, hide: { duration: 0 } }"
+        [wrapperAttr]="{ class: 'dx-custom-autocomplete-popover' }"
+        (onHidden)="close()"
+      >
+        <div class="dx-custom-autocomplete-list-wrapper">
+          <wk-scroll
+            *ngIf="
+              (options | autocomplete : searchValue : searchFields).length;
+              else empty
+            "
+          >
+            <div class="dx-custom-autocomplete-scroll-container">
+              <wk-list-item
+                *ngFor="
+                  let option of options
+                    | autocomplete : searchValue : searchFields
+                "
+                [text]="getText(option)"
+                (clicked)="valueChange(option)"
+              ></wk-list-item>
+            </div>
+          </wk-scroll>
+        </div>
+
+        <ng-template #empty>
+          <div class="dx-custom-autocomplete-empty-message">
+            <wk-spinner *ngIf="loading; else message"></wk-spinner>
+
+            <ng-template #message>
+              {{ emptyMessage }}
+            </ng-template>
+          </div>
+        </ng-template>
+
+        <div class="dx-custom-autocomplete-plug"></div>
+
+        <wk-button
+          *ngIf="buttonEnabled"
+          [label]="buttonLabel"
+          [icon]="buttonIcon"
+          [fullWidth]="true"
+          (clicked)="buttonClicked.emit()"
+          variant="secondary"
+          class="dx-custom-autocomplete-button"
+        ></wk-button>
+      </dx-popover>
+    </div>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="dx-custom-autocomplete-error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="dx-custom-autocomplete-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

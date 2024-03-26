@@ -1,0 +1,320 @@
+@import "src/assets/styles/mixins/text-mixins.scss";
+
+.view-suspicious-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 700px;
+  padding: 4px 2px;
+  position: relative;
+
+  hr {
+    margin-top: 0;
+  }
+
+  .view-suspicious-wrapper {
+    max-height: 700px;
+    overflow: auto;
+    margin-bottom: 15px;
+  }
+
+  .view-suspicious-header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 14px;
+  }
+
+  .form-field {
+    margin-bottom: 5px;
+  }
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .title {
+    font-family: "PTROOTUIMEDIUM";
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    text-align: left;
+    margin-bottom: 0;
+
+    @include row-limit(1);
+  }
+}
+
+.arrows {
+  .arrow {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    background: #00000080;
+    border-radius: 116px;
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .right {
+    right: -80px;
+  }
+
+  .left {
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1);
+  }
+}
+
+.employee-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .photo {
+    border-radius: 4px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+}
+
+.suspiciouses {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.checkbox-text {
+  font-family: "PTRootUI";
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.title {
+  font-family: "PTROOTUIMEDIUM";
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  margin: 5px 0;
+}
+
+.error {
+  border: 1px solid #dc3545;
+  box-shadow: 0px 0px 1px rgb(220, 61, 77);
+}
+
+.dialog-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.dialog-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+
+  background: #ffffff;
+  border-radius: 8px;
+
+  border: 2px solid #000000;
+
+  .bi {
+    font-size: 24px;
+  }
+
+  .label {
+    font-family: "PTRootUI";
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  &.green {
+    border: 2px solid #39bf5e;
+
+    .bi {
+      color: #39bf5e;
+    }
+
+    .label {
+      color: #39bf5e;
+    }
+  }
+
+  &.red {
+    border: 2px solid #be1111;
+
+    .bi {
+      color: #be1111;
+    }
+
+    .label {
+      color: #be1111;
+    }
+  }
+}
+
+.timestamp {
+  &-title {
+    color: #060c1f;
+    font-family: PTRootUI;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &-item {
+    color: #be1111;
+    font-family: PTRootUI;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .gray {
+    width: 1px;
+    height: 12px;
+    color: rgba(6, 12, 31, 0.5);
+  }
+}
+
+.schedule-name {
+  color: #060c1f;
+  font-family: PTRootUIMedium;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 7px;
+}
+
+.mark-time {
+  margin-right: 10px;
+  &-title {
+    color: #060c1f;
+    font-family: PTRootUIMedium;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    opacity: 0.5;
+  }
+}
+
+.work-time-title {
+  color: #060c1f;
+  font-family: PTRootUIMedium;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  opacity: 0.5;
+}
+
+.d-flex {
+  display: flex;
+  flex-direction: column;
+
+  .suspicious-info {
+    display: flex;
+  }
+
+  .location {
+    margin-top: -7px;
+    margin-bottom: -7px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .arrows {
+    .right {
+      right: -20px;
+    }
+
+    .left {
+      left: -20px;
+    }
+  }
+}
+
+.important-title {
+  color: #be1111;
+  font-family: PTRootUI, serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.photo-substitution-description {
+  font-family: PTRootUIMedium;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #060c1f;
+  opacity: 0.6;
+  margin-top: 20px;
+}
+
+.container-time-substitution {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  p {
+    margin-bottom: 0;
+  }
+
+  .mark-data {
+    font-family: PTRootUI;
+    font-size: 16px;
+    font-weight: 700;
+    color: #be1111;
+  }
+
+  .proven-local-data {
+    font-family: PTRootUI;
+    font-size: 16px;
+    font-weight: 700;
+    color: #39bf5e;
+  }
+}
+
+.label {
+  font-family: PTRootUIMedium;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #060c1f;
+}

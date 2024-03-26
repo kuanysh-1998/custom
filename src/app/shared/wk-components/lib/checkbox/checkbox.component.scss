@@ -1,0 +1,80 @@
+@import "../../styles.scss";
+
+wk-checkbox {
+  display: block;
+  width: fit-content;
+  margin-bottom: var(--space-vertical-l);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    fill: var(--checkbox-checked-rest);
+
+    &.icon-empty {
+      cursor: pointer;
+
+      fill: var(--checkbox-unchecked-rest);
+    }
+  }
+
+  .checkbox {
+    cursor: pointer;
+
+    &:hover {
+      .icon {
+        fill: var(--checkbox-checked-hover);
+
+        &.icon-empty {
+          fill: var(--checkbox-unchecked-hover);
+        }
+      }
+    }
+
+    &:focus,
+    &:active {
+      outline: none;
+
+      .icon {
+        fill: var(--checkbox-checked-focus);
+
+        &.icon-empty {
+          fill: var(--checkbox-unchecked-focus);
+        }
+      }
+    }
+
+    &.error {
+      .icon.icon-empty {
+        fill: var(--checkbox-error);
+      }
+    }
+
+    &.disabled {
+      .icon {
+        cursor: default;
+        fill: var(--checkbox-disabled);
+
+        &.icon-empty {
+          fill: var(--checkbox-disabled);
+        }
+      }
+    }
+  }
+
+  .checkbox-container {
+    display: flex;
+    justify-content: center;
+    width: 36px;
+    flex-shrink: 0;
+  }
+
+  .label {
+    margin-right: 12px;
+    margin-left: 4px;
+    margin-bottom: 0;
+  }
+}

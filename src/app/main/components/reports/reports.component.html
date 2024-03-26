@@ -1,0 +1,151 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-controls-row report-form-filter-gap"
+>
+  <dx-date-range-box
+    class="adaptiveWidthTable"
+    [showClearButton]="true"
+    formControlName="eventDate"
+    [elementAttr]="{ class: 'no-margin-top' }"
+    appValidateControl
+    [max]="maxDate"
+    endDateLabel="{{ 'Дата завершения' | translate }}"
+    startDateLabel="{{ 'Дата начала' | translate }}"
+  >
+  </dx-date-range-box>
+
+  <combo-dropdown-list
+    [dataSource]="departmentsDataSource"
+    formControlName="departments"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Отделы' | translate }}"
+  ></combo-dropdown-list>
+
+  <combo-dropdown-list
+    [dataSource]="employeeDataSource"
+    [searchExpression]="'fullName'"
+    formControlName="employees"
+    placeholder="{{ 'Сотрудники' | translate }}"
+  ></combo-dropdown-list>
+
+  <dx-check-box
+    *ngIf="showCheckBox"
+    [(value)]="showDeletedEmployees"
+    (onValueChanged)="changeFilter()"
+    text="{{ 'Отображать удалённых сотрудников в фильтре' | translate }}"
+  ></dx-check-box>
+
+  <button
+    class="btn btn-success adaptiveWidthTable"
+    (click)="loadData()"
+    *ngIf="!showCheckBox"
+  >
+    {{ "Сформировать" | translate }}
+  </button>
+  <button
+    class="btn btn-excel last-item-to-right"
+    (click)="exportToExcel()"
+    *ngIf="!showCheckBox"
+  >
+    <i class="bi bi-file-earmark-excel"></i>
+  </button>
+</form>
+
+<div class="button-container" *ngIf="showCheckBox">
+  <button class="btn btn-success adaptiveWidthTable" (click)="loadData()">
+    {{ "Сформировать" | translate }}
+  </button>
+  <button class="btn btn-excel last-item-to-right" (click)="exportToExcel()">
+    <i class="bi bi-file-earmark-excel"></i>
+  </button>
+</div>
+
+<dx-data-grid #grid [dataSource]="dataSource" [remoteOperations]="true">
+  <dxo-filter-row [visible]="false"> </dxo-filter-row>
+  <dxi-column
+    dataField="employeeName"
+    caption="{{ 'Сотрудник' | translate }}"
+    dataType="string"
+    minWidth="200"
+    [allowSorting]="false"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="200"
+    [allowSorting]="false"
+  ></dxi-column>
+  <dxi-column
+    dataField="schedules"
+    caption="{{ 'График работы' | translate }}"
+    dataType="string"
+    cellTemplate="schedulesTemplate"
+    minWidth="200"
+    width="200"
+    [allowSorting]="false"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="totalDuration"
+    caption="{{ 'Всего' | translate }}"
+    dataType="string"
+    minWidth="100"
+    width="100"
+    [allowSorting]="false"
+  ></dxi-column>
+  <ng-container *ngFor="let day of days">
+    <dxi-column
+      [visible]="!statusReportLate"
+      minWidth="100"
+      width="100"
+      dataField="{{ 'durationsByDay.' + day.date + '.duration' }}"
+      [caption]="day.date | date : 'shortDate'"
+      dataType="string"
+      [allowSorting]="false"
+    >
+    </dxi-column>
+    <dxi-column
+      [visible]="statusReportLate"
+      [caption]="day.date | date : 'shortDate'"
+      dataType="string"
+      [allowSorting]="false"
+      alignment="center"
+    >
+      <dxi-column
+        minWidth="100"
+        width="100"
+        dataField="{{ 'durationsByDay.' + day.date + '.duration' }}"
+        caption="{{ 'Опоздание' | translate }}"
+        dataType="string"
+        [allowSorting]="false"
+        alignment="left"
+      >
+      </dxi-column>
+      <dxi-column
+        minWidth="200"
+        width="200"
+        dataField="{{ 'durationsByDay.' + day.date + '.comment' }}"
+        caption="{{ 'Комментарий' | translate }}"
+        dataType="string"
+        [allowSorting]="false"
+        alignment="left"
+      >
+      </dxi-column>
+    </dxi-column>
+  </ng-container>
+  <div *dxTemplate="let cellInfo of 'schedulesTemplate'">
+    <ng-container *ngFor="let s of cellInfo.value">
+      {{ s.name }}
+    </ng-container>
+  </div>
+
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

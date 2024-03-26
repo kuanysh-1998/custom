@@ -1,0 +1,30 @@
+<ng-container *ngIf="isLoading; else content">
+  <div class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+</ng-container>
+
+<ng-template #content>
+  <div class="dialog-content">
+    <p>{{ title }}</p>
+    <div class="d-flex justify-content-center">
+      <qrcode
+        [allowEmptyString]="true"
+        [qrdata]="qrValue"
+        [width]="190"
+        errorCorrectionLevel="M"
+      ></qrcode>
+    </div>
+    <div class="code">
+      <p>{{ "Код организации" | translate }}: {{ codeOrganization }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeDialog()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn global-highlight"
+  ></dx-button>
+</div>

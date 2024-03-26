@@ -1,0 +1,89 @@
+.dx-custom-popup-content .dx-overlay-content {
+  max-width: 100% !important;
+
+  .dx-closebutton .dx-button-content {
+    padding: 0;
+    border: 2px solid black;
+    border-radius: 50%;
+  }
+
+  .dx-closebutton .dx-icon {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .dx-button-mode-text.dx-state-focused {
+    background-color: #ffffff;
+  }
+  .dx-button-mode-text.dx-state-hover {
+    background-color: #ffffff;
+  }
+
+  .dx-popup-title.dx-toolbar .dx-closebutton {
+    top: -4px;
+    left: 0;
+  }
+
+  .dx-popup-content {
+    padding: 0 24px;
+  }
+
+  .dx-popup-content:has(hr) {
+    padding-bottom: 10px;
+  }
+
+  .dx-texteditor-input {
+    font-family: "PTRootUIMedium";
+    font-size: 14px;
+    font-weight: 500;
+    color: #060c1f;
+  }
+
+  .dx-popup-title.dx-toolbar {
+    padding: 6px 24px;
+  }
+
+  .dx-popup-title.dx-toolbar .dx-toolbar-items-container {
+    margin-top: 15px;
+  }
+  .dx-popup-title {
+    font-family: "PTRootUIMedium";
+    color: #060c1f;
+    font-size: 24px;
+    font-weight: 500;
+    border-bottom: none !important;
+  }
+
+  .popup-btn-container {
+    display: flex;
+    justify-content: right;
+    column-gap: 16px;
+    padding: 24px 0;
+  }
+}
+
+.dx-custom-popup-content .dx-state-focused.dx-overlay-content {
+  border: none;
+}
+
+@media (max-width: 600px) {
+  .dx-custom-popup-content .dx-overlay-content {
+    width: 90% !important;
+  }
+}
+
+.dx-overlay-shader {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
+.dx-overlay-content:has(div.arrow) {
+  overflow: visible;
+}
+
+.dx-custom-popup-content {
+  z-index: 1503 !important;
+}
+
+.dx-overlay-wrapper {
+  z-index: 1503 !important;
+}

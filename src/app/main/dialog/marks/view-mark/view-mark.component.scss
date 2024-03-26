@@ -1,0 +1,179 @@
+@import "src/assets/styles/mixins/text-mixins.scss";
+
+.view-mark-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 700px;
+  padding: 4px 2px;
+  position: relative;
+  width: 100%;
+  hr {
+    margin-top: 0px;
+  }
+
+  .view-mark-wrapper {
+    max-height: 700px;
+    overflow: auto;
+  }
+
+  .view-mark-header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 14px;
+  }
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .title {
+    font-family: "PTROOTUIMEDIUM";
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    text-align: left;
+    margin-bottom: 0;
+
+    @include row-limit(1);
+  }
+}
+
+.arrows {
+  .arrow {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    background: #00000080;
+    border-radius: 116px;
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .right {
+    right: -80px;
+  }
+
+  .left {
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1);
+  }
+}
+
+.employee-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .photo {
+    border-radius: 4px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+}
+
+.marks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-family: "PTROOTUIMEDIUM";
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  margin: 5px 0;
+}
+
+.error {
+  border: 1px solid #dc3545;
+  box-shadow: 0px 0px 1px rgb(220, 61, 77);
+}
+
+.dialog-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.dialog-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+
+  background: #ffffff;
+  border-radius: 8px;
+
+  border: 2px solid #39bf5e;
+
+  .bi {
+    font-size: 24px;
+  }
+
+  .label {
+    font-family: "PTRootUI";
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  &.green {
+    border: 2px solid #39bf5e;
+
+    .bi {
+      color: #39bf5e;
+    }
+
+    .label {
+      color: #39bf5e;
+    }
+  }
+
+  &.red {
+    border: 2px solid #be1111;
+
+    .bi {
+      color: #be1111;
+    }
+
+    .label {
+      color: #be1111;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .arrows {
+    .right {
+      right: -20px;
+    }
+
+    .left {
+      left: -20px;
+    }
+  }
+}

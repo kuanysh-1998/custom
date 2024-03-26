@@ -1,0 +1,154 @@
+<dx-data-grid
+  #grid
+  [dataSource]="reportEmployee"
+  (onRowPrepared)="onRowPrepared($event)"
+  [remoteOperations]="true"
+  (onRowDblClick)="viewMark($event.data)"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ 'Все отметки' | translate }}"
+  ></dxo-export>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="employeeName"
+    minWidth="200"
+    caption="{{ 'ФИО' | translate }}"
+    alignment="left"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    minWidth="200"
+    width="200"
+    caption="{{ 'Отдел' | translate }}"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="locationName"
+    minWidth="200"
+    width="200"
+    caption="{{ 'Локация' | translate }}"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="130"
+    width="130"
+    caption="{{ 'Дата и время' | translate }}"
+    dataField="localEventDate"
+    dataType="date"
+    sortOrder="desc"
+    [sortIndex]="0"
+    format="dd.MM.yyyy, hh:mm"
+    cellTemplate="dateWithMinutesTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="eventType"
+    minWidth="75"
+    width="75"
+    caption="{{ 'Тип отметки' | translate }}"
+    dataType="string"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="eventType"
+      valueExpr="value"
+      displayExpr="display"
+    >
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column
+    dataField="comment"
+    minWidth="150"
+    width="150"
+    caption="{{ 'Комментарий' | translate }}"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    cellTemplate="selectionCellTemplate"
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+  >
+  </dxi-column>
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <ng-container *dxTemplate="let cellInfo of 'dateWithMinutesTemplate'">
+    {{ cellInfo.value | date : "short" }}
+  </ng-container>
+  <ng-container *dxTemplate="let cell of 'selectionCellTemplate'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuCondition[cell.rowIndex] = false"
+      [(visible)]="contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+
+  <dxo-toolbar>
+    <dxi-item location="before">
+      <div *dxTemplate>
+        <button
+          class="btn btn-success"
+          *hasPermission="PermissionType.AnyEmployeeMarksCreate"
+          (click)="create()"
+        >
+          {{ "Добавить отметку" | translate }}
+        </button>
+      </div>
+    </dxi-item>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

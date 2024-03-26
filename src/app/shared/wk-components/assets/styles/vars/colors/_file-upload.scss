@@ -1,0 +1,9 @@
+:root {
+  --file-upload-color: var(--color-grey-2);
+  --file-non-upload-color: var(--color-grey-50);
+}
+
+body[data-theme="dark"] {
+  --file-upload-color: var(--color-grey-white);
+  --file-non-upload-color: var(--color-grey-60);
+}

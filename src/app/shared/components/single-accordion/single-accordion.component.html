@@ -1,0 +1,37 @@
+<div class="accordion container-mode"
+     [class.open]="opened"
+     [class.container-mode]="containerMode"
+     [class.error]="formError">
+  <ng-container *ngTemplateOutlet="headerOnTop? accordionHeader : accordionContent"></ng-container>
+  <ng-container *ngTemplateOutlet="headerOnTop ?  accordionContent: accordionHeader"></ng-container>
+</div>
+
+<ng-template #accordionHeader>
+  <div class="accordion-header" [class.container-mode]="containerMode" (click)="toggleOpened()">
+    <img *ngIf="showTitleIcon"
+         class="title-icon"
+         ngSrc="assets/image/danger.icon.svg"
+         alt=""
+         height="14"
+         width="14"
+    />
+    <span class="title">{{ headerTitle | translate }}</span>
+    <img
+      class="chevron"
+      [src]="
+          opened
+            ? 'assets/image/suspicious-dialog/accordion-close.icon.svg'
+            : 'assets/image/suspicious-dialog/accordion-open.icon.svg'
+        "
+      alt=""
+      height="6"
+      width="8"
+    />
+  </div>
+</ng-template>
+
+<ng-template #accordionContent>
+  <div class="accordion-content" [class.container-mode]="containerMode" *ngIf="opened">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

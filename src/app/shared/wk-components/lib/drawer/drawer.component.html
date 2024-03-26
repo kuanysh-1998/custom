@@ -1,0 +1,64 @@
+<div class="backdrop" [class.visible]="isDrawerOpen" (click)="close()"></div>
+
+<div class="dx-custom-drawer" [class.open]="isDrawerOpen">
+  <div class="header">
+    <div>
+      <div class="title">{{ header }}</div>
+      <div class="subtitle">{{ subheader }}</div>
+    </div>
+
+    <wk-button
+      [icon]="iconsCross"
+      (clicked)="close()"
+      variant="secondary"
+      stylingMode="outlined"
+    ></wk-button>
+  </div>
+
+  <wk-divider></wk-divider>
+
+  <div class="content">
+    <div class="scroll-wrapper">
+      <ng-container *ngComponentOutlet="componentType"></ng-container>
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <wk-divider></wk-divider>
+
+  <div class="footer">
+    <div>
+      <wk-button
+        *ngIf="additionalActionButtonConfig"
+        [label]="additionalActionButtonConfig.label"
+        [stylingMode]="additionalActionButtonConfig.stylingMode ?? 'outlined'"
+        [variant]="additionalActionButtonConfig.variant ?? 'secondary'"
+        [icon]="additionalActionButtonConfig.icon"
+        [iconRight]="additionalActionButtonConfig.iconRight"
+        (clicked)="action()"
+      ></wk-button>
+    </div>
+
+    <div class="action">
+      <wk-button
+        *ngIf="cancelButtonConfig"
+        [label]="cancelButtonConfig.label"
+        [stylingMode]="cancelButtonConfig.stylingMode ?? 'outlined'"
+        [variant]="cancelButtonConfig.variant ?? 'secondary'"
+        [icon]="cancelButtonConfig.icon"
+        [iconRight]="cancelButtonConfig.iconRight"
+        (clicked)="cancel()"
+      ></wk-button>
+
+      <wk-button
+        *ngIf="submitButtonConfig"
+        [label]="submitButtonConfig.label"
+        [stylingMode]="submitButtonConfig.stylingMode ?? 'contained'"
+        [variant]="submitButtonConfig.variant ?? 'default'"
+        [icon]="submitButtonConfig.icon"
+        [iconRight]="submitButtonConfig.iconRight"
+        (clicked)="submit()"
+      ></wk-button>
+    </div>
+  </div>
+</div>

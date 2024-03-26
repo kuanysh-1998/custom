@@ -1,0 +1,94 @@
+<div *ngIf="isUploading" class="loader">
+  <dx-load-indicator></dx-load-indicator>
+</div>
+
+<div class="import">
+  <div
+    class="file-upload-container"
+    [ngClass]="{
+      'file-upload-valid': !hasUploadError,
+      'file-upload-invalid': hasUploadError
+    }"
+    *ngIf="!isUploading"
+  >
+    <div class="file-upload-info" (click)="fileInput.click()">
+      <img
+        class="file-upload-icon"
+        src="assets/image/attach-icon.svg"
+        alt="Прикрепить файл"
+      />
+
+      <div class="file-upload-description">
+        <p class="file-upload-title">
+          {{
+            selectedFileName
+              ? formatFileName(selectedFileName)
+              : ("Выберите файл" | translate)
+          }}
+        </p>
+        <p class="file-upload-format">
+          {{
+            selectedFileSize || ("Требуемый формат файла: xls/xlsx" | translate)
+          }}
+        </p>
+      </div>
+    </div>
+
+    <input
+      type="file"
+      #fileInput
+      class="file-input"
+      (change)="onFileChange($event)"
+      accept=".xls,.xlsx"
+    />
+
+    <dx-button
+      *ngIf="!selectedFile"
+      (onClick)="fileInput.click()"
+      text="{{ 'Выбрать' | translate }}"
+      class="custom-dx-success-btn"
+    ></dx-button>
+
+    <img
+      *ngIf="selectedFile"
+      class="file-delete-icon"
+      src="assets/image/red-trash-icon.svg"
+      alt="Удалить файл"
+      (click)="resetSelectedFile()"
+    />
+  </div>
+
+  <div class="import-promt" *ngIf="!isUploading">
+    <p class="import-promt-description">
+      {{ "Загрузите файл, чтобы добавить новых сотрудников" | translate }}
+    </p>
+
+    <p class="import-instruction">
+      <a
+        href="/excel-import-instructions"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ "Инструкция по импорту" | translate }}
+      </a>
+    </p>
+  </div>
+
+  <div class="import-btn-container">
+    <dx-button
+      (onClick)="closeDialog()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+    ></dx-button>
+    <dx-button
+      (onClick)="exportEmployeeTemplate()"
+      text="{{ 'Экспорт шаблона' | translate }}"
+      class="custom-dx-export-btn"
+    ></dx-button>
+    <dx-button
+      (onClick)="importFile()"
+      text="{{ 'Импорт' | translate }}"
+      class="custom-dx-success-btn"
+    ></dx-button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+:root {
+  --label-required: var(--color-semantic-red-150);
+  --label-color: var(--color-grey-2);
+  --label-color-secondary: var(--color-grey-50);
+}
+
+
+body[data-theme='dark'] {
+  --label-required: var(--color-semantic-red-100);
+  --label-color: var(--color-grey-white);
+  --label-color-secondary: var(--color-grey-60);
+}

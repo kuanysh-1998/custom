@@ -1,0 +1,54 @@
+@import "../../styles.scss";
+
+wk-avatar {
+  display: block;
+  width: fit-content;
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-transform: uppercase;
+    user-select: none;
+    border-radius: var(--radius-circular);
+
+    &.medium {
+      width: 36px;
+      height: 36px;
+      font: var(--font-body-1-strong);
+    }
+
+    &.large {
+      width: 64px;
+      height: 64px;
+      font: var(--font-subtitle-1);
+    }
+
+    &.default {
+      color: var(--avatar-color-primary);
+      background: var(--avatar-bg-primary);
+
+      .icon {
+        fill: var(--avatar-color-primary);
+      }
+    }
+
+    &.secondary {
+      color: var(--avatar-color-secondary);
+      background: var(--avatar-bg-secondary);
+
+      .icon {
+        fill: var(--avatar-color-secondary);
+      }
+    }
+
+    &.alternative {
+      color: var(--avatar-color-alternative);
+      background: var(--avatar-bg-alternative);
+
+      .icon {
+        fill: var(--avatar-color-alternative);
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.dx-custom-popup-for-photo .dx-overlay-content {
+  max-width: 100% !important;
+
+  overflow: visible;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .dx-popup-content {
+    padding: 0;
+
+    img {
+      max-width: 100%;
+      max-height: 80%;
+      border-radius: 8px;
+      object-fit: contain;
+      position: relative;
+    }
+
+    .close-button {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 132px;
+      height: 40px;
+      background-color: #00000080;
+      color: #ffffff;
+      border-radius: 100px;
+      font-family: PTRootUIBold;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .close-button .dx-icon {
+      font-size: 8px;
+      font-weight: bold;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .close-button-text {
+      margin-left: 8px;
+    }
+  }
+}

@@ -1,0 +1,137 @@
+<div class="custom-grid-container">
+  <ng-container *ngIf="days.length > 0; else noDataText">
+    <div class="custom-grid" [resizableWidth]="columnHeaderDates">
+      <div class="wrapper-grid-header">
+        <div class="grid-header">
+          <div class="employee-cell-empty" dynamicSizeColumn></div>
+          <div
+            *ngFor="let date of columnHeaderDates"
+            class="grid-cell header-cell"
+            [ngClass]="{
+              'current-day': isCurrentDay(date),
+              'remove-border': date === ''
+            }"
+          >
+            <span>{{ date | date : "dd.MM" }}</span>
+            <span>{{ date | date : "EEEEEE" }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid-content">
+        <div
+          *ngFor="let row of rowHeaderNames"
+          class="grid-row"
+        >
+          <div
+            class="employee-cell"
+            [ngClass]="{ 'deleted-employee-cell': row.employeeIsDeleted }"
+            [title]="row.employeeName"
+            dynamicSizeColumn
+          >
+            <span *ngIf="row.employeeIsDeleted" class="deleted-label">
+              {{ "Удалён" | translate }}
+            </span>
+            <span class="employee-name">{{ row.employeeName }}</span>
+          </div>
+
+          <div
+            *ngFor="let date of columnHeaderDates"
+            [ngClass]="{ 'remove-border': date === '' }"
+            class="grid-cell"
+            adjustHeights
+          >
+            <ng-container
+              *ngFor="
+                let item of filteredArray(date, row.employeeId);
+                let i = index
+              "
+            >
+              <ng-container *ngIf="item.dayType === DayType.Offday">
+                <ng-container *ngIf="i < quantityWorkOff">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      workOffTemplate;
+                      context: { $implicit: item }
+                    "
+                  ></ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="item.dayType === DayType.Workday">
+                <ng-container
+                  *ngTemplateOutlet="workDay; context: { $implicit: item }"
+                ></ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #workDay let-item>
+  <div
+    class="work-day"
+    [ngStyle]="{
+      'background-color': item.scheduleColor
+    }"
+  >
+    <span>
+      {{ item.workTime?.start | date : "HH:mm" }} -
+      {{ item.workTime?.end | date : "HH:mm" }}</span
+    >
+    <div>
+      <img
+        *ngIf="item.inMarkId && isPastOrCurrentDate(item.date)"
+        id="{{ 'list-item-inMark-' + item.id }}"
+        (mouseover)="showPopup(item, 'inMark-')"
+        src="../../../../../../assets/image/scheduler/in_mark.svg"
+        class="mr-right"
+      />
+      <img
+        *ngIf="item.outMarkId && isPastOrCurrentDate(item.date)"
+        id="{{ 'list-item-outMark-' + item.id }}"
+        (mouseover)="showPopup(item, 'outMark-')"
+        src="../../../../../../assets/image/scheduler/out_mark.svg"
+        class="mr-right"
+      />
+      <img
+        *ngIf="
+          !item.outMarkId && !item.inMarkId && isPastOrCurrentDate(item.date)
+        "
+        id="{{ 'list-item-noMark-' + item.id }}"
+        (mouseover)="showPopup(item, 'noMark-')"
+        src="../../../../../../assets/image/scheduler/no_mark.svg"
+      />
+    </div>
+  </div>
+</ng-template>
+<ng-template #workOffTemplate let-item>
+  <div class="work-off">
+    <div
+      class="triangle"
+      [ngStyle]="{
+        color: item.scheduleColor
+      }"
+    ></div>
+    <span class="work-off-text">{{ "Выходной" | translate }}</span>
+  </div>
+</ng-template>
+<ng-template #noDataText>
+  <div class="no-data-text">{{ "Нет данных" | translate }}</div>
+</ng-template>
+
+<dx-popover
+  [target]="'#list-item-' + itemId"
+  [showEvent]="{ name: 'mouseover', delay: 200 }"
+  [hideEvent]="{ name: 'mouseout', delay: 200 }"
+  [width]="150"
+  [wrapperAttr]="{ class: 'scheduler-table-popover' }"
+>
+  <dxo-position my="left" at="right">
+    <dxo-offset [x]="0"></dxo-offset>
+  </dxo-position>
+  <div *dxTemplate="let data = model; of: 'content'">
+    <span>{{ showPopupText(itemId) | translate }}</span>
+  </div>
+</dx-popover>

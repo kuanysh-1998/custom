@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  grid-gap: 20px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 5px;
+  }
+}
+
+.violation-reasons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.violation-absence {
+  background-color: #ffdbb1;
+  padding: 4px 8px;
+}
+
+.violation-no-in {
+  background-color: #fff0b3;
+  padding: 4px 8px;
+}
+
+.violation-no-out {
+  background-color: #fff0b3;
+  padding: 4px 8px;
+}
+
+.violation-late {
+  background-color: #f2f2f2;
+  padding: 4px 8px;
+}
+
+
+
+

@@ -1,0 +1,36 @@
+@import "../../styles.scss";
+
+wk-pagination {
+  display: block;
+  width: fit-content;
+  .pagination {
+    display: flex;
+    gap: var(--space-horizontal-s);
+    align-items: center;
+    width: fit-content;
+  }
+
+  .total-count {
+    font: var(--font-body-1);
+    color: var(--pagination-color);
+    white-space: nowrap;
+  }
+
+  .page-navigation {
+    display: flex;
+    gap: var(--space-horizontal-s);
+    align-items: center;
+    width: 221px;
+
+    .line {
+      width: 1px;
+      height: 17px;
+      margin: 0 var(--space-horizontal-s);
+      background-color: var(--pagination-vertical-divider);
+    }
+  }
+
+  .input {
+    margin-bottom: 0;
+  }
+}

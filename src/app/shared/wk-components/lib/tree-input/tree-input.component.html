@@ -1,0 +1,96 @@
+<div
+  [class.dx-custom-dropdown-left-label]="labelLocation === 'left'"
+  class="dx-custom-dropdown-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="dropdown.instance.focus()"
+  ></wk-label>
+
+  <div class="dropdown-wrapper">
+    <div class="dropdown">
+      <wk-svg *ngIf="icon" [icon]="icon" class="icon"></wk-svg>
+
+      <wk-svg
+        *ngIf="hasValue"
+        [icon]="iconClear"
+        [size]="'small'"
+        (click)="clearValue()"
+        class="dx-custom-dropdown-cross-icon"
+      ></wk-svg>
+
+      <dx-drop-down-box
+        #dropdown
+        [value]="value"
+        [items]="optionsForInput"
+        [(opened)]="isOpen"
+        [readOnly]="!!readOnly"
+        [isValid]="!isError"
+        [showClearButton]="false"
+        [attr.data-token]="token"
+        [class.with-icon]="icon"
+        [displayExpr]="'id'"
+        [displayValueFormatter]="formatDisplay"
+        [disabled]="isDisabled"
+        [dropDownOptions]="{
+          focusStateEnabled: false,
+          minHeight: 0,
+          maxHeight: 400,
+          wrapperAttr: {
+            class: buttonEnabled
+              ? 'dx-custom-tree-input-overlay  dx-custom-tree-input-with-button'
+              : 'dx-custom-tree-input-overlay'
+          }
+        }"
+        (onInitialized)="covertOptionsArray()"
+        valueExpr="id"
+        displayExpr="title"
+      >
+        <div *dxTemplate="let data of 'content'">
+          <wk-tree-view
+            #treeViewWrapper
+            *ngIf="options?.length; else empty"
+            [options]="options"
+            [searchInput]="searchInput"
+            [multiple]="multiple"
+            [selectedItems]="value"
+            (changed)="selectItem($event)"
+          ></wk-tree-view>
+
+          <ng-template #empty>
+            <div class="dx-custom-tree-input-empty-message">
+              Нет результатов
+            </div>
+          </ng-template>
+
+          <wk-button
+            *ngIf="buttonEnabled"
+            [label]="buttonLabel"
+            [icon]="buttonIcon"
+            [fullWidth]="true"
+            (clicked)="buttonClicked.emit()"
+            variant="secondary"
+            class="dx-custom-tree-input-button"
+          ></wk-button>
+        </div>
+      </dx-drop-down-box>
+    </div>
+    <div
+      *ngIf="isError && errorMessage; else errorMsgFromControl"
+      class="dx-custom-tree-input-error-message"
+    >
+      {{ errorMessage }}
+    </div>
+    <ng-template #errorMsgFromControl>
+      <wk-error-message [control]="control"></wk-error-message>
+    </ng-template>
+
+    <div *ngIf="helperText" class="dx-custom-tree-input-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

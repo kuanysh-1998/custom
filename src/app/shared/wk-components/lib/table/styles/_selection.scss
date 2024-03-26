@@ -1,0 +1,58 @@
+@import "../../../styles.scss";
+@mixin selection {
+  .dx-datagrid-content .dx-datagrid-table .dx-row .dx-command-select {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+  }
+
+  .dx-checkbox-checked {
+    .dx-checkbox-container {
+      width: 20px;
+      height: 20px;
+      background: var(--datagrid-checkbox-icon-filled);
+
+      .dx-checkbox-icon {
+        display: none;
+      }
+    }
+  }
+
+  .dx-checkbox-indeterminate {
+    .dx-checkbox-container {
+      width: 20px;
+      height: 20px;
+      background: var(--datagrid-checkbox-icon-indeterminate);
+
+      .dx-checkbox-icon {
+        display: none;
+      }
+    }
+  }
+
+  .dx-checkbox-container {
+    width: 20px;
+    height: 20px;
+    background: var(--datagrid-checkbox-icon-empty);
+
+    .dx-checkbox-icon {
+      display: none;
+    }
+  }
+
+  .dx-selection[aria-selected="true"] {
+    .dx-checkbox-container {
+      width: 20px;
+      height: 20px;
+      background: var(--datagrid-checkbox-icon-filled);
+
+      .dx-checkbox-icon {
+        display: none;
+      }
+    }
+  }
+
+  .dx-datagrid-checkbox-size {
+    padding-bottom: 0;
+  }
+}

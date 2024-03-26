@@ -1,0 +1,50 @@
+# Pick zero or more services to be used on all builds.
+# Only needed when using a docker container to run your tests in.
+# Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-a-service
+image: docker:20.10
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+stages:
+  - build-image
+  - deploy-image
+ 
+before_script:
+  - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+  - export IMAGE_TAG=$CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  - export IMAGE_TAG_TEST=$CI_REGISTRY_IMAGE:ci_cd_main
+  - export IMAGE_TAG_WITH_DATE=$CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH-$(date +%Y%m%d%H%M)
+  
+build-test-image:
+  stage: build-image
+  only:
+    - production
+  except:
+    refs:
+      - pushes
+  script:
+    - docker build -f Dockerfile -t $IMAGE_TAG_TEST .
+    - docker push $IMAGE_TAG_TEST
+
+build-production-image:
+  stage: build-image
+  only:
+    - production
+  except:
+    refs:
+      - web
+  script:
+    - docker build -f Dockerfile -t $IMAGE_TAG_TEST -t $IMAGE_TAG_WITH_DATE .
+    - docker push $IMAGE_TAG_TEST
+    - docker push $IMAGE_TAG_WITH_DATE
+
+build-feature-image:
+  stage: build-image
+  only:
+    refs:
+      - web
+  except:
+    - production
+  script:
+    - echo $TEST_HOST
+    - docker build -f Dockerfile -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG

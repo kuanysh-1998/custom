@@ -1,0 +1,102 @@
+<form [formGroup]="form">
+  <dx-text-box
+    dataField="lastName"
+    formControlName="lastName"
+    label="{{ 'Фамилия' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="firstName"
+    formControlName="firstName"
+    label="{{ 'Имя' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="middleName"
+    formControlName="middleName"
+    label="{{ 'Отчество' | translate }}"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="email"
+    formControlName="email"
+    label="{{ 'Email' | translate }}"
+    stylingMode="outlined"
+    labelMode="floating"
+    placeholder="example@example.com"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-date-box
+    formControlName="dateOfBirth"
+    dataField="dateOfBirth"
+    label="{{ 'Дата рождения' | translate }}"
+    stylingMode="outlined"
+    labelMode="floating"
+    [max]="maxDate"
+    appValidateControl
+    (onOptionChanged)="onDateChanged($event)"
+  >
+  </dx-date-box>
+
+  <dx-select-box
+    formControlName="departmentId"
+    [dataSource]="departmentsDataSource"
+    displayExpr="name"
+    [searchEnabled]="true"
+    valueExpr="id"
+    label="{{ 'Отдел' | translate }}*"
+    placeholder=""
+    stylingMode="outlined"
+    labelMode="floating"
+    [showClearButton]="false"
+    appValidateControl
+  >
+  </dx-select-box>
+
+  <wp-text-box
+    formControlName="iin"
+    label="{{ 'ИИН' | translate }}"
+    appValidateControl
+  >
+  </wp-text-box>
+
+  <dx-text-box
+    dataField="externalId_1C"
+    formControlName="externalId_1C"
+    label="{{ 'Табельный номер 1С' | translate }}"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+    *ngIf="data.hasIntegrationWith_1C"
+  >
+  </dx-text-box>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeModal()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    (onClick)="createEmployee()"
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+  ></dx-button>
+</div>

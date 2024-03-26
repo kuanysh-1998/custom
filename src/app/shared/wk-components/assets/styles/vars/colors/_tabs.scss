@@ -1,0 +1,53 @@
+:root {
+  --tabs-selected-bg-rest: var(--color-brand-100);
+  --tabs-selected-bg-hover: var(--color-brand-80);
+  --tabs-selected-bg-focus: var(--color-brand-60);
+  --tabs-selected-bg-disabled: var(--color-grey-72);
+
+  --tabs-selected-color-rest: var(--color-grey-2);
+  --tabs-selected-color-hover: var(--color-grey-10);
+  --tabs-selected-color-focus: var(--color-grey-20);
+  --tabs-selected-color-disabled: var(--color-grey-72);
+
+  --tabs-not-selected-bg-hover: var(--color-grey-72);
+  --tabs-not-selected-bg-focus: var(--color-grey-56);
+
+  --tabs-not-selected-color-rest: var(--color-grey-30);
+  --tabs-not-selected-color-hover: var(--color-grey-2);
+  --tabs-not-selected-color-focus: var(--color-grey-2);
+  --tabs-not-selected-color-disabled: var(--color-grey-72);
+
+  --tabs-selected-icon-fill: var(--color-brand-100);
+  --tabs-selected-icon-fill-hover: var(--color-brand-80);
+  --tabs-selected-icon-fill-focus: var(--color-brand-60);
+
+  --tabs-unselected-icon-fill: var(--color-grey-2);
+  --tabs-icon-fill-disabled: var(--color-grey-72);
+}
+
+body[data-theme="dark"] {
+  --tabs-selected-bg-rest: var(--color-brand-110);
+  --tabs-selected-bg-hover: var(--color-brand-90);
+  --tabs-selected-bg-focus: var(--color-brand-70);
+  --tabs-selected-bg-disabled: var(--color-grey-40);
+
+  --tabs-selected-color-rest: var(--color-grey-white);
+  --tabs-selected-color-hover: var(--color-grey-90);
+  --tabs-selected-color-focus: var(--color-grey-80);
+  --tabs-selected-color-disabled: var(--color-grey-40);
+
+  --tabs-not-selected-bg-hover: var(--color-grey-50);
+  --tabs-not-selected-bg-focus: var(--color-grey-30);
+
+  --tabs-not-selected-color-rest: var(--color-grey-70);
+  --tabs-not-selected-color-hover: var(--color-grey-white);
+  --tabs-not-selected-color-focus: var(--color-grey-white);
+  --tabs-not-selected-color-disabled: var(--color-grey-40);
+
+  --tabs-selected-icon-fill: var(--color-brand-110);
+  --tabs-selected-icon-fill-hover: var(--color-brand-90);
+  --tabs-selected-icon-fill-focus: var(--color-brand-70);
+
+  --tabs-unselected-icon-fill: var(--color-grey-white);
+  --tabs-icon-fill-disabled: var(--color-grey-40);
+}

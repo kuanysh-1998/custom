@@ -1,0 +1,18 @@
+.information {
+  display: flex;
+  align-items: center;
+
+  .information-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .information-description {
+    margin-left: 10px;
+  }
+}
+
+.personal-info-btns {
+  display: flex;
+  column-gap: 8px;
+  margin-bottom: 12px;
+}

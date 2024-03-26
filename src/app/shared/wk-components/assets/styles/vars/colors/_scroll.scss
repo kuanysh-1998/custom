@@ -1,0 +1,9 @@
+:root {
+  --scroll-track-rest: var(--color-grey-80);
+  --scroll-track-hover: var(--color-grey-70);
+}
+
+body[data-theme='dark'] {
+  --scroll-track-rest: var(--color-grey-40);
+  --scroll-track-hover: var(--color-grey-50);
+}

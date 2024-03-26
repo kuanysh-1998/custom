@@ -1,0 +1,12 @@
+<dx-button
+  [disabled]="disabled"
+  [attr.data-token]="token"
+  [ngClass]="buttonClasses"
+  (onClick)="click($event)"
+>
+  <wk-svg *ngIf="icon" [icon]="icon" [class]="variant"></wk-svg>
+
+  {{ label }}
+
+  <wk-svg *ngIf="iconRight" [icon]="iconRight"></wk-svg>
+</dx-button>

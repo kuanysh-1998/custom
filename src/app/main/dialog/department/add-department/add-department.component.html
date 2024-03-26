@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <dx-text-box
+    label="{{ 'Наименование отдела' | translate }}*"
+    formControlName="name"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+    (input)="preventLeadingSpace($event)"
+  ></dx-text-box>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeModal()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  ></dx-button>
+  <dx-button
+    (onClick)="createDepartment()"
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+  ></dx-button>
+</div>

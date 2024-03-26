@@ -1,0 +1,79 @@
+<div
+  class="view-mark-container"
+  *ngIf="!isLoading; else loader"
+>
+  <hr />
+
+  <div class="view-mark-wrapper" #modalContent>
+    <ng-container *ngIf="showContent; else loader">
+      <div class="view-mark-header">
+        <div class="employee-block">
+          <app-employee-event-info
+            [eventType]="eventType"
+            [employeeName]="currentEmployee?.employeeName"
+            [eventDate]="currentEmployee?.localEventDate"
+            [eventDateOffset]="currentEmployee?.eventDateOffset"
+          ></app-employee-event-info>
+
+          <app-employee-block
+            [employeeBlockData]="currentEmployee"
+            [mark]="true"
+            [dataTimeTableList]="dataTimeTableList"
+            (updateMarkEvent)="onMarkUpdate($event)"
+          ></app-employee-block>
+        </div>
+      </div>
+
+      <div class="marks">
+        <ng-container *ngIf="currentEmployee?.fileId">
+          <app-single-accordion
+            headerTitle="Фотография"
+            [opened]="true"
+            [containerMode]="true"
+          >
+            <div class="photo-container">
+              <img
+                [src]="PhotosBaseUrl | secure : currentEmployee?.fileId | async"
+                class="photo"
+                alt=""
+              />
+            </div>
+            <app-photo-block [photos]="employeePhotos"></app-photo-block>
+          </app-single-accordion>
+        </ng-container>
+
+        <app-single-accordion
+          headerTitle="Координаты отметки"
+          [containerMode]="true"
+          [opened]="!currentEmployee?.fileId"
+          *ngIf="
+            currentEmployee?.coordinates?.latitude !== 0 ||
+            currentEmployee?.coordinates?.longitude !== 0
+          "
+        >
+          <div>
+            <app-view-location
+              class="view-location"
+              [suspicious]="currentEmployee"
+            ></app-view-location>
+          </div>
+        </app-single-accordion>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="arrows" *ngIf="reportOfEmployee">
+  <div class="arrow right desktop" (click)="next()">
+    <img src="assets/image/arrow-left.svg" alt="" height="32" width="32" />
+  </div>
+  <div class="arrow left desktop" (click)="prev()">
+    <img src="assets/image/arrow-left.svg" alt="" height="32" width="32" />
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+</ng-template>

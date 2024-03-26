@@ -1,0 +1,38 @@
+<span #button>
+  <wk-button
+    [icon]="icon"
+    [iconRight]="iconRight"
+    [label]="label"
+    [variant]="variant"
+    [stylingMode]="stylingMode"
+    [disabled]="disabled"
+    [token]="token"
+    (clicked)="toggle()"
+  ></wk-button>
+</span>
+
+<wk-menu
+  *ngIf="isMenu; else popover"
+  [isOpen]="isOpen"
+  [minWidth]="popoverWidth"
+  [for]="button"
+  [header]="menuHeader"
+  [items]="menuItems"
+  [alignment]="alignment"
+  (closed)="close()"
+></wk-menu>
+
+<ng-template #popover>
+  <dx-popover
+    [target]="button"
+    [visible]="isOpen"
+    [position]="position"
+    [minWidth]="popoverWidth"
+    [hideOnOutsideClick]="true"
+    [animation]="{ show: { duration: 0 }, hide: { duration: 0 } }"
+    (onHiding)="close()"
+    [wrapperAttr]="{ class: 'dx-custom-button-popover' }"
+  >
+    <ng-content></ng-content>
+  </dx-popover>
+</ng-template>

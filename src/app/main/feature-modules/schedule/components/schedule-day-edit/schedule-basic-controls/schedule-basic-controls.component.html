@@ -1,0 +1,18 @@
+<div class="schedule-form-header">
+  <div class="control">
+    <dx-text-box
+      [label]="'Наименование графика' | translate"
+      [elementAttr]="{ class: 'no-margin-top' }"
+      [formControl]="scheduleBaseForm.controls.name"
+      appValidateControl
+    >
+    </dx-text-box>
+  </div>
+
+  <div class="control">
+    <wp-color-picker
+      [color]="scheduleBaseForm.controls.color.value"
+      (valueColorChanged)="updateValueColor($event)"
+    ></wp-color-picker>
+  </div>
+</div>

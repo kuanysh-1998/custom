@@ -1,0 +1,77 @@
+<div>
+  <form [formGroup]="form" class="form">
+    <div class="form__field">
+      <label class="form__field--label"
+        >{{ "Наименование локации" | translate }}:</label
+      >
+      <dx-text-box
+        formControlName="name"
+        placeholder="{{ 'Введите наименование' | translate }}"
+        appValidateControl
+      >
+      </dx-text-box>
+    </div>
+
+    <div class="form__field">
+      <label class="form__field--label"
+        >{{ "Размер локации" | translate }}:</label
+      >
+      <div>
+        <dx-slider
+          [min]="minLocationSize"
+          [max]="maxLocationSize"
+          [value]="form.controls['radius'].value"
+          formControlName="radius"
+        >
+        </dx-slider>
+        <dx-number-box
+          [value]="form.controls['radius'].value"
+          [min]="minLocationSize"
+          [max]="maxLocationSize"
+          [showSpinButtons]="true"
+          formControlName="radius"
+        >
+        </dx-number-box>
+      </div>
+    </div>
+
+    <div class="form__field">
+      <label class="form__field--label"
+        >{{ "Введите адрес или координаты" | translate }}:</label
+      >
+
+      <dx-text-box
+        formControlName="address"
+        appValidateControl
+        labelMode="floating"
+        (onOptionChanged)="searchByCoordinates()"
+        #dxTextBox
+        [valueChangeEvent]="'input keyup'"
+      >
+      </dx-text-box>
+    </div>
+  </form>
+  <ng-container>
+    <div
+      class="form__map"
+      [ngClass]="{ hidden: latitude === null || longitude === null }"
+    >
+      <div #mapContainer class="google-map"></div>
+    </div>
+  </ng-container>
+
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="closeDialog()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    ></dx-button>
+    <dx-button
+      text="{{ 'Сохранить' | translate }}"
+      class="custom-dx-success-btn"
+      (onClick)="createLocation()"
+      [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    ></dx-button>
+  </div>
+</div>

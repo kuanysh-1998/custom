@@ -1,0 +1,104 @@
+@import "../../../styles.scss";
+@mixin toolbar {
+  .dx-toolbar {
+    background: transparent;
+  }
+
+  .dx-custom-data-grid-sidebar-item-after {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .dx-toolbar .dx-toolbar-after {
+    position: static;
+    display: flex;
+    flex-shrink: 0;
+    gap: var(--space-horizontal-s);
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    padding-left: 0;
+
+    .dx-custom-data-grid-sidebar-left {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--space-horizontal-s);
+      margin-right: var(--space-horizontal-s);
+      margin-bottom: var(--space-vertical-xl);
+      height: fit-content;
+
+      .dx-custom-data-grid-actions {
+        display: flex;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
+        height: 36px;
+        overflow: hidden;
+        font: var(--font-body-1);
+        color: var(--datagrid-toolbar-color);
+        border: 1px solid var(--datagrid-toolbar-action-border);
+        border-radius: var(--radius-medium);
+
+        .dx-custom-data-grid-action {
+          border-right: 1px solid var(--datagrid-toolbar-between-action-border);
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+
+        .dx-button {
+          width: 34px;
+          min-width: 34px;
+          height: 34px;
+          border-radius: 0;
+        }
+      }
+
+      .dx-custom-data-grid-action-label {
+        display: flex;
+        align-items: center;
+        padding: 0 var(--space-horizontal-s);
+        background: var(--datagrid-toolbar-bg-action);
+        border-right: 1px solid var(--datagrid-toolbar-between-action-border);
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    .dx-custom-data-grid-sidebar-right {
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: nowrap;
+      gap: var(--space-horizontal-s);
+      justify-content: flex-end;
+      margin-bottom: var(--space-vertical-xl);
+
+      .dx-custom-data-grid-search {
+        width: 100%;
+        min-width: 200px;
+        max-width: 400px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .dx-toolbar-items-container {
+    height: fit-content;
+  }
+
+  .dx-datagrid-header-panel .dx-toolbar {
+    margin-bottom: 0;
+  }
+
+  .dx-item.dx-toolbar-item.dx-toolbar-button {
+    width: 100%;
+
+    .dx-template-wrapper.dx-item-content.dx-toolbar-item-content {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

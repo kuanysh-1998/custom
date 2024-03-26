@@ -1,0 +1,56 @@
+<dx-data-grid
+  #grid
+  [dataSource]="partner"
+  [rowAlternationEnabled]="true"
+  [remoteOperations]="true"
+  (onRowClick)="viewPersonalInformation($event)"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ titleService.getTitle().replace(' - Workpace', '') }}"
+  ></dxo-export>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="name"
+    minWidth="200"
+    caption="{{ 'Наименование' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="personalAccount.level"
+    minWidth="100"
+    width="100"
+    caption="{{ 'Уровень' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+  <dxo-toolbar>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

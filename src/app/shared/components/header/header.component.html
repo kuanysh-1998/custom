@@ -1,0 +1,148 @@
+<div class="toolbar-wrapper">
+  <p class="title">{{ titleService.getTitle().replace(" - Workpace", "") }}</p>
+  <div class="action">
+    <div
+      class="license-information"
+      [ngClass]="{
+        primary: defineLicenseStatus() === LicenseStatus.DoesntExpire,
+        accent: defineLicenseStatus() === LicenseStatus.ExpiresSoon,
+        warn: defineLicenseStatus() === LicenseStatus.Expired
+      }"
+    >
+      <i *ngIf="!currentLicense" class="bi bi-exclamation-circle"></i>
+      <p class="license-title" [ngClass]="{ 'color-black': !currentLicense }">
+        {{ licenseTitle() }}
+      </p>
+    </div>
+
+    <dx-menu
+      [rtlEnabled]="true"
+      [showFirstSubmenuMode]="{ name: 'onHover' }"
+      [hideSubmenuOnMouseLeave]="true"
+      cssClass="header-menu-item"
+      *ngIf="organization$ | async as organization"
+    >
+      <dxi-item>
+        <div *dxTemplate [title]="organization?.name">
+          <button class="menu-license d-flex align-items-center">
+            <i
+              [class]="
+                toggle
+                  ? 'bi bi-caret-up-fill gray'
+                  : 'bi bi-caret-down-fill gray'
+              "
+            ></i>
+            <div class="info">
+              <p class="info-title">
+                <!--  todo: добавить пайп-->
+                {{
+                  organization?.name.length > maxLength
+                    ? organization?.name.slice(0, maxLength) + "..."
+                    : organization?.name
+                }}
+              </p>
+
+              <p class="info-description ltr" *ngIf="userEmail">
+                {{
+                  userEmail.length > maxLength
+                    ? userEmail.slice(0, maxLength) + "..."
+                    : userEmail
+                }}
+              </p>
+            </div>
+          </button>
+        </div>
+        <dxi-item [disabled]="true">
+          <div *dxTemplate class="always-enabled">
+            <div
+              class="license-content"
+              [ngClass]="{
+                primary: defineLicenseStatus() === LicenseStatus.DoesntExpire,
+                accent: defineLicenseStatus() === LicenseStatus.ExpiresSoon,
+                warn: defineLicenseStatus() === LicenseStatus.Expired
+              }"
+              *ngIf="currentLicense; else expired"
+            >
+              <div class="your-rate">
+                <div>{{ "Ваш тариф" | translate }}:</div>
+                <div
+                  [ngClass]="{
+                    'color-primary':
+                      defineLicenseStatus() === LicenseStatus.DoesntExpire,
+                    'color-accent':
+                      defineLicenseStatus() === LicenseStatus.ExpiresSoon,
+                    'color-warn':
+                      defineLicenseStatus() === LicenseStatus.Expired
+                  }"
+                >
+                  {{ currentLicense.name }}
+                </div>
+              </div>
+
+              <p class="time">
+                <span
+                  >&nbsp;{{
+                    currentLicense.expiring | date : "shortDate"
+                  }}</span
+                >
+                - <span> {{ "дата истечения" | translate }}&nbsp;</span>
+              </p>
+              <p class="license-description">
+                {{
+                  "Осталось __days__ дней лицензии"
+                    | translate : { days: dayExpired }
+                }}
+              </p>
+            </div>
+            <ng-template #expired>
+              <div class="license-expired-nested">
+                <p class="license-title-nested">
+                  <span class="license-title-text">{{ licenseTitle() }}</span>
+                  <i class="bi bi-exclamation-circle"></i>
+                </p>
+              </div>
+            </ng-template>
+            <div class="line"></div>
+          </div>
+        </dxi-item>
+        <dxi-item>
+          <div
+            *dxTemplate
+            class="menu-item content-center justify-content-between"
+          >
+            <img class="arrow-right" src="assets/image/arrow-right.svg" />
+            <span> {{ "Язык" | translate }}: {{ languageName[localeId] }}</span>
+          </div>
+          <dxi-item *ngFor="let item of listLanguage">
+            <div *dxTemplate>
+              <div
+                class="language-item content-center"
+                (click)="changeLocale(item.locale)"
+              >
+                <i
+                  *ngIf="isCurrentLocale(item.locale)"
+                  class="dx-icon-check green"
+                ></i>
+                <span>{{ item.text }}</span>
+              </div>
+            </div>
+          </dxi-item>
+        </dxi-item>
+        <dxi-item
+          ><div
+            *dxTemplate
+            class="menu-item content-center"
+            [routerLink]="['/settings']"
+          >
+            {{ "Настройки" | translate }}
+          </div>
+        </dxi-item>
+        <dxi-item
+          ><div *dxTemplate class="menu-item content-center" (click)="logOut()">
+            {{ "Выйти" | translate }}
+          </div>
+        </dxi-item>
+      </dxi-item>
+    </dx-menu>
+  </div>
+</div>

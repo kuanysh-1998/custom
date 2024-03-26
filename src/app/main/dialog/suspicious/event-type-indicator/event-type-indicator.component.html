@@ -1,0 +1,23 @@
+<div
+  class="event-type-container"
+  [style]="{
+    backgroundColor: isEventTypeIn
+      ? 'rgba(57, 191, 94, 0.1)'
+      : 'rgba(61, 68, 228, 0.10)'
+  }"
+>
+  <img
+    [src]="
+      isEventTypeIn
+        ? 'assets/image/event-type/in.svg'
+        : 'assets/image/event-type/out.svg'
+    "
+    width="16"
+    height="12"
+    alt=""
+  />
+
+  <span [className]="isEventTypeIn ? 'label in' : 'label out'">
+    {{ eventLabel | translate }}
+  </span>
+</div>

@@ -1,0 +1,124 @@
+<ng-container *ngIf="isUploading; else otherContent">
+  <ng-container *ngTemplateOutlet="loader"></ng-container>
+</ng-container>
+
+<ng-template #otherContent>
+  <div class="employee-identification" *ngIf="currentEmployee">
+    <div class="employee-identification__photos-wrapper">
+      <ng-container *ngIf="employeePhotos.length > 0; else noPhotosBlock">
+        <div
+          *ngIf="employeePhotos.length > 0"
+          class="employee-identification__text"
+        >
+          <p>{{ "Добавьте до 5 фотографий" | translate }}:</p>
+        </div>
+        <div class="employee-identification__photos">
+          <div
+            *ngFor="let photo of employeePhotos; let i = index"
+            class="employee-identification__photo"
+            [class.employee-identification__photo--large]="i === 0"
+            [class.employee-identification__photo--small]="i !== 0"
+          >
+            <ng-container *ngIf="!photo.isLoading; else loader">
+              <img [src]="photo.url" [alt]="'Фото сотрудника ' + i" />
+              <div class="employee-identification__icons">
+                <i
+                  class="dx-icon dx-icon-search"
+                  (click)="openPhotoModal(photo.url)"
+                ></i>
+                <i
+                  class="dx-icon dx-icon-trash"
+                  (click)="removePhotoByIndex(i)"
+                ></i>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div
+          class="employee-identification__add-icon"
+          *ngIf="employeePhotos.length < 5"
+          (click)="fileUpload.click()"
+        >
+          <i class="dx-icon dx-icon-add"></i>
+        </div>
+      </ng-container>
+
+      <ng-template #noPhotosBlock>
+        <div class="employee-identification__no-photos">
+          <div class="employee-identification__no-photos-photo">
+            <img
+              src="assets/image/employee/nophotoicon.svg"
+              alt="Добавить фото"
+            />
+            <button
+              class="employee-identification__no-photos-btn"
+              (click)="fileUpload.click()"
+            >
+              {{ "Добавить фото" | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+      <input
+        type="file"
+        accept="image/png, image/jpeg, image/jpg"
+        (change)="handleFileInput($event)"
+        #fileUpload
+        class="employee-identification__file-input"
+      />
+    </div>
+
+    <div class="employee-identification__no-photos-text">
+      <p>
+        {{ "Для улучшения качества распознавания рекомендуем" | translate }}:
+      </p>
+      <ul>
+        <li>
+          {{ "добавлять несколько фотографий на сотрудника" | translate }}
+        </li>
+        <li>
+          {{
+            "добавить фотографию сотрудника в локации, в которой сотрудник будет отмечать приход/уход"
+              | translate
+          }}
+        </li>
+        <li>
+          {{
+            "добавлять оригиналы фотографий (не отсканированные, не сфотографированные версии)"
+              | translate
+          }}
+        </li>
+        <li>{{ "размер фотографии не должен превышать 6 МБ" | translate }}</li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+
+
+<div class="employee-identification__footer">
+  <dx-button
+    (onClick)="navigateToEmployeeList()"
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+  ></dx-button>
+  <dx-button
+    text="{{ 'Сохранить' | translate }}"
+    type="success"
+    class="custom-dx-success-btn"
+    (onClick)="savePhotos()"
+  ></dx-button>
+</div>
+
+<wp-photo-popup
+  [photoUrl]="selectedPhotoUrl"
+  [isVisible]="isPopupVisible"
+  (close)="handleModalClose()"
+></wp-photo-popup>
+
+<ng-template #loader>
+  <div class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+</ng-template>

@@ -1,0 +1,57 @@
+.btn-edit {
+  background: #1e7fa1;
+  color: white;
+  padding: 10px;
+  height: 47px;
+}
+
+.schedule-type-title {
+  font-family: "PTRootUIMedium";
+  font-size: 14px;
+  font-weight: 00;
+  line-height: 17px;
+  text-align: left;
+}
+
+.schedule-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .cycle-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .label {
+      font-family: PTRootUIMedium;
+      font-size: 14px;
+      font-weight: 500;
+      color: #060c1f;
+    }
+
+    dx-number-box {
+      width: 80px;
+    }
+  }
+}
+.selected-schedule-section {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  margin: 24px 0;
+
+  span {
+    font-family: PTRootUIMedium;
+    font-size: 14px;
+    font-weight: 500;
+    color: #060c1f;
+  }
+}

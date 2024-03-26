@@ -1,0 +1,40 @@
+<div class="schedule-controls">
+  <div class="schedule-type-control">
+    <h3 class="schedule-type-title">{{ "Тип графика" | translate }}</h3>
+
+    <div class="controls">
+      <dx-radio-group
+        [items]="scheduleTypes"
+        [formControl]="scheduleTypeControl"
+        layout="horizontal"
+        class="custom-dx-radio-group"
+      >
+      </dx-radio-group>
+
+      <div class="cycle-control" *ngIf="scheduleType === ScheduleType.cyclic">
+        <span class="label"> Продолжительность цикла: </span>
+
+        <dx-number-box
+          [height]="30"
+          [formControl]="cycleControl"
+          [showSpinButtons]="true"
+          (valueChange)="onCycleChange($event)"
+        >
+        </dx-number-box>
+      </div>
+    </div>
+    <div class="selected-schedule-section" *ngIf="editingDaysCount > 0">
+      <div>
+        <span>{{ "Выбрано элементов: " | translate }}</span>
+        <span>{{ editingDaysCount }}</span>
+      </div>
+
+      <div class="selected-elements-section">
+        <button class="btn btn-light" (click)="editDays()">
+          <img src="assets/image/pencil.svg" alt="Редактировать" />
+          {{ "Редактировать" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+:root {
+  --drawer-bg-backdrop: rgba(0, 0, 0, 0.4);
+
+  --drawer-bg-rest: var(--color-grey-white);
+  --drawer-color: var(--color-grey-2);
+  --drawer-color-subtitile: var(--color-grey-50);
+}
+
+body[data-theme='dark'] {
+  --drawer-bg-backdrop: rgba(0, 0, 0, 0.4);
+
+  --drawer-bg-rest: var(--color-grey-16);
+  --drawer-color: var(--color-grey-white);
+  --drawer-color-subtitile: var(--color-grey-60);
+
+  --drawer-icon-close-rest: var(--color-grey-90);
+  --drawer-icon-close-hover: var(--color-grey-white);
+}

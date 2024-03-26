@@ -1,0 +1,21 @@
+<div [ngClass]="badgeClasses">
+  <wk-svg
+    *ngIf="icon"
+    [icon]="icon"
+    [class.clickable]="iconClickable"
+    (click)="clickedIcon.emit()"
+    size="small"
+    class="icon"
+  ></wk-svg>
+
+  {{ text }}
+
+  <wk-svg
+    *ngIf="iconRight"
+    [icon]="iconRight"
+    [class.clickable]="iconRightClickable"
+    (click)="clickedIconRight.emit()"
+    size="small"
+    class="icon"
+  ></wk-svg>
+</div>

@@ -1,0 +1,169 @@
+<dx-data-grid
+  #grid
+  [dataSource]="licences"
+  [remoteOperations]="true"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="200"
+    width="200"
+    dataField="subjectName"
+    [caption]="'Клиент' | translate"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="uniqueLicences"
+      valueExpr="subjectName"
+      displayExpr="subjectName"
+    >
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    minWidth="200"
+    dataField="name"
+    [caption]="'Тариф' | translate"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="days"
+    [caption]="'Период' | translate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="employeeMaxNumber"
+    [caption]="'Кол-во' | translate"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    cellTemplate="date"
+    dataField="created"
+    [caption]="'Дата создания' | translate"
+    [sortIndex]="0"
+    sortOrder="desc"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    dataField="activated"
+    cellTemplate="onlyDate"
+    [caption]="'Дата активации' | translate"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="130"
+    width="130"
+    dataType="date"
+    dataField="expiring"
+    cellTemplate="onlyDate"
+    [caption]="'Дата истечения' | translate"
+    [allowGrouping]="false"
+    alignment="left"
+  ></dxi-column>
+
+  <dxi-column
+    minWidth="80"
+    width="80"
+    dataField="status"
+    [caption]="'Статус' | translate"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="statuses"
+      valueExpr="value"
+      displayExpr="name"
+    ></dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    (click)="isContextMenuVisible = true"
+    cellTemplate="options"
+    minWidth="50"
+    width="50"
+    alignment="center"
+  ></dxi-column>
+
+  <ng-container *dxTemplate="let cell of 'date'">
+    {{ cell.value | date : "short" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'onlyDate'">
+    {{ cell.value | date : "dd.MM.yyyy" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'options'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuStatuses[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuStatuses[cell.rowIndex] = false"
+      [(visible)]="contextMenuStatuses[cell.rowIndex]"
+      [showEvent]
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeLicenseAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+  <dxo-toolbar>
+    <dxi-item location="before">
+      <button
+        class="btn btn-success"
+        (click)="createLicence()"
+        *hasPermission="PermissionType.AnyLicenseCreate"
+      >
+        {{ "Добавить лицензию" | translate }}
+      </button>
+    </dxi-item>
+    <dxi-item name="groupPanel"></dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

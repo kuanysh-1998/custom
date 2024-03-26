@@ -1,0 +1,98 @@
+@import "../../styles.scss";
+
+wk-drawer {
+  position: absolute;
+  .dx-custom-drawer {
+    background-color: var(--drawer-bg-rest);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: -100%;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 50%;
+    min-width: 420px;
+    overflow-y: scroll;
+    box-shadow: var(--shadow-28);
+    z-index: var(--z-index-drawer);
+  }
+
+  .open {
+    animation: slide-in-out 0.3s ease-in-out forwards;
+    overflow-y: scroll;
+  }
+
+  .header {
+    display: flex;
+    gap: var(--space-horizontal-xl);
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-vertical-l) var(--space-horizontal-xxl);
+  }
+
+  .title {
+    font: var(--font-subtitle-1);
+    color: var(--drawer-color);
+  }
+
+  .subtitle {
+    font: var(--font-body-1);
+    color: var(--drawer-color-subtitile);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 var(--space-horizontal-xxl);
+    overflow: hidden;
+  }
+
+  .scroll-wrapper {
+    padding: var(--space-vertical-xl) var(--space-horizontal-s)
+      var(--space-vertical-xl) 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: -8px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-vertical-l) var(--space-horizontal-xxl);
+
+    .action {
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .backdrop {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--drawer-bg-backdrop);
+    z-index: var(--z-index-drawer);
+  }
+
+  .visible {
+    visibility: visible;
+  }
+
+  @keyframes slide-in-out {
+    0% {
+      right: -100%;
+    }
+    100% {
+      right: 0;
+    }
+  }
+}

@@ -1,0 +1,180 @@
+<div>
+  <form [formGroup]="licenseForm">
+    <div class="organization-section section">
+      <label class="small-label margin-bottom-10"
+        >{{ "Выберите компанию" | translate }}:</label
+      >
+      <dx-select-box
+        [dataSource]="organizations"
+        displayExpr="name"
+        valueExpr="id"
+        [searchEnabled]="true"
+        placeholder="{{ 'Организация' | translate }}"
+        formControlName="organization"
+        appValidateControl
+        (onValueChanged)="onOrganizationChanged()"
+      >
+      </dx-select-box>
+    </div>
+
+    <div class="license-type-section section">
+      <label class="small-label margin-bottom-10"
+        >{{ "Выберите тип лицензии" | translate }}:</label
+      >
+      <dx-radio-group
+        [items]="licenseTypes"
+        displayExpr="name"
+        valueExpr="value"
+        layout="horizontal"
+        class="wp-radio"
+        formControlName="licenseType"
+        appValidateControl
+      >
+      </dx-radio-group>
+    </div>
+
+    <div
+      class="license-period-section section"
+      [ngClass]="{
+        disabled: licenseForm.controls['licenseType'].value === trialLicense
+      }"
+    >
+      <label class="small-label margin-bottom-10"
+        >{{ "Выберите период лицензии" | translate }}:</label
+      >
+      <dx-radio-group
+        [dataSource]="licensePeriods"
+        displayExpr="name"
+        valueExpr="value"
+        [readOnly]="licenseForm.controls['licenseType'].value === trialLicense"
+        layout="horizontal"
+        class="wp-radio"
+        formControlName="licensePeriod"
+        appValidateControl
+      >
+      </dx-radio-group>
+    </div>
+
+    <div
+      class="employee-number-section section"
+      [ngClass]="{
+        disabled: licenseForm.controls['licenseType'].value === trialLicense
+      }"
+    >
+      <label class="small-label margin-bottom-10"
+        >{{ "Укажите количество сотрудников" | translate }}:</label
+      >
+      <div>
+        <dx-slider
+          [min]="employeeNumberMin"
+          [max]="employeeNumberMax"
+          [value]="licenseForm.controls['employeeNumber'].value"
+          [readOnly]="
+            licenseForm.controls['licenseType'].value === trialLicense
+          "
+          formControlName="employeeNumber"
+        >
+        </dx-slider>
+        <dx-number-box
+          [value]="licenseForm.controls['employeeNumber'].value"
+          [min]="employeeNumberMin"
+          [max]="employeeNumberMax"
+          [showSpinButtons]="true"
+          [readOnly]="
+            licenseForm.controls['licenseType'].value === trialLicense
+          "
+          formControlName="employeeNumber"
+        >
+        </dx-number-box>
+      </div>
+    </div>
+
+    <div
+      class="get-optimal-tariff-section section"
+      [ngClass]="{
+        disabled: licenseForm.controls['licenseType'].value === trialLicense
+      }"
+      *ngIf="!licenseTariff"
+    >
+      <dx-button
+        (onClick)="closeDialog()"
+        class="custom-dx-normal-btn"
+        text="{{ 'Отмена' | translate }}"
+        [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+      >
+      </dx-button>
+
+      <dx-button
+        (onClick)="getOptimalTariff()"
+        text="{{ 'Подобрать подходящий тариф' | translate }}"
+        class="custom-dx-success-btn"
+        [ngClass]="{
+          'global-highlight': activeButton === 'optimalTariff' && !licenseTariff
+        }"
+        [disabled]="licenseForm.controls['licenseType'].value === trialLicense"
+      >
+      </dx-button>
+    </div>
+  </form>
+
+  <div class="tariff-section section" *ngIf="licenseTariff">
+    <div class="tariff-section-info">
+      <div>
+        <div>
+          <label class="super-small-label"
+            >{{ "Подобран(-ы) тариф(-ы)" | translate }}:</label
+          >
+        </div>
+        <div>
+          <label class="small-label" *ngIf="licenseTariff">{{
+            licenseTariff.name
+          }}</label>
+        </div>
+      </div>
+      <div class="stick-to-right">
+        <div class="vertical-line"></div>
+      </div>
+      <div class="tariff-section-price">
+        <div>
+          <label class="super-small-label text-align-right"
+            >{{ "Стоимость лицензии" | translate }}:</label
+          >
+        </div>
+        <div>
+          <label class="small-label text-align-right" *ngIf="licenseTariff"
+            ><span>{{ licenseTariffPrice }}</span> ₸</label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tariff-section-btn" *ngIf="licenseTariff">
+    <dx-button
+      (onClick)="closeDialog()"
+      class="custom-dx-normal-btn"
+      text="{{ 'Отмена' | translate }}"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    >
+    </dx-button>
+
+    <dx-button
+      class="custom-dx-success-btn"
+      (onClick)="createLicense()"
+      [text]="'Сохранить' | translate"
+      [ngClass]="{
+        'global-highlight': activeButton === 'save' && licenseTariff
+      }"
+    >
+      <div class="button-content">
+        <dx-load-indicator
+          *ngIf="processingLicenseCreation"
+          class="loader"
+          [visible]="true"
+        >
+        </dx-load-indicator>
+        <span>{{ "Сохранить" | translate }}</span>
+      </div>
+    </dx-button>
+  </div>
+</div>

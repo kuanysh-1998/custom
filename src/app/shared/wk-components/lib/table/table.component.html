@@ -1,0 +1,254 @@
+<wk-scroll>
+  <div
+    [class.dx-custom-data-grid-with-toolbar]="enableToolbar"
+    class="dx-custom-data-grid-container"
+  >
+    <dx-data-grid
+      #dataGrid
+      [dataSource]="data"
+      [showBorders]="true"
+      [remoteOperations]="true"
+      [selectedRowKeys]="predefinedSelectedRowKeys"
+      [keyExpr]="key"
+      [cacheEnabled]="false"
+      [allowColumnResizing]="false"
+      [scrolling]="{
+        scrollByThumb: false,
+        scrollByContent: false,
+        showScrollbar: 'never',
+        useNative: true
+      }"
+      [columnResizingMode]="'nextColumn'"
+      [showRowLines]="true"
+      [noDataText]="'Список пуст'"
+      [wordWrapEnabled]="enableWordWrap"
+      [class.dx-custom-data-grid-clickable]="isClickable"
+      (onRowDblClick)="this.rowDblClicked.emit($event.data)"
+      (onContentReady)="setupOptions()"
+      (onSelectionChanged)="changeSelection($event)"
+    >
+      <dxo-load-panel
+        [showPane]="false"
+        [enabled]="enableSpinner"
+        [text]="''"
+        indicatorSrc="assets/svg/i_spinner.svg"
+      ></dxo-load-panel>
+
+      <dxo-toolbar [visible]="enableToolbar">
+        <dxi-item
+          class="dx-custom-data-grid-sidebar-item-after"
+          location="after"
+        >
+          <div class="dx-custom-data-grid-sidebar-left">
+            <span #refreshButton *ngIf="enableReloadButton">
+              <wk-button
+                [icon]="icons.Reload"
+                variant="secondary"
+                stylingMode="outlined"
+                (clicked)="refreshData()"
+              ></wk-button>
+
+              <wk-tooltip
+                [for]="refreshButton"
+                [content]="refreshTooltip"
+                position="top"
+              ></wk-tooltip>
+            </span>
+
+            <div
+              *ngIf="enableRowsCounter && enableSelection"
+              class="dx-custom-data-grid-actions"
+            >
+              <div class="dx-custom-data-grid-action-label">
+                Выбрано: {{ selectionCount }}
+              </div>
+
+              <ng-container
+                *ngIf="actions && actions.length <= 4; else manyActions"
+              >
+                <div
+                  #actionButton
+                  *ngFor="let action of actions"
+                  class="dx-custom-data-grid-action"
+                >
+                  <wk-button
+                    [icon]="action.icon"
+                    [disabled]="!selectionCount"
+                    (clicked)="
+                      action.action(dataGrid.instance.getSelectedRowsData())
+                    "
+                    stylingMode="ghost"
+                    variant="secondary"
+                  ></wk-button>
+
+                  <wk-tooltip
+                    *ngIf="selectionCount"
+                    [for]="actionButton"
+                    [content]="action.label"
+                    position="top"
+                  ></wk-tooltip>
+                </div>
+              </ng-container>
+            </div>
+
+            <div *ngIf="customToolbarTemplate">
+              <ng-container
+                *ngTemplateOutlet="customToolbarTemplate"
+              ></ng-container>
+            </div>
+          </div>
+
+          <div class="dx-custom-data-grid-sidebar-right">
+            <wk-text-field
+              *ngIf="enableSearch"
+              [icon]="icons.Search"
+              [placeholder]="searchPlaceholder"
+              (changed)="search($event)"
+              class="dx-custom-data-grid-search"
+            ></wk-text-field>
+
+            <wk-button
+              *ngIf="enableFilters"
+              [icon]="icons.Filter"
+              (clicked)="clickedFilters.emit()"
+              [variant]="activeFilters ? 'default' : 'secondary'"
+              [stylingMode]="activeFilters ? 'contained' : 'outlined'"
+              label="Фильтры"
+            ></wk-button>
+          </div>
+        </dxi-item>
+      </dxo-toolbar>
+
+      <dxo-selection
+        *ngIf="isClickable"
+        [showCheckBoxesMode]="'always'"
+        [selectAllMode]="'page'"
+        [mode]="clickableMode"
+      ></dxo-selection>
+
+      <dxi-column
+        *ngFor="let column of columns"
+        [dataField]="column.dataField"
+        [caption]="column.caption"
+        [calculateCellValue]="column.calculateCellValue"
+        [calculateSortValue]="column.calculateSortValue"
+        [cellTemplate]="isCustomTemplate(column) ? column.dataField : null"
+        [width]="column.width"
+        [minWidth]="column.minWidth"
+        [allowSorting]="column.allowSorting ?? false"
+        [alignment]="column.alignment"
+        [format]="getCellNumberFormat(column)"
+        [customizeText]="column.customizeText ?? null"
+        [cssClass]="'dx-custom-align-column ' + column.verticalAlign"
+      >
+        <ng-container *ngIf="isCustomTemplate(column)">
+          <div *dxTemplate="let d of column.dataField">
+            <ng-container
+              *ngTemplateOutlet="
+                customTemplates[column.dataField];
+                context: { $implicit: d.data, index: d.row.loadIndex }
+              "
+            ></ng-container>
+          </div>
+        </ng-container>
+      </dxi-column>
+
+      <dxi-column
+        *ngIf="enableContextMenu"
+        [cellTemplate]="'menu'"
+        [width]="'40px'"
+        [minWidth]="40"
+        [allowResizing]="false"
+        alignment="center"
+        cssClass="dx-custom-align-column middle dx-custom-data-grid-context-menu"
+      >
+        <div *dxTemplate="let d of 'menu'">
+          <span #cm>
+            <wk-svg
+              (click)="openMenu(d.data, menu, cm)"
+              [icon]="icons.More"
+            ></wk-svg>
+          </span>
+        </div>
+      </dxi-column>
+
+      <dxo-paging
+        [pageSize]="pageSize"
+        [enabled]="enablePagination"
+      ></dxo-paging>
+      <dxo-pager *ngIf="enablePagination" [visible]="false"></dxo-pager>
+    </dx-data-grid>
+
+    <div
+      *ngIf="
+        totalSummary ||
+        totalSummary === 0 ||
+        totalPosition ||
+        totalPosition === 0
+      "
+      [class.with-menu]="enableContextMenu"
+      class="dx-custom-data-grid-summary"
+    >
+      <span
+        *ngIf="totalPosition || totalPosition === 0"
+        data-token="totalPosition"
+        class="position"
+      >
+        Количество позиций:&nbsp;&nbsp;&nbsp; {{ totalPosition }}
+      </span>
+      <span *ngIf="totalSummary || totalSummary === 0" class="summary">
+        Итог:&nbsp;&nbsp;&nbsp;{{
+          getCurrencyFormat(totalSummary | number : "1.2-2")
+        }}
+      </span>
+    </div>
+  </div>
+</wk-scroll>
+
+<div *ngIf="enablePagination" class="dx-custom-data-grid-table-pagination">
+  <wk-pagination
+    [enableTotalCount]="enableTotalCount"
+    [currentPage]="currentPage"
+    [totalPages]="totalPage"
+    [totalCount]="totalCount"
+    [pageNavigation]="pageNavigation"
+    (pageChange)="onPageChange($event)"
+  ></wk-pagination>
+</div>
+
+<wk-menu #menu [alignment]="'right bottom'" [items]="items"></wk-menu>
+
+<ng-template #manyActions>
+  <div
+    #actionButton
+    *ngFor="let i of [0, 1, 2]"
+    class="dx-custom-data-grid-action"
+  >
+    <wk-button
+      [icon]="actions[i].icon"
+      [disabled]="!selectionCount"
+      (clicked)="actions[i].action(dataGrid.instance.getSelectedRowsData())"
+      stylingMode="ghost"
+      variant="secondary"
+    ></wk-button>
+
+    <wk-tooltip
+      *ngIf="selectionCount"
+      [for]="actionButton"
+      [content]="actions[i].label"
+      position="top"
+    ></wk-tooltip>
+  </div>
+
+  <div #moreAction class="dx-custom-data-grid-action">
+    <wk-button-popover
+      [iconRight]="icons.More"
+      [disabled]="!selectionCount"
+      [menuItems]="getMoreActions(actions)"
+      [alignment]="'right bottom'"
+      stylingMode="ghost"
+      type="menu"
+      variant="secondary"
+    ></wk-button-popover>
+  </div>
+</ng-template>

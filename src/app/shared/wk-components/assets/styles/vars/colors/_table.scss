@@ -1,0 +1,58 @@
+:root {
+  --datagrid-backdrop-loader: rgba(255, 255, 255, 0.40);
+  --datagrid-contextmenu-icon-fill: var(--color-grey-2);
+
+  --datagrid-color-header: var(--color-grey-50);
+  --datagrid-color-rows: var(--color-grey-2);
+
+  --datagrid-stroke-rest: var(--color-grey-90);
+
+  --datagrid-header-bg-rest: var(--color-grey-98);
+  --datagrid-main-bg-rest: var(--color-grey-white);
+  --datagrid-main-bg-hover: var(--color-grey-96);
+  --datagrid-main-bg-active: var(--color-semantic-orange-10);
+
+  --datagrid-total-sum-bg: var(--color-grey-98);
+
+  --datagrid-toolbar-action-border: var(--color-grey-80);
+  --datagrid-toolbar-between-action-border: var(--color-grey-90);
+  --datagrid-toolbar-bg-action: var(--color-grey-98);
+  --datagrid-toolbar-color: var(--color-grey-2);
+
+  --datagrid-checkbox-icon-filled: url("../../../svg/i_checkbox_filled_light.svg");
+  --datagrid-checkbox-icon-indeterminate: url("../../../svg/i_checkbox_indeterminate_light.svg");
+  --datagrid-checkbox-icon-empty: url("../../../svg/i_checkbox_empty_light.svg");
+
+  --datagrid-icon-empty-state: url("../../../svg/i_table_empty_light.svg");
+  --datagrid-color-empty-state: var(--color-grey-50);
+}
+
+body[data-theme='dark'] {
+  --datagrid-backdrop-loader: rgba(255, 255, 255, 0.10);
+  --datagrid-contextmenu-icon-fill: var(--color-grey-white);
+
+  --datagrid-color-header: var(--color-grey-70);
+  --datagrid-color-rows: var(--color-grey-white);
+
+  --datagrid-stroke-rest: var(--color-grey-30);
+
+  --datagrid-header-bg-rest: var(--color-grey-14);
+  --datagrid-main-bg-rest: var(--color-grey-16);
+  --datagrid-main-bg-hover: var(--color-grey-26);
+  --datagrid-main-bg-active: var(--color-brand-70);
+
+  --datagrid-total-sum-bg: var(--color-grey-20);
+
+  --datagrid-toolbar-action-border: var(--color-grey-30);
+  --datagrid-toolbar-between-action-border: var(--color-grey-30);
+  --datagrid-toolbar-bg-action: var(--color-grey-14);
+
+  --datagrid-toolbar-color: var(--color-grey-white);
+
+  --datagrid-checkbox-icon-filled: url("../../../svg/i_checkbox_filled_dark.svg");
+  --datagrid-checkbox-icon-indeterminate: url("../../../svg/i_checkbox_indeterminate_dark.svg");
+  --datagrid-checkbox-icon-empty: url("../../../svg/i_checkbox_empty_dark.svg");
+
+  --datagrid-icon-empty-state: url("../../../svg/i_table_empty_dark.svg");
+  --datagrid-color-empty-state: var(--color-grey-70);
+}

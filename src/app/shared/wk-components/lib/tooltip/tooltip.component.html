@@ -1,0 +1,21 @@
+<dx-tooltip
+  *ngIf="content"
+  [target]="target"
+  [position]="position"
+  [visible]="visible"
+  [animation]="{}"
+  [wrapperAttr]="{ class: 'dx-custom-tooltip ' + position }"
+  contentTemplate="tooltipContent"
+  showEvent="dxhoverstart"
+  hideEvent="dxhoverend"
+>
+  <div *dxTemplate="let data of 'tooltipContent'">
+    <ng-container *ngIf="template; else string">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
+    </ng-container>
+
+    <ng-template #string>
+      {{ stringContent }}
+    </ng-template>
+  </div>
+</dx-tooltip>

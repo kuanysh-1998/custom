@@ -1,0 +1,11 @@
+:root {
+  --subheader-color: var(--color-grey-2);
+  --subheader-color-secondary: var(--color-grey-50);
+  --subheader-bg: var(--color-grey-98);
+}
+
+body[data-theme='dark'] {
+  --subheader-color: var(--color-grey-white);
+  --subheader-color-secondary: var(--color-grey-60);
+  --subheader-bg: var(--color-grey-16);
+}

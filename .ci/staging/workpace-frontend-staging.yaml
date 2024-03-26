@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: workpace-staging
+  annotations:
+  creationTimestamp: null
+  labels:
+    app: workpace-frontend
+  name: workpace-frontend
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      app: workpace-frontend
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: workpace-frontend
+    spec:
+      containers:
+        - name: workpace-frontend
+          image: gitlab.samgau.com:5050/workpace/timeclock-app/staging:__VERSION__
+          ports:
+          - containerPort: 80
+          imagePullPolicy: Always
+          resources: {}
+          env:
+          - name: TZ
+            value: Asia/Almaty
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Staging"
+          - name: API_URL
+            value: "https://portal-gateway.staging.workpace.kz"
+          - name: AUTH_AUTHORITY
+            value: "https://api.idp.staging.workpace.kz"
+          - name: AUTH_CLIENT_ID
+            value: "portal-client"
+          - name: AUTH_SECRET
+            value: "alliance"
+          - name: AUTH_REDIRECT_URL
+            value: "https://my.staging.workpace.kz"
+          - name: AUTH_LOGOUT_URL
+            value: "https://my.staging.workpace.kz"
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: workpace-staging
+  creationTimestamp: null
+  labels:
+    app: workpace-frontend
+  name: workpace-frontend
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: workpace-frontend
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  generation: 1
+  name: workpace-frontend
+  namespace: workpace-staging
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: my.staging.workpace.kz
+    http:
+      paths:
+      - backend:
+          service:
+            name: workpace-frontend
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

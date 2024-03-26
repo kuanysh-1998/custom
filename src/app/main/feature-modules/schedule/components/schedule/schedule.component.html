@@ -1,0 +1,61 @@
+<div class="schedule-container">
+  <ng-container [ngSwitch]="schedule.status">
+    <app-schedule-basic-controls
+      *ngIf="context !== ScheduleContext.VIEW"
+      [name]="schedule.name"
+      [color]="schedule.color"
+      (scheduleBasicFormChanged)="updateScheduleBasic($event)"
+    >
+    </app-schedule-basic-controls>
+
+    <div
+      class="basic-container"
+      *ngIf="
+        schedule.status === ScheduleStatus.published &&
+        context === ScheduleContext.VIEW
+      "
+    >
+      <div class="back-button-container">
+        <dx-button
+          class="back-button"
+          icon="arrowleft"
+          (onClick)="navigateToScheduleList()"
+        ></dx-button>
+      </div>
+
+      <app-publish-edit-schedule-basic
+        [schedule]="schedule"
+      ></app-publish-edit-schedule-basic>
+    </div>
+  </ng-container>
+
+  <dx-tab-panel
+    [selectedIndex]="selectedTabIndex"
+    (onSelectionChanged)="onTabSelectionChange($event)"
+    [deferRendering]="true"
+    [showNavButtons]="true"
+    [repaintChangesOnly]="false"
+    [animationEnabled]="false"
+    [swipeEnabled]="false"
+    class="custom-tab-panel"
+  >
+    <dxi-item title="{{ 'График' | translate }}">
+      <app-schedule-plan
+        [isDraft]="isDraft"
+        [isCopyMode]="isCopyMode"
+        (saveChangesRequested)="handleSave($event)"
+        (publishRequested)="handlePublish($event)"
+        (scheduleChanged)="handleScheduleChange($event)"
+        [schedule]="schedule"
+        [context]="context"
+      >
+      </app-schedule-plan>
+    </dxi-item>
+    <dxi-item
+      title="{{ 'Расписание сотрудников' | translate }}"
+      [disabled]="isDraft || context === ScheduleContext.EDIT_PUBLISHED"
+    >
+      <app-timetable [scheduleId]="schedule.id"></app-timetable>
+    </dxi-item>
+  </dx-tab-panel>
+</div>

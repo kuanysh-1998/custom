@@ -1,0 +1,12 @@
+@import "../../styles.scss";
+
+wk-form-error {
+  .message {
+    font: var(--font-caption-1);
+    color: var(--color-font-error);
+
+    &.short {
+      white-space: nowrap;
+    }
+  }
+}

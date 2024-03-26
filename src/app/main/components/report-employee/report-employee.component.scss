@@ -1,0 +1,38 @@
+#gridContainer {
+  word-break: break-word !important;
+}
+
+.btn-grid-container {
+  display: grid;
+  grid-template-columns: 35px 35px;
+}
+
+.btn-action {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.view-image {
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../../assets/image/icon-image.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+}
+
+.reject {
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../../assets/image/trash-icon.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+}
+
+.bi-three-dots {
+  color: #39bf5e;
+}

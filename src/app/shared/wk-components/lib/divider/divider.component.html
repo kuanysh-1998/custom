@@ -1,0 +1,26 @@
+<div [ngClass]="margin" class="divider-wrapper">
+  <div *ngIf="isLeftContent" class="divider-mark"></div>
+
+  <div *ngIf="isLeftContent" class="content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+
+  <div class="divider"></div>
+
+  <div *ngIf="isCenterContent" class="content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+
+  <div *ngIf="isCenterContent" class="divider"></div>
+
+  <div *ngIf="isRightContent" class="content">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+
+  <div *ngIf="isRightContent" class="divider-mark"></div>
+</div>
+
+<ng-template #content>
+  <wk-svg *ngIf="icon" [icon]="icon" class="icon"></wk-svg>
+  <div *ngIf="text" class="text">{{ text }}</div>
+</ng-template>

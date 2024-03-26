@@ -1,0 +1,184 @@
+<form [formGroup]="filterForm" class="filter-controls">
+  <div class="wrapper">
+    <dx-date-range-box
+      class="adaptiveWidthTable"
+      [showClearButton]="true"
+      formControlName="eventDate"
+      [elementAttr]="{ class: 'no-margin-top' }"
+      appValidateControl
+      [max]="maxDate"
+      endDateLabel="{{ 'Дата завершения' | translate }}"
+      startDateLabel="{{ 'Дата начала' | translate }}"
+    >
+    </dx-date-range-box>
+
+    <combo-dropdown-list
+      [dataSource]="departmentsDataSource"
+      formControlName="departments"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Отделы' | translate }}"
+    ></combo-dropdown-list>
+
+    <combo-dropdown-list
+      [dataSource]="employeeDataSource"
+      [searchExpression]="'fullName'"
+      formControlName="employees"
+      placeholder="{{ 'Сотрудники' | translate }}"
+    ></combo-dropdown-list>
+
+    <dx-check-box
+      [(value)]="showDeletedEmployees"
+      (onValueChanged)="changeFilter()"
+      text="{{ 'Отображать удалённых сотрудников в фильтре' | translate }}"
+    ></dx-check-box>
+  </div>
+
+  <div class="wrapper">
+    <dx-check-box
+      formControlName="isLateIn"
+      (onValueChanged)="createReport()"
+      text="{{ 'Отображать только опоздавших' | translate }}"
+    ></dx-check-box>
+
+    <button class="btn btn-success report-btn" (click)="createReport()">
+      {{ "Сформировать" | translate }}
+    </button>
+  </div>
+</form>
+
+<dx-data-grid
+  #grid
+  [dataSource]="dataReportLateIn"
+  [remoteOperations]="true"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="false"> </dxo-filter-row>
+  <dxo-export
+    [enabled]="true"
+    [fileName]="'Опоздания' | translate"
+  ></dxo-export>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="employeeName"
+    caption="{{ 'Сотрудник' | translate }}"
+    dataType="string"
+    minWidth="200"
+    [allowSorting]="true"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="200"
+    [allowSorting]="true"
+  ></dxi-column>
+  <dxi-column
+    dataField="scheduleName"
+    caption="{{ 'График работы' | translate }}"
+    dataType="string"
+    minWidth="150"
+    width="150"
+    [allowSorting]="true"
+    [allowGrouping]="false"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="lateIn"
+    caption="{{ 'Всего' | translate }}"
+    dataType="string"
+    minWidth="100"
+    width="100"
+    cellTemplate="minutesTemplate"
+    [allowSorting]="true"
+    [allowGrouping]="false"
+  ></dxi-column>
+  <ng-container *ngFor="let day of days">
+    <dxi-column
+      [caption]="day | date : 'shortDate'"
+      [allowSorting]="false"
+      [allowGrouping]="false"
+      alignment="center"
+    >
+      <dxi-column
+        minWidth="100"
+        width="100"
+        dataField="{{ 'spans.' + day }}"
+        caption="{{ 'Опоздание' | translate }}"
+        cellTemplate="formatTimeForMarksTemplate"
+        dataType="string"
+        [allowSorting]="true"
+        [allowGrouping]="false"
+      >
+      </dxi-column>
+      <dxi-column
+        minWidth="200"
+        width="200"
+        dataField="{{ 'spans.' + day + '.inComment' }}"
+        caption="{{ 'Комментарий' | translate }}"
+        dataType="string"
+        [allowSorting]="false"
+        [allowGrouping]="false"
+      >
+      </dxi-column>
+      <dxi-column
+        minWidth="150"
+        width="150"
+        dataField="{{ 'spans.' + day + '.inLocationName' }}"
+        caption="{{ 'Локация' | translate }}"
+        dataType="string"
+        [allowSorting]="false"
+        [allowGrouping]="false"
+      >
+      </dxi-column>
+    </dxi-column>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'minutesTemplate'">
+    {{ utilsService.formatTimeWithDescription(data.value) }}
+  </div>
+
+  <div *dxTemplate="let data of 'formatTimeForMarksTemplate'">
+    {{ utilsService.formatTimeWithDescriptionForMarks(data.value, true) }}
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

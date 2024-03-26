@@ -1,0 +1,150 @@
+@import "../../../styles.scss";
+@mixin input {
+  .dx-texteditor.dx-editor-outlined {
+    background: var(--form-field-bg-rest);
+    border-color: var(--form-field-stroke-rest);
+    border-radius: var(--radius-medium);
+
+    .dx-texteditor-input {
+      padding: var(--space-vertical-s) var(--space-horizontal-m);
+      font: var(--font-body-1);
+      color: var(--form-field-color);
+    }
+
+    &.dx-state-hover {
+      border-color: var(--form-field-stroke-hover);
+    }
+
+    &.dx-state-focused,
+    &.dx-state-active {
+      border-color: var(--form-field-stroke-focus);
+    }
+
+    &.dx-invalid {
+      border-color: var(--form-field-stroke-error);
+    }
+
+    &.dx-state-readonly {
+      border-style: solid;
+    }
+
+    .dx-invalid-badge {
+      display: none;
+    }
+
+    &.dx-state-disabled {
+      border-color: var(--form-field-stroke-disabled);
+      opacity: 1;
+
+      .dx-dropdowneditor-icon {
+        opacity: 0.4;
+      }
+
+      input {
+        color: var(--form-field-color-disabled);
+      }
+    }
+
+    .dx-placeholder {
+      font: var(--font-body-1);
+      color: var(--form-field-color-placeholder);
+
+      &::before {
+        padding: var(--space-vertical-snudge) var(--space-horizontal-m);
+      }
+    }
+  }
+
+  .dx-daterangebox,
+  .dx-datebox {
+    & .dx-datebox.dx-editor-outlined {
+      &.dx-end-datebox .dx-texteditor-input {
+        padding-right: 0;
+        padding-left: var(--space-horizontal-xs);
+      }
+
+      &.dx-end-datebox.dx-invalid .dx-texteditor-input {
+        padding-right: 0;
+      }
+
+      &.dx-start-datebox .dx-texteditor-input {
+        padding-right: 0;
+        padding-left: var(--space-horizontal-mnudge);
+      }
+    }
+
+    & .dx-state-hover.dx-editor-outlined::before {
+      border-bottom-color: var(--form-field-stroke-focus);
+      opacity: 0.5;
+    }
+
+    & .dx-state-focused.dx-editor-outlined::before {
+      border-bottom-color: var(--form-field-stroke-focus);
+      opacity: 1;
+    }
+
+    & .dx-dropdowneditor-button {
+      height: 28px;
+      width: 32px;
+      min-width: 32px;
+
+      .dx-dropdowneditor-icon {
+        height: 28px;
+        width: 28px;
+        background: var(--date-picker-icon-calendar);
+      }
+    }
+
+    & .dx-dropdowneditor-icon::before {
+      display: none;
+    }
+  }
+
+  .dx-daterangebox-separator {
+    background: var(--date-picker-icon-arrow);
+    width: 24px;
+    flex-shrink: 0;
+
+    .dx-icon {
+      display: none;
+    }
+  }
+
+  .dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) {
+    .dx-dropdowneditor-icon {
+      background: var(--date-picker-icon-calendar-hover);
+    }
+  }
+
+  .dx-dropdowneditor.dx-state-active:not(.dx-custom-button-hovered) {
+    .dx-dropdowneditor-icon {
+      background: var(--date-picker-icon-calendar-hover);
+    }
+  }
+
+  .dx-dropdowneditor-button .dx-button-content {
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .dx-invalid.dx-texteditor.dx-editor-outlined.dx-show-invalid-badge
+    .dx-texteditor-input-container::after {
+    display: none;
+  }
+
+  .dx-invalid-message {
+    display: none;
+  }
+
+  .dx-icon-clear::before {
+    content: "";
+    color: rgba(11, 101, 91, 0.35);
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: var(--date-picker-icon-cross);
+    background-size: 16px;
+  }
+}

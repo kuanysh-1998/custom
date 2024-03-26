@@ -1,0 +1,13 @@
+<dx-popover
+  [target]="target"
+  [visible]="isOpen"
+  [position]="position"
+  [minWidth]="minWidth"
+  [hideOnOutsideClick]="true"
+  [animation]="{ show: { duration: 0 }, hide: { duration: 0 } }"
+  (onHiding)="close()"
+  [wrapperAttr]="{ class: 'dx-custom-popover' }"
+>
+  <ng-container *ngTemplateOutlet="template"></ng-container>
+  <ng-content></ng-content>
+</dx-popover>

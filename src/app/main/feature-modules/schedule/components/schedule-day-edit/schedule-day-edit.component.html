@@ -1,0 +1,223 @@
+<form [formGroup]="intervalsFormGroup">
+  <div class="edit-container">
+    <div class="selected-days">
+      <div class="label">
+        {{ "Выбраны дни" | translate }}:
+        <span class="days">
+          {{ selectedDays | selectedDays : scheduleType }}
+        </span>
+      </div>
+    </div>
+
+    <div class="schedule-edit-alert" *ngIf="selectedDays.length > 1">
+      <div class="alert-title">{{ "Внимание" | translate }}!</div>
+
+      <div class="alert-text">
+        {{
+          "После сохранения изменений все выбранные дни будут иметь одинаковые настройки"
+            | translate
+        }}
+      </div>
+    </div>
+
+    <div class="day-type">
+      <dx-radio-group
+        [formControl]="dayTypeControl"
+        [items]="dayTypes"
+        (valueChange)="onDateTypeChange($event)"
+        layout="horizontal"
+      ></dx-radio-group>
+    </div>
+
+    <ng-container *ngIf="!dayTypeControl.value.value">
+      <div class="time-block">
+        <span class="label"> {{ "Рабочее время" | translate }}: </span>
+        <div class="clocks">
+          <div class="date-box-container">
+            <span class="label"> {{ "С" | translate }}: </span>
+            <wp-time-picker
+              [formControl]="workTimeGroup.controls.start"
+              [upTo24]="false"
+            >
+            </wp-time-picker>
+          </div>
+
+          <div class="date-box-container">
+            <span class="label"> {{ "До" | translate }}: </span>
+            <wp-time-picker
+              [formControl]="workTimeGroup.controls.end"
+              [upTo24]="false"
+            >
+            </wp-time-picker>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <span class="label"> {{ "Перерыв" | translate }}: </span>
+        <div class="clocks">
+          <div class="date-box-container">
+            <span class="label"> {{ "С" | translate }}: </span>
+            <wp-time-picker
+              [formControl]="breakTimeGroup.controls.start"
+              [upTo24]="false"
+            >
+            </wp-time-picker>
+          </div>
+
+          <div class="date-box-container">
+            <span class="label"> {{ "До" | translate }}: </span>
+
+            <wp-time-picker
+              [formControl]="breakTimeGroup.controls.end"
+              [upTo24]="false"
+            >
+            </wp-time-picker>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="intervalsFormGroup.errors">
+      <span class="text-danger">
+        {{ intervalsFormGroup.errors.message }}
+      </span>
+    </ng-container>
+
+    <ng-container *ngIf="!dayTypeControl.value.value">
+      <app-single-accordion
+        [opened]="false"
+        headerTitle="{{ 'Расширенные настройки' | translate }}"
+      >
+        <div class="boundaries-marks">
+          <div class="boundaries-marks-title">
+            <span>{{ "Принимать отметки прихода:" | translate }}</span>
+            <hr class="grey-line" />
+          </div>
+          <div class="boundaries-marks-block">
+            <span class="boundaries-marks-text">
+              {{ "Не раньше, чем за" | translate }}
+            </span>
+            <div class="wp-date-box">
+              <wp-time-picker
+                [formControl]="boundaryInTimeGroup.controls.start"
+                [upTo24]="true"
+              >
+              </wp-time-picker>
+            </div>
+            <span>
+              {{ "часа(ов) до начала рабочего времени" | translate }}
+            </span>
+          </div>
+
+          <div class="boundaries-marks-block">
+            <span class="boundaries-marks-text">
+              {{ "Не позже, чем" | translate }}
+            </span>
+            <div class="wp-date-box">
+              <wp-time-picker
+                [formControl]="boundaryInTimeGroup.controls.end"
+                [upTo24]="true"
+              >
+              </wp-time-picker>
+            </div>
+            <span>
+              {{ "часа(ов) после начала рабочего времени" | translate }}
+            </span>
+          </div>
+          <div class="boundaries-marks-title">
+            <span>{{ "Принимать отметки ухода:" | translate }}</span>
+            <hr class="grey-line" />
+          </div>
+          <div class="boundaries-marks-block">
+            <span class="boundaries-marks-text">
+              {{ "Не раньше, чем за" | translate }}
+            </span>
+            <div class="wp-date-box">
+              <wp-time-picker
+                [formControl]="boundaryOutTimeGroup.controls.start"
+                [upTo24]="true"
+              >
+              </wp-time-picker>
+            </div>
+            <span>
+              {{ "часа(ов) до завершения рабочего времени" | translate }}
+            </span>
+          </div>
+          <div class="boundaries-marks-block">
+            <span class="boundaries-marks-text">
+              {{ "Не позже, чем" | translate }}
+            </span>
+            <div class="wp-date-box">
+              <wp-time-picker
+                [formControl]="boundaryOutTimeGroup.controls.end"
+                [upTo24]="true"
+              >
+              </wp-time-picker>
+            </div>
+            <span>
+              {{ "часа(ов) после завершения рабочего времени" | translate }}
+            </span>
+          </div>
+
+          <hr />
+
+          <div class="location-selector">
+            <div class="location-info">
+              <span>{{ "Выберите локацию" | translate }}</span>
+              <img
+                #infoIcon
+                src="assets/image/exclamation-point.svg"
+                class="info-icon"
+                (mouseover)="isShowPopup = true"
+                (mouseout)="isShowPopup = false"
+              />
+            </div>
+
+            <dx-select-box
+              [dataSource]="locations"
+              [formControl]="locationControl"
+              [showClearButton]="true"
+              displayExpr="text"
+              [searchEnabled]="true"
+              [label]="'Локация' | translate"
+              stylingMode="outlined"
+              labelMode="floating"
+              placeholder=""
+            ></dx-select-box>
+          </div>
+          <dx-popover
+            *ngIf="isShowPopup"
+            [target]="infoIcon"
+            [visible]="isShowPopup"
+            [width]="310"
+          >
+            <dxo-position my="left" at="right">
+              <dxo-offset [x]="0"></dxo-offset>
+            </dxo-position>
+            <h3 class="location-info-description">
+              {{
+                "Выберите локацию, если необходимо ограничить отметки сотрудников только в данной локации в рамках этого графика. В остальных случаях, рекомендуем оставлять поле пустым."
+                  | translate
+              }}
+            </h3>
+          </dx-popover>
+        </div>
+      </app-single-accordion>
+    </ng-container>
+  </div>
+  <div class="popup-btn-container">
+    <dx-button
+      (onClick)="closeDialog()"
+      text="{{ 'Отмена' | translate }}"
+      class="custom-dx-normal-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    ></dx-button>
+    <dx-button
+      (onClick)="editSelectedDays()"
+      text="{{ 'Сохранить' | translate }}"
+      class="custom-dx-success-btn"
+      [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    ></dx-button>
+  </div>
+</form>

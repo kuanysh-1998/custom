@@ -1,0 +1,33 @@
+<dx-select-box
+  [dataSource]="allowedColors"
+  valueExpr="color"
+  displayExpr="color"
+  fieldTemplate="field"
+  [(value)]="color"
+  (onSelectionChanged)="onSelectionChanged($event)"
+>
+  <div class="color-items" *dxTemplate="let data of 'field'">
+    <div>
+      <div
+        class="color-item"
+        [ngStyle]="{
+          'background-color': data && data.color
+        }"
+      >
+        &nbsp;
+      </div>
+    </div>
+    <dx-text-box
+      class="color-name"
+      [value]="data && data.color"
+      [readOnly]="true"
+    ></dx-text-box>
+  </div>
+  <div class="wp-color-item" *dxTemplate="let data of 'item'">
+    <div
+      class="color-item"
+      [ngStyle]="{ 'background-color': data.color }"
+    ></div>
+    <span> {{ data.color }}</span>
+  </div>
+</dx-select-box>

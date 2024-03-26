@@ -1,0 +1,103 @@
+@import "../../styles.scss";
+wk-tree-view {
+  .dx-scrollable-wrapper {
+    background-color: transparent;
+  }
+
+  .dx-custom-search-mode {
+    .dx-scrollable {
+      height: calc(100% - 52px);
+    }
+  }
+
+  .dx-treeview-toggle-item-visibility.dx-treeview-toggle-item-visibility-opened::before {
+    content: var(--tree-view-chevron-right-icon);
+    transform: rotate(90deg);
+  }
+
+  .dx-treeview-toggle-item-visibility::before {
+    content: var(--tree-view-chevron-right-icon);
+    transition: transform 0.2s;
+    transform: rotate(0deg);
+  }
+
+  .dx-checkbox-checked .dx-checkbox-icon::before {
+    all: initial;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    content: var(--tree-view-checkbox-icon-filled);
+  }
+
+  .dx-checkbox-icon {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: var(--tree-view-checkbox-icon-empty);
+  }
+
+  .dx-treeview-item .dx-treeview-item-content {
+    font: var(--font-body-1);
+    color: var(--tree-view-text-color);
+  }
+
+  .dx-treeview-item-without-checkbox.dx-state-focused > .dx-treeview-item {
+    background-color: transparent;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+      background-color: var(--tree-view-bg-hover-color);
+    }
+  }
+
+  .dx-treeview-item-without-checkbox.dx-state-selected > .dx-treeview-item {
+    background-color: transparent;
+    transition: 0.3s;
+
+    &:hover {
+      transition: 0.3s;
+      background-color: var(--tree-view-bg-hover-color);
+    }
+  }
+
+  .dx-treeview-item.dx-state-hover {
+    transition: 0.3s;
+    background-color: var(--tree-view-bg-hover-color);
+    border-radius: var(--radius-medium);
+
+    .dx-treeview-item-content {
+      transition: 0.3s;
+      color: var(--tree-view-text-hover-color);
+      border-radius: var(--radius-medium);
+    }
+  }
+
+  .dx-treeview-item-with-checkbox .dx-checkbox .dx-checkbox-container {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dx-checkbox.dx-state-hover .dx-checkbox-icon {
+    border: none;
+  }
+
+  .dx-treeview-item-with-checkbox.dx-state-focused
+    > .dx-treeview-item
+    .dx-checkbox
+    .dx-checkbox-icon {
+    border: none;
+  }
+
+  .dx-checkbox.dx-state-active .dx-checkbox-icon {
+    background-color: transparent;
+  }
+
+  .dx-custom-text-field {
+    padding-bottom: var(--space-vertical-snudge);
+
+    .dx-custom-text-field-input {
+      margin-bottom: 0;
+    }
+  }
+}

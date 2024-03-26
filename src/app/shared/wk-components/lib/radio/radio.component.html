@@ -1,0 +1,34 @@
+<div class="radio-wrapper">
+  <div class="radio-container">
+    <div
+      [attr.data-token]="token"
+      (click)="selectRadio()"
+      (keydown.enter)="selectRadio()"
+      role="radio"
+      [tabIndex]="tabIndex"
+      class="radio"
+    >
+      <wk-svg
+        *ngIf="checked"
+        [icon]="filledRadioIcon"
+        [class.disabled]="isDisabled"
+        class="icon"
+      ></wk-svg>
+
+      <wk-svg
+        *ngIf="!checked"
+        [icon]="emptyRadioIcon"
+        [class.disabled]="isDisabled"
+        class="icon-empty"
+      ></wk-svg>
+    </div>
+  </div>
+
+  <wk-label
+    *ngIf="label"
+    [disabled]="isDisabled"
+    [label]="label"
+    class="label-wrapper"
+    (click)="selectRadio()"
+  ></wk-label>
+</div>

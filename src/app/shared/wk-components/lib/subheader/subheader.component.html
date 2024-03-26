@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <div class="title-wrapper">
+    <wk-button
+      *ngIf="showBackButton"
+      [icon]="iconArrow"
+      (clicked)="backButtonClicked.emit()"
+      stylingMode="outlined"
+      variant="secondary"
+    ></wk-button>
+    <div class="text-wrapper">
+      <h1 class="title">{{ title }}</h1>
+      <div *ngIf="subtext" class="subtext">{{ subtext }}</div>
+    </div>
+  </div>
+  <div class="actionTemplate" *ngIf="actionTemplate">
+    <ng-container *ngTemplateOutlet="actionTemplate"></ng-container>
+  </div>
+</div>
+<wk-divider margin="none"></wk-divider>

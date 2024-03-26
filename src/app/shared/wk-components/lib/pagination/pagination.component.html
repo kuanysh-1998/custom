@@ -1,0 +1,68 @@
+<div class="pagination">
+  <div *ngIf="isEnableTotalCount" class="total-count">
+    Всего записей: {{ totalCount }}
+  </div>
+
+  <wk-button
+    [variant]="'secondary'"
+    [stylingMode]="'outlined'"
+    [icon]="icons.DChevronLeft"
+    [disabled]="currentPage === 1"
+    (clicked)="goToPage(1)"
+  ></wk-button>
+
+  <wk-button
+    [variant]="'secondary'"
+    [stylingMode]="'outlined'"
+    [icon]="icons.ChevronLeft"
+    [disabled]="currentPage === 1"
+    (clicked)="goToPage(currentPage - 1)"
+  ></wk-button>
+
+  <ng-container *ngFor="let page of pagesToShow">
+    <wk-button
+      [variant]="'secondary'"
+      [stylingMode]="'outlined'"
+      [label]="page"
+      [disabled]="currentPage === page"
+      (click)="goToPage(page)"
+    ></wk-button>
+  </ng-container>
+
+  <wk-button
+    [variant]="'secondary'"
+    [stylingMode]="'outlined'"
+    [icon]="icons.ChevronRight"
+    [disabled]="currentPage === totalPages"
+    (click)="goToPage(currentPage + 1)"
+  ></wk-button>
+
+  <wk-button
+    [variant]="'secondary'"
+    [stylingMode]="'outlined'"
+    [icon]="icons.DChevronRight"
+    [disabled]="currentPage === totalPages"
+    (click)="goToPage(totalPages)"
+  ></wk-button>
+  <div class="page-navigation" *ngIf="pageNavigation">
+    <div class="line"></div>
+
+    <wk-number-input
+      [min]="1"
+      [max]="totalPages"
+      [showControlButtons]="false"
+      [formControl]="control"
+      (keydown.enter)="goToPage(control.value ?? 1)"
+      placeholder="Номер стр."
+      class="input"
+    ></wk-number-input>
+
+    <wk-button
+      [variant]="'secondary'"
+      [stylingMode]="'outlined'"
+      (click)="goToPage(control.value ?? 1)"
+      (keydown.enter)="goToPage(control.value ?? 1)"
+      label="Перейти"
+    ></wk-button>
+  </div>
+</div>

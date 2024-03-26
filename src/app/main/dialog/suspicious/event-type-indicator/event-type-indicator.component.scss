@@ -1,0 +1,27 @@
+.event-type-container {
+  padding: 9px 6px;
+
+  width: 50px;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  align-items: center;
+}
+
+.label {
+  font-family: "PTRootUIMedium";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 13px;
+
+  &.in {
+    color: #39bf5e;
+  }
+
+  &.out {
+    color: #3d44e4;
+  }
+}

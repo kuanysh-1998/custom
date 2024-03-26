@@ -1,0 +1,103 @@
+<div
+  [class.dx-custom-dropdown-left-label]="labelLocation === 'left'"
+  class="dx-custom-dropdown-container"
+>
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="dropdown.instance.focus()"
+  ></wk-label>
+
+  <div class="dropdown-container">
+    <div class="dropdown-wrapper">
+      <wk-svg *ngIf="icon" [icon]="icon" class="icon"></wk-svg>
+
+      <wk-svg
+        *ngIf="hasValue"
+        [icon]="iconClear"
+        [size]="'small'"
+        (click)="clearValue()"
+        class="dx-custom-dropdown-cross-icon"
+      ></wk-svg>
+
+      <dx-drop-down-box
+        #dropdown
+        [(opened)]="isOpen"
+        [items]="options ?? []"
+        [showClearButton]="false"
+        [value]="value"
+        [readOnly]="!!readOnly"
+        [isValid]="!isError"
+        [placeholder]="placeholder"
+        [displayValueFormatter]="formatDisplay"
+        [displayExpr]="displayFieldName"
+        [disabled]="isDisabled"
+        [dropDownOptions]="{
+          minHeight: 0,
+          maxHeight: 400,
+          enableBodyScroll: true,
+          wrapperAttr: {
+            class: buttonEnabled
+              ? 'dx-custom-dropdown-overlay-wrapper  dx-custom-dropdown-with-button'
+              : 'dx-custom-dropdown-overlay-wrapper'
+          }
+        }"
+        [attr.data-token]="token"
+        [class.with-icon]="icon"
+        (onClosed)="onTouched?.()"
+        valueExpr="id"
+      >
+        <div *dxTemplate="let i of 'content'">
+          <dx-scroll-view
+            *ngIf="options?.length; else empty"
+            [useNative]="true"
+            (onReachBottom)="loadMoreData()"
+            [reachBottomText]="'Загрузить ещё'"
+          >
+            <wk-list-item
+              *ngFor="let option of options"
+              [checked]="!!option?.selected"
+              [text]="getOptionText(option, displayFieldName)"
+              [selectionMode]="multiple"
+              (clicked)="selectOption($event, option)"
+              class="scroll-container"
+            ></wk-list-item>
+          </dx-scroll-view>
+
+          <ng-template #empty>
+            <div class="dx-custom-dropdown-empty-message">Нет результатов</div>
+          </ng-template>
+
+          <wk-button
+            *ngIf="buttonEnabled"
+            [label]="buttonLabel"
+            [icon]="buttonIcon"
+            [fullWidth]="true"
+            (clicked)="buttonClicked.emit()"
+            variant="secondary"
+            class="dx-custom-dropdown-button"
+          ></wk-button>
+        </div>
+      </dx-drop-down-box>
+    </div>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="dx-custom-dropdown-error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="dx-custom-dropdown-helper-text">
+      {{ helperText }}
+    </div>
+  </div>
+</div>

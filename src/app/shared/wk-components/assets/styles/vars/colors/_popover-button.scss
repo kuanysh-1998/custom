@@ -1,0 +1,7 @@
+:root {
+  --popover-bg: var(--color-grey-white);
+}
+
+body[data-theme='dark'] {
+  --popover-bg: var(--color-grey-20);
+}

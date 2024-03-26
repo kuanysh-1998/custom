@@ -1,0 +1,114 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-controls-row report-form-filter-gap"
+>
+  <dx-date-box
+    formControlName="date"
+    class="adaptiveWidth"
+    placeholder="Укажите дату"
+    appValidateControl
+    [max]="maxDate"
+  ></dx-date-box>
+
+  <combo-dropdown-list
+    [dataSource]="departmentsDataSource"
+    formControlName="departments"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Отделы' | translate }}"
+  ></combo-dropdown-list>
+
+  <combo-dropdown-list
+    [dataSource]="employeeDataSource"
+    formControlName="employees"
+    [searchExpression]="'fullName'"
+    placeholder="{{ 'Сотрудники' | translate }}"
+  ></combo-dropdown-list>
+
+  <button class="btn btn-success report-btn" (click)="createReport()">
+    {{ "Сформировать" | translate }}
+  </button>
+  <button
+    class="btn btn-excel last-item-to-right"
+    (click)="exportToExcel($event)"
+  >
+    <i class="bi bi-file-earmark-excel"></i>
+  </button>
+</form>
+
+<dx-data-grid
+  #grid
+  [dataSource]="dataAbsenceReport"
+  [remoteOperations]="true"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="employeeName"
+    caption="{{ 'Сотрудник' | translate }}"
+    dataType="string"
+    minWidth="200"
+    [allowFiltering]="false"
+    alignment="left"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="300"
+    [allowFiltering]="false"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="locationName"
+    caption="{{ 'Локация' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="200"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="scheduleName"
+    caption="{{ 'График работы' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="300"
+    [allowFiltering]="false"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

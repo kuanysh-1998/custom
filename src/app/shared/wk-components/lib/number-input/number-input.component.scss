@@ -1,0 +1,111 @@
+@import "../../styles.scss";
+wk-number-input {
+  width: 100%;
+  display: block;
+  margin-bottom: var(--space-vertical-l);
+
+  .dx-custom-number-input-container {
+    display: flex;
+    flex-direction: column;
+
+    &.dx-custom-number-input-left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .dx-custom-number-input {
+    width: 100%;
+    position: relative;
+
+    wk-text-field {
+      margin-bottom: 0;
+    }
+
+    &.dx-custom-number-input-with-buttons {
+      wk-text-field {
+        .input {
+          padding-right: 36px;
+        }
+      }
+    }
+  }
+
+  .dx-custom-number-input-button {
+    all: unset;
+    position: absolute;
+    right: 4px;
+    cursor: pointer;
+    height: 14px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    z-index: 1;
+
+    &.dx-custom-number-input-inc {
+      top: 4px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 36px;
+        height: 18px;
+        right: -4px;
+        top: -4px;
+      }
+    }
+
+    &.dx-custom-number-input-dec {
+      top: 18px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 36px;
+        height: 18px;
+        right: -4px;
+        bottom: -4px;
+      }
+    }
+
+    wk-svg {
+      fill: var(--form-field-svg-fill);
+    }
+
+    &:hover {
+      background: var(--form-field-button-bg-rest);
+
+      & ~ wk-text-field {
+        .input:not(.invalid) {
+          border-color: var(--form-field-stroke-hover);
+        }
+
+        .input:not(.invalid):focus {
+          border-color: var(--form-field-stroke-focus);
+        }
+      }
+    }
+
+    &:active {
+      & ~ wk-text-field {
+        .input:not(.invalid) {
+          border-color: var(--form-field-stroke-focus);
+        }
+      }
+    }
+  }
+
+  .dx-custom-number-input-error-message {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-color-error);
+  }
+
+  .dx-custom-number-input-helper-text {
+    margin-top: var(--space-vertical-xxs);
+    font: var(--font-caption-1);
+    color: var(--form-field-stroke-helper-text);
+  }
+}

@@ -1,0 +1,45 @@
+@mixin outlined-button($type) {
+  $bg-hover: "--btn-#{$type}-outlined-bg-hover";
+  $bg-focused: "--btn-#{$type}-outlined-bg-focused";
+  $bg-active: "--btn-#{$type}-outlined-bg-active";
+  $stroke-rest: "--btn-#{$type}-outlined-stroke-rest";
+  $stroke-disabled: "--btn-#{$type}-outlined-stroke-disabled";
+  $color: "--btn-#{$type}-outlined-color";
+  $color-disabled: "--btn-#{$type}-outlined-color-disabled";
+
+  color: var(#{$color});
+  background-color: transparent;
+  border: 1px solid var(#{$stroke-rest});
+
+  svg {
+    fill: var(#{$color});
+  }
+
+  &:hover {
+    color: var(#{$color});
+    background-color: var(#{$bg-hover});
+    border: 1px solid var(#{$stroke-rest});
+  }
+
+  &:focus {
+    color: var(#{$color});
+    background-color: var(#{$bg-focused});
+    border: 1px solid var(#{$stroke-rest});
+  }
+
+  &:active {
+    color: var(#{$color});
+    background-color: var(#{$bg-active});
+    border: 1px solid var(#{$stroke-rest});
+  }
+
+  &.dx-state-disabled {
+    color: var(#{$color-disabled});
+    background-color: transparent;
+    border: 1px solid var(#{$stroke-disabled});
+
+    svg {
+      fill: var(#{$color-disabled});
+    }
+  }
+}

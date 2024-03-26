@@ -1,0 +1,11 @@
+:root {
+  --menu-bg: var(--color-grey-white);
+
+  --menu-color-header: var(--color-grey-50);
+}
+
+body[data-theme='dark'] {
+  --menu-bg: var(--color-grey-20);
+
+  --menu-color-header: var(--color-grey-50);
+}

@@ -1,0 +1,31 @@
+:root {
+  --toast-bg-rest: var(--color-grey-white);
+  --toast-text-color: var(--color-grey-2);
+
+  --toast-fill-cross: var(--color-grey-2);
+  --toast-fill-icon-success: var(--color-semantic-green-150);
+  --toast-fill-icon-error: var(--color-semantic-red-150);
+  --toast-fill-icon-info: var(--color-semantic-blue-150);
+  --toast-fill-icon-warning: var(--color-semantic-orange-150);
+
+  --toast-stroke-success: var(--color-semantic-green-150);
+  --toast-stroke-error: var(--color-semantic-red-150);
+  --toast-stroke-info: var(--color-semantic-blue-150);
+  --toast-stroke-warning: var(--color-semantic-orange-150);
+}
+
+body[data-theme="dark"] {
+  --toast-bg-rest: var(--color-grey-22);
+  --toast-text-color: var(--color-grey-white);
+
+  --toast-fill-cross: var(--color-grey-90);
+  --toast-fill-icon-success: var(--color-semantic-green-100);
+  --toast-fill-icon-error: var(--color-semantic-red-100);
+  --toast-fill-icon-info: var(--color-semantic-blue-100);
+  --toast-fill-icon-warning: var(--color-semantic-orange-100);
+
+  --toast-stroke-success: var(--color-semantic-green-100);
+  --toast-stroke-error: var(--color-semantic-red-100);
+  --toast-stroke-info: var(--color-semantic-blue-100);
+  --toast-stroke-warning: var(--color-semantic-orange-100);
+}

@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: workpace-dev
+  annotations:
+  creationTimestamp: null
+  labels:
+    app: workpace-frontend
+  name: workpace-frontend
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      app: workpace-frontend
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: workpace-frontend
+    spec:
+      containers:
+        - name: workpace-frontend
+          image: gitlab.samgau.com:5050/workpace/timeclock-app/development:__VERSION__
+          ports:
+          - containerPort: 80
+          imagePullPolicy: Always
+          resources: {}
+          env:
+          - name: TZ
+            value: Asia/Almaty
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Testing1"
+          - name: API_URL
+            value: "https://portal-gateway.testing1.workpace.kz"
+          - name: AUTH_AUTHORITY
+            value: "https://api.testing1.idp.workpace.kz"
+          - name: AUTH_CLIENT_ID
+            value: "portal-client"
+          - name: AUTH_SECRET
+            value: "alliance"
+          - name: AUTH_REDIRECT_URL
+            value: "https://my.testing1.workpace.kz"
+          - name: AUTH_LOGOUT_URL
+            value: "https://my.testing1.workpace.kz"
+          - name: OIDC_RESPONSE_TYPE
+            value: "id_token token"
+          - name: OIDC_SCOPE
+            value: "openid profile portal roles"
+          - name: METADATA_ISSUER
+            value: "https://api.testing1.idp.workpace.kz"
+          - name: METADATA_AUTHORIZATION_ENDPOINT
+            value: "https://api.testing1.idp.workpace.kz/connect/authorize"
+          - name: METADATA_USERINFO_ENDPOINT
+            value: "https://api.testing1.idp.workpace.kz/connect/userInfo"
+          - name: METADATA_END_SESSION_ENDPOINT
+            value: "https://api.testing1.idp.workpace.kz/connect/endsession"
+          - name: METADATA_JWKS_URI
+            value: "https://api.testing1.idp.workpace.kz/.well-known/openid-configuration/jwks"
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: workpace-dev
+  creationTimestamp: null
+  labels:
+    app: workpace-frontend
+  name: workpace-frontend
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: workpace-frontend
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  generation: 1
+  name: workpace-frontend
+  namespace: workpace-dev
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: my.testing1.workpace.kz
+    http:
+      paths:
+      - backend:
+          service:
+            name: workpace-frontend
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

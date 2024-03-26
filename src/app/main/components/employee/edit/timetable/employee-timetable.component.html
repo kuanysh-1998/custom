@@ -1,0 +1,108 @@
+<div class="filter-controls-row">
+  <button class="btn btn-success" (click)="refresh()">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
+
+  <button class="btn btn-success" (click)="add()">
+    {{ "Добавить расписание" | translate }}
+  </button>
+</div>
+
+<dx-data-grid
+  #grid
+  [dataSource]="timetablesDataSource"
+  [remoteOperations]="true"
+  (onRowDblClick)="edit($event.data)"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxi-column
+    [caption]="'График работы' | translate"
+    dataField="scheduleName"
+    minWidth="300"
+    [allowSorting]="true"
+    [allowGrouping]="true"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Дата начала' | translate"
+    dataField="startDate"
+    cellTemplate="date"
+    dataType="date"
+    [allowSorting]="true"
+    format="dd.MM.yyyy"
+    sortOrder="desc"
+    minWidth="200"
+    width="200"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Дата завершения' | translate"
+    dataField="endDate"
+    cellTemplate="date"
+    dataType="date"
+    [allowSorting]="true"
+    format="dd.MM.yyyy"
+    minWidth="240"
+    width="240"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Статус' | translate"
+    alignment="left"
+    dataField="status"
+    [allowSorting]="true"
+    minWidth="200"
+    width="200"
+  >
+    <dxo-lookup
+      [dataSource]="statusTypes"
+      valueExpr="value"
+      [displayExpr]="displayExprStatus"
+    >
+    </dxo-lookup
+  ></dxi-column>
+
+  <dxi-column
+    caption=""
+    width="50"
+    [allowFiltering]="false"
+    cellTemplate="menuItems"
+    alignment="center"
+  >
+  </dxi-column>
+
+  <ng-container *dxTemplate="let cellInfo of 'date'">
+    {{ cellInfo.value | date : "dd.MM.yyyy" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cellInfo of 'menuItems'">
+    <i
+      *ngIf="cellInfo.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuStatuses[cellInfo.rowIndex] = true"
+      [attr.id]="'cell' + cellInfo.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="
+        contextMenuStatuses[cellInfo.rowIndex] = false
+      "
+      [(visible)]="contextMenuStatuses[cellInfo.rowIndex]"
+      [showEvent]
+      [dataSource]="cellInfo.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cellInfo.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cellInfo.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

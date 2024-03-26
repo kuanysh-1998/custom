@@ -1,0 +1,25 @@
+:root {
+  --card-bg-rest: var(--color-grey-white);
+  --card-bg-hover: var(--color-grey-96);
+  --card-bg-active: var(--color-grey-88);
+  --card-bg-focus: var(--color-grey-92);
+
+  --card-divider-rest: var(--color-grey-90);
+  --card-stroke-rest: var(--color-grey-82);
+
+  --card-color-header-rest: var(--color-grey-30);
+  --card-color-header-hover: var(--color-grey-2);
+}
+
+body[data-theme='dark'] {
+  --card-bg-rest: var(--color-grey-20);
+  --card-bg-hover: var(--color-grey-24);
+  --card-bg-active: var(--color-grey-12);
+  --card-bg-focus: var(--color-grey-22);
+
+  --card-divider-rest: var(--color-grey-90);
+  --card-stroke-rest: var(--color-grey-40);
+
+  --card-color-header-rest: var(--color-grey-70);
+  --card-color-header-hover: var(--color-grey-white);
+}

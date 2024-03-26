@@ -1,0 +1,135 @@
+@import "../../styles.scss";
+wk-accordion {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-s);
+
+  .dx-accordion {
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+
+    .dx-template-wrapper.dx-item-content {
+      &.dx-accordion-item-title {
+        padding: 0;
+        transition: background-color 0.2s;
+      }
+
+      &.dx-accordion-item-body {
+        padding: 0 0 var(--space-vertical-s);
+      }
+
+      &.dx-accordion-item-body.dx-custom-accordion-padding {
+        padding: 0 var(--space-vertical-s) var(--space-horizontal-s);
+      }
+    }
+
+    .dx-item {
+      border: none;
+    }
+
+    .dx-item.dx-accordion-item {
+      &.dx-item-selected {
+        border: none;
+      }
+
+      &.dx-state-focused {
+        border: none;
+      }
+
+      &.dx-state-active {
+        border: none;
+      }
+
+      &.dx-accordion-item-opened,
+      &.dx-accordion-item-closed {
+        border: none;
+      }
+
+      &.dx-accordion-item-opened {
+        &.dx-state-active > .dx-accordion-item-title,
+        &.dx-state-focused > .dx-accordion-item-title,
+        &.dx-state-hover > .dx-accordion-item-title {
+          background-color: transparent;
+        }
+      }
+
+      &.dx-state-active > .dx-accordion-item-title,
+      &.dx-state-focused > .dx-accordion-item-title,
+      &.dx-state-hover > .dx-accordion-item-title {
+        background-color: var(--accordion-bg-hover);
+        border-radius: var(--radius-medium);
+      }
+    }
+
+    .dx-accordion-item-title::before {
+      display: none;
+    }
+  }
+
+  .dx-custom-accordion-header-wrapper {
+    display: flex;
+    gap: var(--space-horizontal-s);
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 36px;
+    padding: var(--space-vertical-s) var(--space-horizontal-s);
+    font: var(--font-body-1-strong);
+
+    .dx-custom-accordion-icon {
+      fill: var(--accordion-color-rest);
+      transition: fill 0.2s;
+    }
+
+    .dx-custom-accordion-header {
+      display: flex;
+      gap: var(--space-horizontal-s);
+      align-items: center;
+      color: var(--accordion-color-rest);
+      transition: color 0.2s;
+    }
+
+    .dx-custom-accordion-chevron {
+      fill: var(--accordion-color-rest);
+      transition: rotate 0.2s, fill 0.2s;
+    }
+
+    &:hover {
+      .dx-custom-accordion-header {
+        color: var(--accordion-color-hover);
+      }
+
+      .dx-custom-accordion-chevron {
+        fill: var(--accordion-color-hover);
+      }
+
+      .dx-custom-accordion-icon {
+        fill: var(--accordion-color-hover);
+      }
+    }
+
+    &.dx-custom-accordion-open {
+      .dx-custom-accordion-header {
+        color: var(--accordion-color-hover);
+      }
+
+      .dx-custom-accordion-chevron {
+        fill: var(--accordion-color-hover);
+        rotate: 90deg;
+      }
+
+      .dx-custom-accordion-icon {
+        fill: var(--accordion-color-hover);
+      }
+    }
+
+    &.dx-custom-accordion-chevron-left {
+      justify-content: start;
+
+      .dx-custom-accordion-chevron {
+        order: -1;
+      }
+    }
+  }
+}

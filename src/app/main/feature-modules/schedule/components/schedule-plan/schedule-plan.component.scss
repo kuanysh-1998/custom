@@ -1,0 +1,80 @@
+.schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+
+  &.cyclic {
+    height: 300px;
+    overflow-y: auto;
+  }
+}
+
+.schedule-row,
+.select-all {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+
+  background: #f7f7fa;
+  border-radius: 8px;
+}
+
+.day-name {
+  min-width: 100px;
+}
+
+.work-time {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    font-family: "PTRootUIMedium", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: rgba(6, 12, 31, 0.7);
+  }
+
+  .time {
+    min-width: 100px;
+  }
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.schedule-edit-alert {
+  display: flex;
+  padding: 12px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  border-radius: 4px;
+  background: rgba(61, 68, 228, 0.1);
+  margin-bottom: 24px;
+
+  .alert-title {
+    color: #3d44e4;
+    font-size: 14px;
+    font-family: "PTRootUIMedium";
+    font-weight: 700;
+    line-height: 150%;
+  }
+
+  .alert-text {
+    color: #3d44e4;
+    font-size: 13px;
+    font-family: "PTRootUIMedium";
+    line-height: 150%;
+  }
+}

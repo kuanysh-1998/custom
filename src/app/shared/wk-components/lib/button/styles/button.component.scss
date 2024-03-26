@@ -1,0 +1,88 @@
+@import "contained-button";
+@import "outlined-button";
+@import "ghost-button";
+@import "../../../styles.scss";
+wk-button {
+  display: flex;
+  width: fit-content;
+
+  .dx-button {
+    width: 100%;
+    height: 36px;
+    padding: var(--space-vertical-s) var(--space-horizontal-l);
+    font: var(--font-body-1-strong);
+    white-space: nowrap;
+    border-radius: var(--radius-medium);
+    transition: all 0.2s;
+
+    &.dx-custom-button-with-icon {
+      padding: var(--space-vertical-s) var(--space-horizontal-m);
+    }
+
+    &.dx-custom-button-without-label {
+      padding: var(--space-vertical-s) var(--space-horizontal-s);
+    }
+
+    &.dx-custom-button-icon-button {
+      min-width: 36px;
+      padding: var(--space-vertical-s) calc(#{var(--space-horizontal-s)} - 1px);
+    }
+
+    .dx-button-content {
+      display: flex;
+      flex-shrink: 0;
+      flex-wrap: nowrap;
+      gap: var(--space-horizontal-s);
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 0;
+    }
+  }
+
+  @mixin button($variant) {
+    &.dx-custom-button-contained {
+      @include contained-button($variant);
+    }
+
+    &.dx-custom-button-outlined {
+      @include outlined-button($variant);
+    }
+
+    &.dx-custom-button-ghost {
+      @include ghost-button($variant);
+    }
+  }
+
+  .dx-custom-button-default {
+    @include button("default");
+  }
+
+  .dx-custom-button-secondary {
+    @include button("secondary");
+  }
+
+  .dx-custom-button-alternative {
+    @include button("alternative");
+  }
+
+  .dx-custom-button-success {
+    @include button("success");
+  }
+
+  .dx-custom-button-info {
+    @include button("info");
+  }
+
+  .dx-custom-button-warning {
+    @include button("warning");
+  }
+
+  .dx-custom-button-danger {
+    @include button("danger");
+  }
+
+  .dx-custom-button-help {
+    @include button("help");
+  }
+}

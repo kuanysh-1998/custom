@@ -1,0 +1,66 @@
+.edit-button {
+  border: none;
+  border-radius: 8px;
+  background: rgba(57, 191, 94, 0.1);
+  padding: 8px;
+
+  color: #39bf5e;
+  text-align: center;
+  font-size: 14px;
+  font-family: "PTRootUIMedium";
+  font-weight: 700;
+}
+
+.publish-basic-container {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f7fa;
+  border-radius: 8px;
+
+  .start {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    .basic {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .name {
+        color: #060c1f;
+        font-size: 18px;
+        font-family: "PTRootUIMedium";
+        font-weight: 700;
+      }
+
+      .type {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .label {
+          color: rgba(6, 12, 31, 0.7);
+          font-size: 14px;
+          font-family: "PTRootUIMedium";
+        }
+
+        span {
+          color: #060c1f;
+          font-size: 14px;
+          font-family: "PTRootUIMedium";
+          font-weight: 500;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}
+
+.color {
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+}

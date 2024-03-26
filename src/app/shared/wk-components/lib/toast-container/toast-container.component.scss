@@ -1,0 +1,10 @@
+@import "../../styles.scss";
+wk-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: var(--z-index-toast);
+}

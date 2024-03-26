@@ -1,0 +1,114 @@
+.import {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  &-promt {
+    display: flex;
+    flex-direction: column;
+    background-color: #ebecef66;
+    padding: 12px;
+  }
+
+  &-promt-description {
+    margin-bottom: 3px;
+    color: #060c1f;
+    font-family: "PTRootUIBold";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  &-instruction {
+    margin-bottom: 0;
+  }
+
+  &-instruction a {
+    color: #39bf5e;
+    font-family: "PTRootUI";
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+
+  &-btn-container {
+    display: flex;
+    justify-content: right;
+    column-gap: 16px;
+    padding: 24px 0;
+  }
+
+  .file-upload-valid {
+    border: 1px dashed #39bf5e;
+  }
+
+  .file-upload-invalid {
+    border: 1px dashed #be1111;
+  }
+
+  .file-upload-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 18px 16px;
+    max-width: 452px;
+    width: 100%;
+    margin-top: 20px;
+
+    .file-upload-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 10px;
+    }
+
+    .file-upload-icon {
+      width: 11px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    .file-delete-icon {
+      height: 18px;
+      width: 16px;
+    }
+
+    .file-upload-description {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .file-upload-title {
+      font-family: PTRootUIBold;
+      font-size: 13px;
+      font-weight: 400;
+      color: #060c1f;
+      margin-bottom: 1px;
+    }
+
+    .file-upload-format {
+      color: #060c1f;
+      font-family: "PTRootUIBold";
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      opacity: 0.5;
+      margin-bottom: 3px;
+    }
+
+    .file-input {
+      display: none;
+    }
+  }
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+}

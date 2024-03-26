@@ -1,0 +1,47 @@
+:root {
+  --form-field-bg-rest: var(--color-grey-white);
+
+  --form-field-stroke-rest: var(--color-grey-80);
+  --form-field-stroke-hover: var(--color-grey-60);
+  --form-field-stroke-focus: var(--color-brand-100);
+  --form-field-stroke-disabled: var(--color-grey-94);
+  --form-field-stroke-error: var(--color-semantic-red-150);
+  --form-field-stroke-helper-text: var(--color-grey-50);
+
+  --form-field-color-prefix: var(--color-grey-50);
+  --form-field-bg-prefix: var(--color-grey-94);
+
+  --form-field-color: var(--color-grey-2);
+  --form-field-color-disabled: var(--color-grey-50);
+  --form-field-color-placeholder: var(--color-grey-50);
+  --form-field-color-error: var(--color-semantic-red-100);
+
+  --form-field-svg-fill: var(--color-grey-38);
+
+  --form-field-icon-rest: var(--color-grey-50);
+  --form-field-button-bg-rest: var(--color-grey-94);
+}
+
+body[data-theme='dark'] {
+  --form-field-bg-rest: var(--color-grey-16);
+
+  --form-field-stroke-rest: var(--color-grey-40);
+  --form-field-stroke-hover: var(--color-grey-60);
+  --form-field-stroke-focus: var(--color-brand-110);
+  --form-field-stroke-disabled: var(--color-grey-30);
+  --form-field-stroke-error: var(--color-semantic-red-100);
+  --form-field-stroke-helper-text: var(--color-grey-60);
+
+  --form-field-color-prefix: var(--color-grey-60);
+  --form-field-bg-prefix: var(--color-grey-24);
+
+  --form-field-color: var(--color-grey-white);
+  --form-field-color-placeholder: var(--color-grey-60);
+  --form-field-color-disabled: var(--color-grey-60);
+  --form-field-color-error: var(--color-semantic-red-100);
+
+  --form-field-svg-fill: var(--color-grey-60);
+
+  --form-field-icon-rest: var(--color-grey-60);
+  --form-field-button-bg-rest: var(--color-grey-24);
+}

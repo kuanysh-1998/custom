@@ -1,0 +1,45 @@
+<dx-data-grid
+  #grid
+  [dataSource]="users$"
+  [rowAlternationEnabled]="true"
+  [remoteOperations]="true"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ titleService.getTitle().replace(' - Workpace', '') }}"
+  ></dxo-export>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxi-column
+    dataField="userName"
+    minWidth="200"
+    caption="{{ 'Логин' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="100"
+    width="100"
+    caption="{{ 'Действие' | translate }}"
+    cellTemplate="selectionCellTemplate"
+    [allowExporting]="false"
+  >
+  </dxi-column>
+  <div *dxTemplate="let cellInfo of 'selectionCellTemplate'">
+    <button class="btn btn-light" (click)="editPermission(cellInfo.data)">
+      <i class="bi bi-pencil-fill"></i>
+    </button>
+  </div>
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+  <dxo-toolbar>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel(grid)">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>

@@ -1,0 +1,53 @@
+@import "../../styles.scss";
+
+wk-divider {
+  display: block;
+  width: 100%;
+  .divider-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+
+    &.small {
+      margin: 4px 0;
+    }
+
+    &.medium {
+      margin: 12px 0;
+    }
+
+    &.large {
+      margin: 16px 0;
+    }
+  }
+
+  .divider-mark {
+    width: 8px;
+    height: 1px;
+    background: var(--divider-stroke-rest);
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--divider-stroke-rest);
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .text {
+    white-space: nowrap;
+    color: var(--divider-color-rest);
+  }
+
+  .icon {
+    fill: var(--divider-color-rest);
+  }
+}

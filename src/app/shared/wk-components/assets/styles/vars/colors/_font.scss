@@ -1,0 +1,21 @@
+:root {
+  --color-font-primary: var(--color-grey-2);
+  --color-font-secondary: var(--color-grey-50);
+  --color-font-inverted: var(--color-grey-white);
+  --color-font-error: var(--color-semantic-red-150);
+  --color-font-success: var(--color-semantic-green-150);
+  --color-font-warning: var(--color-semantic-orange-150);
+  --color-font-info: var(--color-semantic-blue-150);
+  --color-font-brand: var(--color-brand-90);
+}
+
+body[data-theme='dark'] {
+  --color-font-primary: var(--color-grey-white);
+  --color-font-secondary: var(--color-grey-60);
+  --color-font-inverted: var(--color-grey-2);
+  --color-font-error: var(--color-semantic-red-100);
+  --color-font-success: var(--color-semantic-green-100);
+  --color-font-warning: var(--color-semantic-orange-100);
+  --color-font-info: var(--color-semantic-blue-100);
+  --color-font-brand: var(--color-brand-100);
+}

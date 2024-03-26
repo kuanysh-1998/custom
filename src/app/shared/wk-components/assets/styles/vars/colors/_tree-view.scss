@@ -1,0 +1,19 @@
+:root {
+  --tree-view-bg-hover-color: var(--color-grey-94);
+  --tree-view-text-color: var(--color-grey-30);
+  --tree-view-text-hover-color: var(--color-grey-2);
+  --tree-view-chevron-down-icon: url("../../../../assets/svg/i_chevron_down_dark.svg");
+  --tree-view-chevron-right-icon: url("../../../../assets/svg/i_chevron_right_dark.svg");
+  --tree-view-checkbox-icon-filled: url("../../../svg/i_checkbox_filled_light.svg");
+  --tree-view-checkbox-icon-empty: url("../../../svg/i_checkbox_empty.svg");
+}
+
+body[data-theme="dark"] {
+  --tree-view-bg-hover-color: var(--color-grey-18);
+  --tree-view-text-color: var(--color-grey-70);
+  --tree-view-text-hover-color: var(--color-grey-white);
+  --tree-view-chevron-down-icon: url("../../../../assets/svg/i_chevron_down_light.svg");
+  --tree-view-chevron-right-icon: url("../../../../assets/svg/i_chevron_right_light.svg");
+  --tree-view-checkbox-icon-filled: url("../../../svg/i_checkbox_filled_dark.svg");
+  --tree-view-checkbox-icon-empty: url("../../../svg/i_checkbox_empty_dark.svg");
+}

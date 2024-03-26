@@ -1,0 +1,169 @@
+<dx-data-grid
+  #grid
+  [dataSource]="suspiciousService.suspicious"
+  [remoteOperations]="true"
+  (onRowDblClick)="viewSuspicious($event.data)"
+  [elementAttr]="{ class: 'custom-dx-grid custom-dx-grid-scroll' }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxo-export
+    [enabled]="true"
+    [fileName]="'Подозрительные отметки' | translate"
+  ></dxo-export>
+
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="employeeName"
+    [caption]="'ФИО' | translate"
+    minWidth="200"
+    alignment="left"
+    cellTemplate="cellTemplateFullName"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="locationName"
+    [caption]="'Локация' | translate"
+    minWidth="150"
+    width="150"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="departmentName"
+    minWidth="150"
+    width="150"
+    [caption]="'Отдел' | translate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    dataField="markType"
+    [caption]="'Тип отметки' | translate"
+    dataType="string"
+    minWidth="100"
+    width="100"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="markTypes"
+      valueExpr="value"
+      [displayExpr]="displayExprMark"
+    >
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    [caption]="'Дата и время' | translate"
+    dataField="markDate"
+    dataType="date"
+    sortOrder="desc"
+    minWidth="130"
+    width="130"
+    format="dd.MM.yyyy, hh:mm"
+    cellTemplate="dateWithMinutesTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    [caption]="'Устройство' | translate"
+    dataField="deviceType"
+    minWidth="130"
+    width="130"
+    alignment="left"
+  >
+    <dxo-lookup
+      [dataSource]="deviceTypes"
+      valueExpr="value"
+      [displayExpr]="displayExprDevice"
+    >
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column
+    [caption]="'Комментарий' | translate"
+    dataField="comment"
+    [allowGrouping]="false"
+    minWidth="130"
+    width="130"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+    cellTemplate="selectionCellTemplate"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <ng-container *dxTemplate="let cellInfo of 'dateWithMinutesTemplate'">
+    {{ cellInfo.value | date : "short" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cell of 'selectionCellTemplate'">
+    <i
+      *ngIf="cell.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="suspiciousService.contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'cell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="
+        suspiciousService.contextMenuCondition[cell.rowIndex] = false
+      "
+      [(visible)]="suspiciousService.contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+    <dxi-item name="exportButton" location="after">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+
+  <dxo-paging [pageSize]="pageSize"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="gridAllowedPageSizes"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

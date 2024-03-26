@@ -1,0 +1,118 @@
+<form [formGroup]="form">
+  <div class="employee-container">
+    <div class="dropdown-container">
+      <div class="label">{{ "Выберите сотрудников" | translate }}:</div>
+
+      <dx-drop-down-box
+        ID="myDropDownBox"
+        [(value)]="selectedEmployees"
+        valueExpr="id"
+        displayExpr="name"
+        [dataSource]="departments"
+        (onValueChanged)="onDropDownBoxValueChanged($event)"
+        fieldTemplate="fieldTemplate"
+        [placeholder]="'Выберите...' | translate"
+        appValidateControl
+        formControlName="selectedEmployees"
+      >
+        <div *dxTemplate="let info of 'fieldTemplate'">
+          <dx-text-box [visible]="false"></dx-text-box>
+          <dx-tag-box
+            [dataSource]="allEmployees"
+            [(value)]="selectedEmployees"
+            valueExpr="id"
+            displayExpr="name"
+            [placeholder]="'Выберите...' | translate"
+            [openOnFieldClick]="false"
+            width="100%"
+            [showClearButton]="true"
+            (onValueChanged)="onTagBoxValueChanged($event)"
+          >
+          </dx-tag-box>
+        </div>
+        <div *dxTemplate="let data of 'content'">
+          <dx-tree-view
+            #tree
+            [dataSource]="employeesDataSource"
+            dataStructure="plain"
+            keyExpr="id"
+            parentIdExpr="parentId"
+            selectionMode="multiple"
+            [searchEnabled]="true"
+            [searchExpr]="['searchName']"
+            [searchMode]="'contains'"
+            showCheckBoxesMode="normal"
+            [selectNodesRecursive]="true"
+            displayExpr="name"
+            [selectByClick]="true"
+            (onContentReady)="onTreeViewReady($event)"
+            (onItemSelectionChanged)="onTreeViewSelectionChanged($event)"
+          >
+          </dx-tree-view>
+        </div>
+      </dx-drop-down-box>
+    </div>
+
+    <div class="schedule-time">
+      <div class="label">Срок действия расписания:</div>
+
+      <div class="date-boxes">
+        <div class="date-box-container">
+          <div class="label">{{ "Дата начала" | translate }}:</div>
+          <dx-date-box
+            formControlName="startDate"
+            [min]="minDate"
+            [max]="maxDate"
+            [type]="'date'"
+            [pickerType]="'calendar'"
+            [displayFormat]="'dd.MM.yyyy'"
+            appValidateControl
+            (onOptionChanged)="onDateChanged($event, 'startDate')"
+          >
+          </dx-date-box>
+        </div>
+        <div class="date-box-container">
+          <div class="label">{{ "Дата завершения" | translate }}:</div>
+
+          <dx-date-box
+            formControlName="endDate"
+            [min]="minDate"
+            [max]="maxDate"
+            [type]="'date'"
+            [pickerType]="'calendar'"
+            [displayFormat]="'dd.MM.yyyy'"
+            appValidateControl
+            (onOptionChanged)="onDateChanged($event, 'endDate')"
+          >
+          </dx-date-box>
+        </div>
+      </div>
+    </div>
+
+    <div class="conflict-employee" *ngIf="conflictMessage">
+      <div class="conflict-label">
+        <div class="conflict-icon">
+          <img src="assets/image/circle-warning.svg" alt="" />
+        </div>
+        <div class="label">Обнаружены конфликты!</div>
+      </div>
+
+      <div class="conflicts" [innerHTML]="conflictMessage"></div>
+    </div>
+    <div class="schedule-employee-footer">
+      <dx-button
+        [text]="'Отмена' | translate"
+        (onClick)="cancel()"
+        class="custom-dx-normal-btn"
+      ></dx-button>
+      <dx-button
+        class="custom-dx-success-btn"
+        type="success"
+        [disabled]="!!(startDate && endDate) || publishBtnClicked"
+        [text]="'Сохранить' | translate"
+        (onClick)="publish()"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,80 @@
+<div class="container-fluid login-content">
+  <div class="login-wrapper">
+    <div class="language-selector">
+      <img class="logo" src="assets/image/logo.svg" alt="logo" />
+      <div class="custom-dropdown">
+        <button class="custom-btn" type="button" (click)="toggleDropdown()">
+          <p class="selected-language">{{ currentLocaleShort }}</p>
+          <img
+            class="chevron"
+            src="assets/image/auth-arrow-dropdown.svg"
+            alt=""
+            height="6"
+            width="8"
+          />
+        </button>
+        <div class="custom-menu" [class.show]="isDropdownVisible">
+          <div
+            *ngFor="let item of languageMenuItems"
+            (click)="changeLanguage(item.locale)"
+            [class.selected]="selectedLanguage === item.locale"
+          >
+            <p class="custom-menu-item">{{ item.text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="title-login">{{ "Авторизация в системе" | translate }}</p>
+    <p class="description-login">
+      {{ "Укажите ваш email и пароль" | translate }}
+    </p>
+    <form class="input-form" [formGroup]="form">
+      <div class="input-items">
+        <img alt="logo" class="logo-img" src="assets/image/email-logo.svg" />
+        <input
+          type="text"
+          autoComplete="off"
+          class="form-control input"
+          name="userName"
+          formControlName="login"
+          placeholder="{{ 'Ваш email' | translate }}"
+          id="login"
+        />
+      </div>
+      <error-messages
+        [control]="form.controls.login"
+        type="text"
+      ></error-messages>
+      <div class="input-items">
+        <img alt="logo" class="logo-img" src="assets/image/password-logo.svg" />
+        <input
+          autoComplete="off"
+          name="userPassword"
+          formControlName="password"
+          class="form-control input"
+          placeholder="{{ 'Ваш пароль' | translate }}"
+          [type]="passwordType"
+        />
+        <div class="input-group-btn">
+          <button type="button" class="btn-eye" (click)="togglePassword()">
+            <i
+              [ngClass]="
+                passwordType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'
+              "
+            ></i>
+          </button>
+        </div>
+      </div>
+      <error-messages
+        [control]="form.controls.password"
+        type="text"
+      ></error-messages>
+      <div>
+        <button type="button" class="button-login" (click)="sign()">
+          {{ "Авторизоваться" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

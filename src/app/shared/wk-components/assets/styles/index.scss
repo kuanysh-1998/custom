@@ -1,0 +1,39 @@
+@import "devextreme/dist/css/dx.light.css";
+@import "vars/index";
+@import "vars/colors/scroll";
+
+* {
+  &::-webkit-scrollbar-button {
+    display: none;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    display: none;
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--scroll-track-rest);
+
+    &:hover {
+      background-color: var(--scroll-track-hover);
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 6px;
+    background-color: transparent;
+
+    &:hover {
+      height: 6px;
+    }
+  }
+
+  *::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}

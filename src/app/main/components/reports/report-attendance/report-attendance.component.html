@@ -1,0 +1,335 @@
+<form [formGroup]="filterForm" class="filter-controls">
+  <div class="wrapper">
+    <dx-date-range-box
+      class="adaptiveWidthTable"
+      [showClearButton]="true"
+      formControlName="eventDate"
+      [elementAttr]="{ class: 'no-margin-top' }"
+      appValidateControl
+      endDateLabel="{{ 'Дата завершения' | translate }}"
+      startDateLabel="{{ 'Дата начала' | translate }}"
+    >
+    </dx-date-range-box>
+
+    <combo-dropdown-list
+      [dataSource]="departmentsDataSource"
+      formControlName="departments"
+      [searchExpression]="'name'"
+      placeholder="{{ 'Отделы' | translate }}"
+    ></combo-dropdown-list>
+    <combo-dropdown-list
+      [dataSource]="employeeDataSource"
+      [searchExpression]="'fullName'"
+      formControlName="employees"
+      placeholder="{{ 'Сотрудники' | translate }}"
+    ></combo-dropdown-list>
+
+    <dx-check-box
+      [(value)]="showDeleted"
+      (onValueChanged)="changeFilter()"
+      text="{{ 'Отображать удалённых сотрудников в фильтре' | translate }}"
+    >
+    </dx-check-box>
+  </div>
+
+  <div class="wrapper">
+    <!-- <combo-dropdown-list
+      [dataSource]="locations$ | async"
+      [searchExpression]="'name'"
+      formControlName="locations"
+      placeholder="{{ 'Локация' | translate }}"
+    ></combo-dropdown-list>
+    <error-messages [control]="filterForm.get('locations')"></error-messages> -->
+    <combo-dropdown-list
+      [dataSource]="columnList"
+      [searchExpression]="'text'"
+      [isShowPopup]="true"
+      formControlName="columnItem"
+      placeholder="{{ 'Столбцы' | translate }}"
+      [tooltip]="tooltip"
+    ></combo-dropdown-list>
+
+    <button class="btn btn-success adaptiveWidthTable" (click)="createReport()">
+      {{ "Сформировать" | translate }}
+    </button>
+    <button
+      class="btn btn-excel last-item-to-right"
+      (click)="exportToExcel($event)"
+    >
+      <i class="bi bi-file-earmark-excel l"></i>
+    </button>
+  </div>
+</form>
+
+<dx-data-grid
+  #dataGrid
+  [dataSource]="dataReportTable"
+  keyExpr="id"
+  [columnAutoWidth]="true"
+  class="report-grid"
+>
+  <dxi-column
+    [fixed]="isLargeScreen ? true : null"
+    dataField="name"
+    caption="{{ 'ФИО' | translate }}"
+    sortOrder="asc"
+    sortIndex="0"
+    minWidth="200"
+    width="200"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    minWidth="200"
+    width="200"
+    alignment="left"
+  >
+  </dxi-column>
+
+  <dxi-column caption="{{ 'Всего' | translate }}" cssClass="centered-header">
+    <dxi-column
+      dataField="totalWorkedDays"
+      [visible]="columnList[0].show"
+      caption="{{ 'Отработанные дни' | translate }}"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalWorkedTimeInMinutes"
+      [visible]="columnList[1].show"
+      caption="{{ 'Отработанные часы (ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalWorkedTimeInMinutesWithinPlan"
+      [visible]="columnList[2].show"
+      caption="{{ 'Часы по графику (ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalEarlyInTimeInMinutes"
+      [visible]="columnList[3].show"
+      caption="{{ 'Ранний приход(ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    ></dxi-column>
+    <dxi-column
+      dataField="totalLateInTimeInMinutes"
+      [visible]="columnList[4].show"
+      caption="{{ 'Поздний приход (ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalEarlyOutTimeInMinutes"
+      [visible]="columnList[5].show"
+      caption="{{ 'Ранний уход(ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalLateOutTimeInMinutes"
+      [visible]="columnList[6].show"
+      caption="{{ 'Поздний уход(ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalOverTimeInMinutes"
+      [visible]="columnList[7].show"
+      caption="{{ 'Переработка(ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+    <dxi-column
+      dataField="totalDeficiencyTimeInMinutes"
+      [visible]="columnList[8].show"
+      caption="{{ 'Недоработка(ч)' | translate }}"
+      cellTemplate="minutesToHoursTemplate"
+      alignment="left"
+    >
+    </dxi-column>
+  </dxi-column>
+
+  <!-- dynamic columns  -->
+
+  <ng-container *ngFor="let date of uniqueEventsDates; index as i">
+    <dxi-column
+      caption="{{ date | date : 'shortDate' }} ({{ date | date : 'EEEE' }})"
+      cssClass="centered-header"
+    >
+      <dxi-column
+        [visible]="columnList[9].show"
+        caption="{{ 'План' | translate }}"
+        cssClass="centered-header"
+      >
+        <dxi-column
+          dataType="date"
+          format="HH:mm"
+          dataField="{{ 'eventsReport.' + date + '.plannedEventDateIn' }}"
+          caption="{{ 'Приход' | translate }}"
+          cssClass="centered-header"
+          cellTemplate="minutesTemplate"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="{{ 'eventsReport.' + date + '.plannedEventDateOut' }}"
+          dataType="date"
+          format="HH:mm"
+          caption="{{ 'Уход' | translate }}"
+          cssClass="centered-header"
+          cellTemplate="minutesTemplate"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="{{
+            'eventsReport.' + date + '.plannedWorkedTimeInMinutes'
+          }}"
+          caption="{{ 'Норма' | translate }}"
+          cssClass="centered-header"
+          cellTemplate="minutesToHoursTemplate"
+        >
+        </dxi-column>
+      </dxi-column>
+
+      <dxi-column
+        [visible]="columnList[10].show"
+        caption="{{ 'Присутствие' | translate }}"
+        cssClass="centered-header"
+      >
+        <dxi-column
+          caption="{{ 'Приход' | translate }}"
+          cssClass="centered-header"
+        >
+          <dxi-column
+            dataField="{{ 'eventsReport.' + date + '.eventDateIn' }}"
+            dataType="date"
+            format="HH:mm"
+            caption="{{ 'Время' | translate }}"
+            cssClass="centered-header"
+            cellTemplate="minutesTemplate"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="{{ 'eventsReport.' + date + '.locationNameIn' }}"
+            caption="{{ 'Локация' | translate }}"
+            cssClass="centered-header"
+            cellTemplate="minutesTemplate"
+          >
+          </dxi-column>
+        </dxi-column>
+        <dxi-column
+          caption="{{ 'Уход' | translate }}"
+          cssClass="centered-header"
+        >
+          <dxi-column
+            dataField="{{ 'eventsReport.' + date + '.eventDateOut' }}"
+            dataType="date"
+            format="HH:mm"
+            caption="{{ 'Время' | translate }}"
+            cssClass="centered-header"
+            cellTemplate="minutesTemplate"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="{{ 'eventsReport.' + date + '.locationNameOut' }}"
+            caption="{{ 'Локация' | translate }}"
+            cssClass="centered-header"
+            cellTemplate="minutesTemplate"
+          >
+          </dxi-column>
+        </dxi-column>
+        <dxi-column
+          dataField="{{ 'eventsReport.' + date + '.workedTimeInMinutes' }}"
+          caption="{{ 'Отработанные часы' | translate }}"
+          cssClass="centered-header"
+          cellTemplate="minutesToHoursTemplate"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="{{
+            'eventsReport.' + date + '.workedTimeInMinutesWithinPlan'
+          }}"
+          [visible]="columnList[2].show"
+          caption="{{ 'Часы по графику' | translate }}"
+          cssClass="centered-header"
+          cellTemplate="minutesTemplate"
+        >
+        </dxi-column>
+      </dxi-column>
+
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.earlyInTimeInMinutes' }}"
+        [visible]="columnList[3].show"
+        caption="{{ 'Ранний приход' | translate }}"
+        cssClass="centered-header"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.lateInTimeInMinutes' }}"
+        [visible]="columnList[4].show"
+        caption="{{ 'Поздний приход' | translate }}"
+        cssClass="centered-header"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.earlyOutTimeInMinutes' }}"
+        [visible]="columnList[5].show"
+        caption="{{ 'Ранний уход' | translate }}"
+        cssClass="centered-header"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.lateOutTimeInMinutes' }}"
+        [visible]="columnList[6].show"
+        caption="{{ 'Поздний уход' | translate }}"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.overTimeInMinutes' }}"
+        [visible]="columnList[7].show"
+        caption="{{ 'Переработка' | translate }}"
+        cssClass="centered-header"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        dataField="{{ 'eventsReport.' + date + '.deficiencyTimeInMinutes' }}"
+        [visible]="columnList[8].show"
+        caption="{{ 'Недоработка' | translate }}"
+        cssClass="centered-header"
+        cellTemplate="minutesTemplate"
+      >
+      </dxi-column>
+    </dxi-column>
+  </ng-container>
+
+  <!-- /dynamic columns  -->
+
+  <div *dxTemplate="let data of 'minutesToHoursTemplate'">
+    {{ minutesToHours(data.value, data) }}
+  </div>
+  <div *dxTemplate="let data of 'minutesTemplate'">
+    {{ formatMinutes(data.value, data) }}
+  </div>
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

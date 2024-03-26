@@ -1,0 +1,75 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+
+  &.container-mode {
+    border: 1px solid #dbdfeb;
+
+    &.open {
+      border: 1px solid #3d44e4;
+      box-shadow: 0px 0px 8px rgba(61, 68, 228, 0.25);
+      border-radius: 4px;
+    }
+
+    &.error {
+      border: 1px solid #dc3545;
+      box-shadow: 0px 0px 2px rgb(220, 61, 77);
+    }
+  }
+}
+
+.accordion-header {
+  height: 27px;
+  padding: 4px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  background: rgba(6, 12, 31, 0.05);
+
+  .title-icon, chevron {
+    display: block;
+  }
+
+  .title {
+    font-family: "PTROOTUIMEDIUM", serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #060C1F;
+  }
+
+  &.container-mode {
+    height: 34px;
+    justify-content: space-between;
+    padding: 10px;
+    background: none;
+    gap: 10px;
+
+    .title-icon, title {
+      align-self: center;
+    }
+
+    .title {
+    }
+
+    .chevron {
+      align-self: center;
+      margin-left: auto;
+    }
+  }
+}
+
+.accordion-content {
+  margin-bottom: 16px;
+  padding: initial;
+
+  &.container-mode {
+    margin-bottom: initial;
+    padding: 10px 20px;
+  }
+}
+

@@ -1,0 +1,30 @@
+<div class="header-menu">
+  <button #languageButton id="languageButton" class="custom-icon-button">
+    {{ currentLocaleShort }}
+  </button>
+
+  <dx-context-menu
+    [target]="'#languageButton'"
+    [items]="languageMenuItems"
+    [showEvent]="{ name: 'click' }"
+    [hideOnOutsideClick]="true"
+    (onItemClick)="handleLanguageMenuClick($event)"
+  >
+  </dx-context-menu>
+
+  <button #userMenuButton id="userMenuButton" class="custom-icon-button">
+    <span class="menu-label-media">{{ currentUserName }}</span>
+    <i class="dx-icon-overflow"></i>
+  </button>
+
+  <dx-context-menu
+    [target]="'#userMenuButton'"
+    [items]="userMenuItems"
+    [showEvent]="{ name: 'click' }"
+    [hideOnOutsideClick]="true"
+    (onItemClick)="handleUserMenuClick($event)"
+    cssClass="custom-header-context-menu"
+  >
+    >
+  </dx-context-menu>
+</div>

@@ -1,0 +1,138 @@
+@import "../../styles.scss";
+
+wk-badge {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  .badge {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    font: var(--font-caption-1-strong);
+    cursor: default;
+    border-radius: var(--radius-medium);
+
+    .icon.clickable {
+      cursor: pointer;
+    }
+
+    &.medium {
+      gap: var(--space-vertical-xxs);
+      height: 24px;
+      padding: var(--space-vertical-xs) var(--space-horizontal-snudge);
+
+      &.with-icon {
+        padding-left: var(--space-horizontal-xs);
+      }
+
+      &.with-icon-right {
+        padding-right: var(--space-horizontal-xs);
+      }
+
+      &.only-icon {
+        width: 24px;
+        padding: var(--space-vertical-xs) var(--space-horizontal-xs);
+      }
+    }
+
+    &.large {
+      gap: var(--space-vertical-xs);
+      height: 28px;
+      padding: var(--space-vertical-snudge) var(--space-horizontal-snudge);
+
+      &.only-icon {
+        width: 28px;
+      }
+    }
+
+    &.contained {
+      &.default {
+        color: var(--badge-default-contained-color-rest);
+        background: var(--badge-default-contained-bg-rest);
+
+        .icon {
+          fill: var(--badge-default-contained-color-rest);
+        }
+      }
+
+      &.secondary {
+        color: var(--badge-secondary-contained-color-rest);
+        background: var(--badge-secondary-contained-bg-rest);
+
+        .icon {
+          fill: var(--badge-secondary-contained-color-rest);
+        }
+      }
+
+      &.warning {
+        color: var(--badge-error-contained-color-rest);
+        background: var(--badge-error-contained-bg-rest);
+
+        .icon {
+          fill: var(--badge-error-contained-color-rest);
+        }
+      }
+    }
+
+    &.outlined {
+      &.default {
+        color: var(--badge-default-outlined-color-rest);
+        background: var(--badge-default-outlined-bg-rest);
+        border: 1px solid var(--badge-default-outlined-stroke-rest);
+
+        .icon {
+          fill: var(--badge-default-outlined-color-rest);
+        }
+      }
+
+      &.secondary {
+        color: var(--badge-secondary-outlined-color-rest);
+        background: var(--badge-secondary-outlined-bg-rest);
+        border: 1px solid var(--badge-secondary-outlined-stroke-rest);
+
+        .icon {
+          fill: var(--badge-secondary-outlined-color-rest);
+        }
+      }
+
+      &.warning {
+        color: var(--badge-error-outlined-color-rest);
+        background: var(--badge-error-outlined-bg-rest);
+        border: 1px solid var(--badge-error-outlined-stroke-rest);
+
+        .icon {
+          fill: var(--badge-error-outlined-color-rest);
+        }
+      }
+    }
+
+    &.ghost {
+      &.default {
+        color: var(--badge-default-ghost-color-rest);
+
+        .icon {
+          fill: var(--badge-default-ghost-color-rest);
+        }
+      }
+
+      &.secondary {
+        color: var(--badge-secondary-ghost-color-rest);
+
+        .icon {
+          fill: var(--badge-secondary-ghost-color-rest);
+        }
+      }
+
+      &.warning {
+        color: var(--badge-error-ghost-color-rest);
+
+        .icon {
+          fill: var(--badge-error-ghost-color-rest);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+:root {
+  --message-bar-border-success: var(--color-semantic-green-150);
+  --message-bar-border-info: var(--color-semantic-blue-150);
+  --message-bar-border-warning: var(--color-semantic-orange-150);
+  --message-bar-border-error: var(--color-semantic-red-150);
+
+  --message-bar-bg-success: var(--color-semantic-green-10);
+  --message-bar-bg-info: var(--color-semantic-blue-10);
+  --message-bar-bg-warning: var(--color-semantic-orange-10);
+  --message-bar-bg-error: var(--color-semantic-red-10);
+
+  --message-bar-fill-cross: var(--color-grey-2);
+  --message-bar-fill-icon-success: var(--color-semantic-green-150);
+  --message-bar-fill-icon-error: var(--color-semantic-red-150);
+  --message-bar-fill-icon-info: var(--color-semantic-blue-150);
+  --message-bar-fill-icon-warning: var(--color-semantic-orange-150);
+}
+
+body[data-theme="dark"] {
+  --message-bar-border-success: var(--color-semantic-green-200);
+  --message-bar-border-info: var(--color-semantic-blue-200);
+  --message-bar-border-warning: var(--color-semantic-orange-200);
+  --message-bar-border-error: var(--color-semantic-red-200);
+
+  --message-bar-bg-success: var(--color-semantic-green-250);
+  --message-bar-bg-info: var(--color-semantic-blue-250);
+  --message-bar-bg-warning: var(--color-semantic-orange-250);
+  --message-bar-bg-error: var(--color-semantic-red-250);
+
+  --message-bar-fill-cross: var(--color-grey-90);
+  --message-bar-fill-icon-success: var(--color-semantic-green-100);
+  --message-bar-fill-icon-error: var(--color-semantic-red-100);
+  --message-bar-fill-icon-info: var(--color-semantic-blue-100);
+  --message-bar-fill-icon-warning: var(--color-semantic-orange-100);
+}

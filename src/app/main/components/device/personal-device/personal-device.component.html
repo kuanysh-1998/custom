@@ -1,0 +1,153 @@
+<dx-data-grid
+  #grid
+  [dataSource]="device"
+  [remoteOperations]="true"
+  (onRowDblClick)="handleRowDoubleClick($event.data)"
+  (onRowPrepared)="onRowPrepared($event)"
+  [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+>
+  <dxo-export
+    [enabled]="true"
+    fileName="{{ 'Личные устройства' | translate }}"
+  ></dxo-export>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+  <dxi-column
+    minWidth="40"
+    width="40"
+    caption="№"
+    cellTemplate="rowIndexTemplate"
+    alignment="left"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="employeeFullname"
+    minWidth="200"
+    caption="{{ 'ФИО владельца' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="serialNumber"
+    minWidth="300"
+    width="300"
+    caption="{{ 'Серийный номер' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="120"
+    width="120"
+    dataField="appVersion"
+    caption="{{ 'Версия' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="150"
+    width="150"
+    dataField="model"
+    caption="{{ 'Модель' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="150"
+    width="150"
+    dataField="platform"
+    caption="{{ 'ОС' | translate }}"
+    dataType="string"
+  >
+  </dxi-column>
+
+  <dxi-column dataField="verified" [visible]="false" [sortOrder]="'asc'">
+  </dxi-column>
+
+  <dxi-column
+    minWidth="50"
+    width="50"
+    [allowExporting]="false"
+    alignment="center"
+    cellTemplate="selectionCellTemplate"
+  ></dxi-column>
+
+  <ng-container *dxTemplate="let cell of 'selectionCellTemplate'">
+    <i
+      class="bi bi-three-dots"
+      (click)="contextMenuCondition[cell.rowIndex] = true"
+      [attr.id]="'personalCell' + cell.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="contextMenuCondition[cell.rowIndex] = false"
+      [(visible)]="contextMenuCondition[cell.rowIndex]"
+      [dataSource]="cell.data?.menuItems"
+      [width]="200"
+      [target]="'#personalCell' + cell.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cell.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <dxo-toolbar>
+    <dxi-item location="before" locateInMenu="auto">
+      <div *dxTemplate>
+        <button class="btn btn-success device-btn" (click)="refreshData()">
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+      </div>
+    </dxi-item>
+    <dxi-item location="before" locateInMenu="auto" widget="dxButton">
+      <div *dxTemplate>
+        <button class="btn btn-success device-btn" (click)="createDevice()">
+          <img
+            src="assets/image/connect-device.svg"
+            alt="Подключить устройство"
+          />
+          {{ "Подключить устройство" | translate }}
+        </button>
+      </div>
+    </dxi-item>
+
+    <dxi-item location="before" locateInMenu="auto">
+      <button class="btn btn-success device-btn">
+        <img src="assets/image/download-apk.svg" alt="Скачать APK" />
+        <a
+          href="https://play.google.com/store/apps/details?id=com.samgau.workpace"
+        >
+          {{ "Скачать" | translate }} APK
+        </a>
+      </button>
+    </dxi-item>
+    <dxi-item name="exportButton" location="after" locateInMenu="auto">
+      <button class="btn btn-excel" (click)="exportToExcel()">
+        <i class="bi bi-file-earmark-excel"></i>
+      </button>
+    </dxi-item>
+  </dxo-toolbar>
+
+  <div *dxTemplate="let data of 'rowIndexTemplate'">
+    {{
+      data.component.pageIndex() * data.component.pageSize() + data.rowIndex + 1
+    }}
+  </div>
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>
+
+<ng-container *ngIf="isLoadingPhoto">
+  <div class="loader">
+    <dx-load-indicator></dx-load-indicator>
+  </div>
+</ng-container>
+
+<wp-photo-popup
+  *ngIf="!isLoadingPhoto && isPopupVisible"
+  [photoUrl]="selectedPhotoUrl"
+  [isVisible]="isPopupVisible"
+  (close)="handleModalClose()"
+></wp-photo-popup>

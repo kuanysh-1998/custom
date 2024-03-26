@@ -1,0 +1,19 @@
+<div [class.vertical-position]="isVerticalTabs" class="tabs">
+  <div
+    #tabTmpl
+    *ngFor="let tab of tabsItems; let i = index"
+    [attr.data-token]="token + '-' + i"
+    [class.disabled]="disabled || tab.disabled"
+    [class.selected]="selectedIndex === i"
+    [class.vertical]="isVerticalTabs"
+    (click)="changeActiveTab(tab, i)"
+    (keydown.enter)="changeActiveTab(tab, i)"
+    tabindex="0"
+    class="tab"
+  >
+    <wk-svg *ngIf="tab.icon" [icon]="tab.icon" class="icon"></wk-svg>
+
+    {{ tab.text }}
+  </div>
+  <div #indicator class="border"></div>
+</div>

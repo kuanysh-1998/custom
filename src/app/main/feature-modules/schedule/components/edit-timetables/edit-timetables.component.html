@@ -1,0 +1,69 @@
+<form [formGroup]="form">
+  <div class="counter-section">
+    <span>{{ "Выбрано расписаний: " | translate }}</span>
+    <span>{{ timetablesId.length }}</span>
+  </div>
+
+  <div class="date-section">
+    <div class="checkbox">
+      <dx-check-box formControlName="startDateEditable"> </dx-check-box>
+      <span>{{ "Изменить дату начала для всех расписаний" | translate }}</span>
+    </div>
+    <div class="date">
+      <span>{{ "Дата начала:" | translate }}</span>
+      <dx-date-box
+        [type]="'date'"
+        [min]="minDate"
+        [max]="maxDate"
+        [pickerType]="'calendar'"
+        [displayFormat]="'dd.MM.yyyy'"
+        formControlName="startDate"
+        [width]="322"
+        (onOptionChanged)="onDateChanged($event, 'startDate')"
+        appValidateControl
+      >
+      </dx-date-box>
+    </div>
+  </div>
+
+  <div class="date-section">
+    <div class="checkbox">
+      <dx-check-box formControlName="endDateEditable"> </dx-check-box>
+      <span>{{
+        "Изменить дату завершения для всех расписаний" | translate
+      }}</span>
+    </div>
+    <div class="date">
+      <span>{{ "Дата завершения:" | translate }}</span>
+      <dx-date-box
+        [type]="'date'"
+        [min]="minDate"
+        [max]="maxDate"
+        [pickerType]="'calendar'"
+        [displayFormat]="'dd.MM.yyyy'"
+        formControlName="endDate"
+        [width]="322"
+        (onOptionChanged)="onDateChanged($event, 'endDate')"
+        appValidateControl
+      >
+      </dx-date-box>
+    </div>
+  </div>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    [text]="'Отмена' | translate"
+    (onClick)="close()"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+  >
+  </dx-button>
+  <dx-button
+    class="custom-dx-success-btn"
+    [text]="'Сохранить' | translate"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    (onClick)="update()"
+    [disabled]="isUpdating"
+  ></dx-button>
+</div>

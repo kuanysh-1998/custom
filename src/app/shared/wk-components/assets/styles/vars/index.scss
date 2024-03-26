@@ -1,0 +1,12 @@
+@import "palette";
+@import "radius";
+@import "shadow";
+@import "spacing";
+@import "typography";
+@import "colors";
+@import "z-index";
+@import "viewport";
+
+:root {
+  --max-witdh-content: 1672px;
+}

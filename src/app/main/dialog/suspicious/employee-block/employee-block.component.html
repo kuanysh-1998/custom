@@ -1,0 +1,216 @@
+<app-single-accordion
+  [headerTitle]="'Детали отметки'"
+  [headerOnTop]="false"
+  [(opened)]="isAccordionOpen"
+>
+  <div class="info-blocks">
+    <div class="info-block">
+      <div class="info-block-item">
+        <div class="block-icon">
+          <img
+            ngSrc="assets/image/suspicious-dialog/map.icon.svg"
+            alt=""
+            height="24"
+            width="24"
+          />
+        </div>
+        <div class="info">
+          <div class="block-name">{{ "Локация" | translate }}</div>
+          <div id="locationName" class="block-info">
+            {{ employeeBlockData.locationName }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-item">
+        <img
+          ngSrc="assets/image/suspicious-dialog/schedule-icon.svg"
+          alt=""
+          height="24"
+          width="24"
+        />
+
+        <div *ngIf="isEditingSchedule; else showInfoBlock">
+          <dx-select-box
+            displayExpr="scheduleName"
+            valueExpr="id"
+            fieldTemplate="field"
+            [dataSource]="dataTimeTableList"
+            [(ngModel)]="selectedTimetableSpanId"
+            width="415"
+            [noDataText]="noDataText"
+          >
+            <div *dxTemplate="let data of 'field'">
+              <dx-text-box
+                class="item-name"
+                [value]="
+                  data
+                    ? data.scheduleName +
+                      ' (' +
+                      (data.date | date : 'dd.MM.yy') +
+                      ')'
+                    : null
+                "
+                [readOnly]="true"
+                placeholder="{{ 'Выберите' | translate }}"
+              ></dx-text-box>
+            </div>
+            <div *dxTemplate="let data of 'item'">
+              <ng-container *ngIf="data.dayType === 1; else offDay">
+                <div class="schedule-name">
+                  {{ data.scheduleName }} ({{ data.date | date : "dd.MM.yy" }})
+                </div>
+                <div class="d-flex justify-content-start">
+                  <div class="suspicious-info">
+                    <div
+                      class="mark-time"
+                      *ngIf="employeeBlockData.eventType === 0"
+                    >
+                      <p class="mark-time-title">
+                        {{ "Границы прихода" | translate }}:
+                        <span
+                          >{{ data.boundaryInTime.start | date : "shortTime" }}
+                          -
+                          {{
+                            data.boundaryInTime.end | date : "shortTime"
+                          }}</span
+                        >
+                      </p>
+                    </div>
+                    <div
+                      class="mark-time"
+                      *ngIf="employeeBlockData.eventType === 1"
+                    >
+                      <p class="mark-time-title">
+                        {{ "Границы ухода" | translate }}:
+                        <span
+                          >{{ data.boundaryOutTime.start | date : "shortTime" }}
+                          -
+                          {{
+                            data.boundaryOutTime.end | date : "shortTime"
+                          }}</span
+                        >
+                      </p>
+                    </div>
+                    <div class="work-time">
+                      <p class="work-time-title">
+                        {{ "Рабочее время" | translate }}:
+                        <span class="work-time-item"
+                          >{{ data.workTime.start | date : "shortTime" }}
+                          -
+                          {{ data.workTime.end | date : "shortTime" }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="location">
+                    <p class="work-time-title">
+                      {{ "Локация" | translate }}:
+                      <span>
+                        {{
+                          data.locationName
+                            ? (data.locationName | translate)
+                            : "-"
+                        }}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #offDay>
+                <div class="schedule-name">
+                  {{ data.scheduleName }} ({{ data.date | date : "dd.MM.yy" }})
+                </div>
+                <p class="work-time-title">{{ "Выходной" | translate }}</p>
+              </ng-template>
+            </div>
+          </dx-select-box>
+        </div>
+
+        <ng-template #showInfoBlock>
+          <div class="info">
+            <div class="block-name">{{ "Расписание" | translate }}</div>
+            <div
+              class="block-info"
+              *ngIf="employeeBlockData.timetableSpan; else noSchedule"
+            >
+              <span>
+                {{ employeeBlockData.timetableSpan.scheduleName }} ({{
+                  employeeBlockData.timetableSpan.date | date : "dd.MM.yy"
+                }}){{ employeeBlockData.timetableSpan.workTime ? "." : "" }}
+                <span *ngIf="employeeBlockData.timetableSpan.workTime">
+                  {{ "Рабочее время" | translate }}:
+                  {{
+                    employeeBlockData.timetableSpan.workTime.start
+                      | date : "shortTime"
+                  }}
+                  -
+                  {{
+                    employeeBlockData.timetableSpan.workTime.end
+                      | date : "shortTime"
+                  }}
+                </span>
+              </span>
+            </div>
+            <ng-template #noSchedule>
+              <div class="block-info">
+                {{ "Не определено" | translate }}
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="info-block-icons">
+        <img
+          ngSrc="assets/image/all-marks/wp-edit-icon.svg"
+          alt=""
+          height="32"
+          width="32"
+          class="info-block-icon"
+          *ngIf="!isEditingSchedule && mark"
+          (click)="editTimetable()"
+        />
+        <img
+          ngSrc="assets/image/all-marks/wp-check-icon.svg"
+          alt=""
+          height="32"
+          width="32"
+          class="info-block-icon"
+          *ngIf="isEditingSchedule && mark"
+          (click)="save()"
+        />
+        <img
+          ngSrc="assets/image/all-marks/wp-close-icon.svg"
+          alt=""
+          height="32"
+          width="32"
+          class="info-block-icon"
+          *ngIf="isEditingSchedule && mark"
+          (click)="cancelEditTimetable()"
+        />
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-item">
+        <img
+          ngSrc="assets/image/suspicious-dialog/commen.svg"
+          alt=""
+          height="24"
+          width="24"
+        />
+
+        <div class="info">
+          <div class="block-name">{{ "Комментарий" | translate }}</div>
+          <div id="departamentName" class="block-info">
+            {{ employeeBlockData.comment ? employeeBlockData.comment : "-" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-single-accordion>

@@ -1,0 +1,119 @@
+<form
+  [formGroup]="filterForm"
+  class="filter-controls-row report-form-filter-gap"
+>
+  <dx-date-range-box
+    class="adaptiveWidthTable"
+    [showClearButton]="true"
+    formControlName="eventDate"
+    [elementAttr]="{ class: 'no-margin-top' }"
+    [max]="maxDate"
+    appValidateControl
+    endDateLabel="{{ 'Дата завершения' | translate }}"
+    startDateLabel="{{ 'Дата начала' | translate }}"
+  >
+  </dx-date-range-box>
+
+  <combo-dropdown-list
+    [dataSource]="locationsDataSource"
+    formControlName="locations"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Выберите локацию' | translate }}"
+  ></combo-dropdown-list>
+
+  <combo-dropdown-list
+    [dataSource]="departmentsDataSource"
+    formControlName="departments"
+    [searchExpression]="'name'"
+    placeholder="{{ 'Выберите отделы' | translate }}"
+  ></combo-dropdown-list>
+
+  <button class="btn btn-success report-btn" (click)="createReport()">
+    {{ "Сформировать" | translate }}
+  </button>
+  <button
+    class="btn btn-excel last-item-to-right"
+    (click)="exportToExcel($event)"
+  >
+    <i class="bi bi-file-earmark-excel"></i>
+  </button>
+</form>
+
+<dx-data-grid
+  #grid
+  [dataSource]="dataLatecomers"
+  [showBorders]="true"
+  [showRowLines]="true"
+  [remoteOperations]="true"
+>
+  <dxo-filter-row [visible]="false"> </dxo-filter-row>
+  <dxi-column
+    dataField="employeeName"
+    caption="{{ 'ФИО сотрудника' | translate }}"
+    dataType="string"
+    minWidth="200"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="departmentName"
+    caption="{{ 'Отдел' | translate }}"
+    dataType="string"
+    minWidth="200"
+    width="200"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="locationNameIn"
+    caption="{{ 'Локация' | translate }}"
+    dataType="string"
+    minWidth="150"
+    width="150"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="scheduleName"
+    caption="{{ 'График работы' | translate }}"
+    dataType="string"
+    minWidth="150"
+    width="150"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="200"
+    width="200"
+    dataField="eventDateIn"
+    caption="{{ 'Дата и время отметки' | translate }}"
+    dataType="datetime"
+  >
+  </dxi-column>
+  <dxi-column
+    minWidth="100"
+    width="100"
+    dataField="eventDateInUtcOffset"
+    caption="{{ 'Часовой пояс' | translate }}"
+    dataType="string"
+    [calculateCellValue]="calculateData"
+  >
+  </dxi-column>
+
+  <dxi-column
+    minWidth="100"
+    width="100"
+    dataField="lateInTimeInMinutes"
+    caption="{{ 'Опоздание' | translate }}"
+    cellTemplate="minutesTemplate"
+    [allowSorting]="true"
+  >
+  </dxi-column>
+
+  <div *dxTemplate="let data of 'minutesTemplate'">
+    {{ formatMinutes(data.value) }}
+  </div>
+
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

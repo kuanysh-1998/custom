@@ -1,0 +1,45 @@
+@import "../../../styles.scss";
+@mixin header {
+  .dx-datagrid {
+    background: transparent;
+  }
+
+  .dx-command-select.dx-cell-focus-disabled.dx-editor-cell.dx-editor-inline-block {
+    border-radius: 0;
+  }
+
+  .dx-custom-align-column.middle.dx-custom-data-grid-context-menu.dx-cell-focus-disabled {
+    border-radius: 0;
+  }
+
+  .dx-datagrid .dx-datagrid-headers {
+    box-sizing: border-box;
+    overflow: hidden;
+    font: var(--font-caption-1-strong);
+    color: var(--datagrid-color-header);
+    border-color: var(--datagrid-stroke-rest);
+    border-top-left-radius: var(--radius-small);
+    border-top-right-radius: var(--radius-small);
+
+    .dx-datagrid-text-content {
+      white-space: nowrap;
+    }
+
+    td {
+      box-sizing: border-box;
+      height: 32px;
+      padding: var(--space-vertical-xs) var(--space-horizontal-s);
+      vertical-align: middle;
+      background-color: var(--datagrid-header-bg-rest);
+      border-color: var(--datagrid-stroke-rest);
+
+      &:first-child {
+        border-top-left-radius: var(--radius-small);
+      }
+
+      &:last-child {
+        border-top-right-radius: var(--radius-small);
+      }
+    }
+  }
+}

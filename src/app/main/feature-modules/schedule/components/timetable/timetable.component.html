@@ -1,0 +1,155 @@
+<div class="filter-controls-row">
+  <button class="btn btn-success" (click)="refresh()">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
+
+  <button class="btn btn-success" (click)="create()">
+    {{ "Добавить расписание" | translate }}
+  </button>
+
+  <div class="selected-elements-section" *ngIf="showEditAll()">
+    <div>
+      <span>{{ "Выбрано элементов: " | translate }}</span>
+      <span>{{ grid.instance?.getSelectedRowsData().length }}</span>
+    </div>
+    <button class="btn btn-light" (click)="editAll()">
+      <img src="assets/image/pencil.svg" alt="Редактировать" />
+      {{ "Редактировать" | translate }}
+    </button>
+
+    <button class="btn btn-light" (click)="deleteAll()">
+      <i class="dx-icon-trash"></i>
+      {{ "Удалить" | translate }}
+    </button>
+  </div>
+</div>
+
+<dx-data-grid
+  #grid
+  [dataSource]="dataSource"
+  [remoteOperations]="true"
+  (onRowDblClick)="edit($event.data)"
+  (onOptionChanged)="onOptionChanged($event)"
+  (onSelectionChanged)="onSelectionChanged($event)"
+  [elementAttr]="{
+    class: 'custom-dx-grid-selected-column custom-dx-grid-scroll'
+  }"
+>
+  <dxo-filter-row [visible]="true"> </dxo-filter-row>
+
+  <dxo-selection
+    allowSelectAll="true"
+    selectAllMode="allPages"
+    showCheckBoxesMode="always"
+    mode="multiple"
+  ></dxo-selection>
+
+  <dxi-column
+    [caption]="'ФИО сотрудника' | translate"
+    dataField="employeeName"
+    minWidth="300"
+    width="100"
+    [allowSorting]="true"
+    [allowGrouping]="true"
+    cellTemplate="cellTemplateFullName"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Отдел' | translate"
+    dataField="departmnetName"
+    minWidth="300"
+    width="100"
+    [allowSorting]="true"
+    [allowGrouping]="true"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Дата начала' | translate"
+    dataField="startDate"
+    cellTemplate="date"
+    dataType="date"
+    [allowSorting]="true"
+    format="dd.MM.yyyy"
+    sortOrder="desc"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Дата завершения' | translate"
+    dataField="endDate"
+    cellTemplate="date"
+    dataType="date"
+    [allowSorting]="true"
+    format="dd.MM.yyyy"
+  ></dxi-column>
+
+  <dxi-column
+    [caption]="'Статус' | translate"
+    alignment="left"
+    dataField="status"
+    [allowSorting]="true"
+  >
+    <dxo-lookup
+      [dataSource]="statusTypes"
+      valueExpr="value"
+      [displayExpr]="displayExprStatus"
+    >
+    </dxo-lookup
+  ></dxi-column>
+
+  <dxi-column
+    caption=""
+    width="50"
+    [allowFiltering]="false"
+    cellTemplate="menuItems"
+    alignment="center"
+  >
+  </dxi-column>
+
+  <ng-container *dxTemplate="let cellInfo of 'date'">
+    {{ cellInfo.value | date : "dd.MM.yyyy" }}
+  </ng-container>
+
+  <ng-container *dxTemplate="let cellInfo of 'menuItems'">
+    <i
+      *ngIf="cellInfo.data.menuItems?.length > 0"
+      class="bi bi-three-dots"
+      (click)="contextMenuStatuses[cellInfo.rowIndex] = true"
+      [attr.id]="'cell' + cellInfo.rowIndex"
+    ></i>
+
+    <dx-context-menu
+      (hideOnOutsideClickChange)="
+        contextMenuStatuses[cellInfo.rowIndex] = false
+      "
+      [(visible)]="contextMenuStatuses[cellInfo.rowIndex]"
+      [showEvent]
+      [dataSource]="cellInfo.data?.menuItems"
+      [width]="200"
+      [target]="'#cell' + cellInfo.rowIndex"
+      (onItemClick)="executeAction($event.itemData, cellInfo.data)"
+    >
+    </dx-context-menu>
+  </ng-container>
+
+  <div *dxTemplate="let data of 'cellTemplateFullName'">
+    <span>
+      <span *ngIf="data.data.employeeIsDeleted" class="deleted-label">{{
+        "Удалён" | translate
+      }}</span>
+      {{ data.data.employeeName }}
+    </span>
+  </div>
+
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+  <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+  </dxo-toolbar>
+
+  <dxo-paging [pageSize]="10"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[10, 20, 50, 100]"
+    [visible]="true"
+  ></dxo-pager>
+</dx-data-grid>

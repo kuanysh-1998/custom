@@ -1,0 +1,45 @@
+@mixin contained-button($type) {
+  $bg-rest: "--btn-#{$type}-contained-bg-rest";
+  $bg-hover: "--btn-#{$type}-contained-bg-hover";
+  $bg-focused: "--btn-#{$type}-contained-bg-focused";
+  $bg-active: "--btn-#{$type}-contained-bg-active";
+  $bg-disabled: "--btn-#{$type}-contained-bg-disabled";
+  $color: "--btn-#{$type}-contained-color";
+  $color-disabled: "--btn-#{$type}-contained-color-disabled";
+
+  color: var(#{$color});
+  background-color: var(#{$bg-rest});
+  border: 1px solid var(#{$bg-rest});
+
+  svg {
+    fill: var(#{$color});
+  }
+
+  &:hover {
+    color: var(#{$color});
+    background-color: var(#{$bg-hover});
+    border: 1px solid var(#{$bg-hover});
+  }
+
+  &:focus {
+    color: var(#{$color});
+    background-color: var(#{$bg-focused});
+    border: 1px solid var(#{$bg-focused});
+  }
+
+  &:active {
+    color: var(#{$color});
+    background-color: var(#{$bg-active});
+    border: 1px solid var(#{$bg-active});
+  }
+
+  &.dx-state-disabled {
+    color: var(#{$color-disabled});
+    background-color: var(#{$bg-disabled});
+    border: 1px solid var(#{$bg-disabled});
+
+    svg {
+      fill: var(#{$color-disabled});
+    }
+  }
+}

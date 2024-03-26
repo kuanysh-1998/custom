@@ -1,0 +1,103 @@
+<form [formGroup]="form">
+  <dx-select-box
+    formControlName="organizationId"
+    [dataSource]="organizationsDataSource"
+    displayExpr="name"
+    [searchEnabled]="true"
+    valueExpr="id"
+    label="{{ 'Организация' | translate }}*"
+    placeholder=""
+    stylingMode="outlined"
+    labelMode="floating"
+    [showClearButton]="false"
+    appValidateControl
+  >
+  </dx-select-box>
+
+  <dx-select-box
+    formControlName="departmentId"
+    [dataSource]="departmentsDataSource"
+    displayExpr="name"
+    [searchEnabled]="true"
+    valueExpr="id"
+    label="{{ 'Отдел' | translate }}*"
+    placeholder=""
+    stylingMode="outlined"
+    labelMode="floating"
+    [showClearButton]="false"
+    appValidateControl
+  >
+  </dx-select-box>
+
+  <dx-text-box
+    dataField="lastName"
+    formControlName="lastName"
+    label="{{ 'Фамилия' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="firstName"
+    formControlName="firstName"
+    label="{{ 'Имя' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="middleName"
+    formControlName="middleName"
+    label="{{ 'Отчество' | translate }}"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    dataField="email"
+    formControlName="email"
+    label="{{ 'Логин' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    placeholder="example@example.com"
+    appValidateControl
+  >
+  </dx-text-box>
+
+  <dx-text-box
+    formControlName="password"
+    label="{{ 'Пароль' | translate }}*"
+    stylingMode="outlined"
+    labelMode="floating"
+    appValidateControl
+    [mode]="passwordVisibility.passwordMode$ | async"
+    class="custom-dxi-btn"
+  >
+    <dxi-button
+      name="password"
+      location="after"
+      [options]="passwordVisibility.passwordButton$ | async"
+    ></dxi-button>
+  </dx-text-box>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    (onClick)="closeModal()"
+    text="{{ 'Отмена' | translate }}"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    class="custom-dx-normal-btn"
+  ></dx-button>
+  <dx-button
+    (onClick)="createUser()"
+    text="{{ 'Сохранить' | translate }}"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    class="custom-dx-success-btn"
+  ></dx-button>
+</div>

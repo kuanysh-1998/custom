@@ -1,0 +1,24 @@
+<div class="basic-container">
+  <div class="back-button-container">
+    <dx-button
+      (onClick)="returnToUsersPage()"
+      class="back-button"
+      icon="arrowleft"
+    ></dx-button>
+  </div>
+  <div class="publish-basic-container">
+    <div class="user-info" *ngIf="userById">
+      <div>
+        <h4 class="user-info__fullname">
+          {{ userById.fullName }}
+        </h4>
+      </div>
+      <div class="user-info__details">
+        <span class="user-info__label">Логин:</span>
+        <span class="user-info__email">{{ userById.email }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<wp-tab-panel [tabs]="userTabs"></wp-tab-panel>

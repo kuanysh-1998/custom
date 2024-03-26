@@ -1,0 +1,69 @@
+@import "cell";
+@import "toolbar";
+@import "buttons";
+@import "input";
+@import "time";
+@import "../../../styles.scss";
+wk-date-picker {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-l);
+
+  @include input;
+
+  .dx-custom-datepicker-container {
+    display: flex;
+    flex-direction: column;
+
+    &.dx-custom-datepicker-left-label {
+      flex-direction: row;
+      gap: var(--space-horizontal-s);
+    }
+  }
+
+  .dx-custom-datepicker-wrapper {
+    width: 100%;
+  }
+
+  .dx-custom-datepicker-error-message {
+    font: var(--font-caption-1);
+    margin-top: var(--space-vertical-xxs);
+    color: var(--form-field-color-error);
+  }
+
+  .dx-custom-datepicker-helper-text {
+    font: var(--font-caption-1);
+    margin-top: var(--space-vertical-xxs);
+    color: var(--form-field-stroke-helper-text);
+  }
+}
+
+.dx-custom-datepicker-wrapper.dx-datebox-wrapper-calendar {
+  @include cell;
+  @include toolbar;
+  @include buttons;
+  @include time;
+
+  .dx-calendar-body thead th {
+    font: var(--font-caption-1-strong);
+  }
+
+  .dx-show-invalid-badge.dx-widget.dx-visibility-change-handler.dx-calendar.dx-calendar-range.dx-calendar-view-month.dx-calendar-multiview.dx-swipeable {
+    margin: 0;
+    padding-bottom: var(--space-vertical-l);
+    background: var(--date-picker-bg);
+  }
+
+  .dx-overlay-content.dx-popup-normal.dx-resizable.dx-popup-inherit-height {
+    padding: var(--space-vertical-l) var(--space-horizontal-l);
+    border: none;
+    background: var(--date-picker-bg);
+    box-shadow: var(--shadow-16);
+  }
+
+  &.dx-datebox-wrapper-datetime .dx-calendar,
+  .dx-popup-inherit-height .dx-popup-content > .dx-widget {
+    background: var(--date-picker-bg);
+    margin: 0;
+  }
+}

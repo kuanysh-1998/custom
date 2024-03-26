@@ -1,0 +1,8 @@
+@mixin row-limit($limit: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $limit;
+}

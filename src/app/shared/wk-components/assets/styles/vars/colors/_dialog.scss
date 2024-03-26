@@ -1,0 +1,19 @@
+:root {
+  --dialog-bg-backdrop: rgba(0, 0, 0, 0.4);
+
+  --dialog-bg-rest: var(--color-grey-white);
+  --dialog-color: var(--color-grey-2);
+
+  --dialog-icon-close-rest: var(--color-grey-2);
+  --dialog-icon-close-hover: var(--color-grey-20);
+}
+
+body[data-theme='dark'] {
+  --dialog-bg-backdrop: rgba(0, 0, 0, 0.4);
+
+  --dialog-bg-rest: var(--color-grey-16);
+  --dialog-color: var(--color-grey-white);
+
+  --dialog-icon-close-rest: var(--color-grey-90);
+  --dialog-icon-close-hover: var(--color-grey-white);
+}

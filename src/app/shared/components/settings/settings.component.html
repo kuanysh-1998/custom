@@ -1,0 +1,65 @@
+<p class="title">{{ "Настройки" | translate }}</p>
+<div class="items">
+  <div class="item">
+    <p class="description">
+      {{
+        "Отображать предупреждение в мобильном приложении, если сотрудник отмечается за пределами
+      локаций" | translate
+      }}
+    </p>
+
+    <wp-custom-switch
+      [(isChecked)]="isLoggingWithoutLocationAllowed"
+      (isCheckedChange)="sendData()"
+    >
+    </wp-custom-switch>
+  </div>
+
+  <div class="item" *hasPermission="PermissionEnum.Process_1C">
+    <p class="description">{{ "Интеграция с системой 1С" | translate }}</p>
+    <wp-custom-switch
+      [(isChecked)]="hasIntegrationWith_1C"
+      (isCheckedChange)="sendData()"
+    >
+    </wp-custom-switch>
+  </div>
+</div>
+<div class="items">
+  <p class="description">
+    {{ "Сотрудники могут оставлять комментарии к отметкам" | translate }}
+  </p>
+  <div class="item">
+    <p class="description">{{ "к отметкам прихода" | translate }}</p>
+    <wp-custom-switch
+      [(isChecked)]="isCommentInEvents"
+      (isCheckedChange)="sendData()"
+    >
+    </wp-custom-switch>
+  </div>
+  <div class="item">
+    <p class="description">{{ "к отметкам ухода" | translate }}</p>
+    <wp-custom-switch
+      [(isChecked)]="isCommentOutEvents"
+      (isCheckedChange)="sendData()"
+    >
+    </wp-custom-switch>
+  </div>
+</div>
+<div class="items">
+  <div class="item">
+    <p class="description">
+      {{
+        "При неуспешном распознавании просить сотрудников сфотографироваться повторно"
+          | translate
+      }}
+    </p>
+    <input
+      type="number"
+      positiveIntegerOnly
+      min="0"
+      max="3"
+      [ngModel]="count"
+      (ngModelChange)="onChange($event)"
+    />
+  </div>
+</div>

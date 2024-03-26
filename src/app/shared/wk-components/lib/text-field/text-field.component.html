@@ -1,0 +1,64 @@
+<div [class.left-label]="labelLocation === 'left'" class="container">
+  <wk-label
+    *ngIf="label"
+    [required]="isRequired"
+    [label]="label"
+    [info]="labelInfo"
+    [disabled]="isDisabled"
+    (click)="inputEl.focus()"
+  ></wk-label>
+
+  <div class="input-container">
+    <div class="input-wrapper">
+      <div *ngIf="prefix" class="prefix additional-text">
+        {{ prefix }}
+      </div>
+
+      <div class="icon-container">
+        <wk-svg
+          *ngIf="icon"
+          [icon]="icon"
+          [class.small]="isSmall"
+          class="icon"
+        ></wk-svg>
+
+        <input
+          #inputEl
+          [value]="value"
+          [readOnly]="readOnly"
+          [disabled]="isDisabled"
+          [attr.data-token]="token"
+          [placeholder]="placeholder"
+          [ngClass]="inputClasses"
+          (input)="onValueChange($event)"
+          (blur)="blur()"
+        />
+
+        <wk-svg
+          *ngIf="iconRight"
+          [icon]="iconRight"
+          [class.small]="isSmall"
+          class="icon-right"
+        ></wk-svg>
+      </div>
+
+      <div *ngIf="postfix" class="postfix additional-text">
+        {{ postfix }}
+      </div>
+    </div>
+
+    <ng-container *ngIf="!isDisabled && !readOnly">
+      <div
+        *ngIf="isError && errorMessage; else errorMsgFromControl"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </div>
+      <ng-template #errorMsgFromControl>
+        <wk-error-message [control]="control"></wk-error-message>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="helperText" class="helper-text">{{ helperText }}</div>
+  </div>
+</div>

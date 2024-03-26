@@ -1,0 +1,173 @@
+version: '3.4'
+services:
+  api1-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App1DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8090
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8080:80"
+
+  app1-client:
+    environment:
+      - API_URL=http://10.202.43.150:8080
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8090:80"
+
+
+  api2-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App2DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8091
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8081:80"
+
+  app2-client:
+    environment:
+      - API_URL=http://10.202.43.150:8081
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8091:80"
+
+
+  api3-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App3DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8092
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8082:80"
+
+  app3-client:
+    environment:
+      - API_URL=http://10.202.43.150:8082
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8092:80"
+
+
+  api4-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App4DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8093
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8083:80"
+
+  app4-client:
+    environment:
+      - API_URL=http://10.202.43.150:8083
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8093:80"
+
+
+  api5-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App5DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8094
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8084:80"
+
+  app5-client:
+    environment:
+      - API_URL=http://10.202.43.150:8084
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8094:80"
+
+
+  api6-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App6DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8095
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8085:80"
+
+  app6-client:
+    environment:
+      - API_URL=http://10.202.43.150:8085
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8095:80"
+
+
+  api7-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App7DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8096
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8086:80"
+
+  app7-client:
+    environment:
+      - API_URL=http://10.202.43.150:8086
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8096:80"
+
+
+
+  api8-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App8DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8097
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8087:80"
+
+  app8-client:
+    environment:
+      - API_URL=http://10.202.43.150:8087
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8097:80"
+
+
+
+  api9-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App9DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8098
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8088:80"
+
+  app9-client:
+    environment:
+      - API_URL=http://10.202.43.150:8088
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8098:80"
+
+
+
+  api10-client:
+    environment:
+      - CONNECTIONSTRINGS__DefaultConnection=Server=10.202.43.151;Initial Catalog=App10DB;User ID=dbadmin;Password=ASD123qwe;
+      - AdminPassword=admin1
+      - Origin=http://10.202.43.150:8099
+    image: workpacecontainers.azurecr.io/workpaceapi
+    ports:
+      - "8089:80"
+
+  app10-client:
+    environment:
+      - API_URL=http://10.202.43.150:8089
+    image: workpacecontainers.azurecr.io/workpace-front
+    ports:
+      - "8099:80"

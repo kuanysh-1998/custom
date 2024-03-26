@@ -1,0 +1,34 @@
+.switch-container {
+  width: 35px;
+  height: 14px;
+  background-color: rgba(0, 0, 0, 0.38);
+  border-radius: 14px;
+  position: relative;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.switch-on {
+  background-color: #39bf5e;
+}
+
+.switch-handle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  transform: translateY(-50%);
+  transition: left 0.3s, background-color 0.3s;
+  z-index: 2;
+  border: 1px solid #e0e0e0;
+}
+
+.switch-on .switch-handle {
+  left: calc(100% - 17px);
+  background-color: #39bf5e;
+  border: none;
+}

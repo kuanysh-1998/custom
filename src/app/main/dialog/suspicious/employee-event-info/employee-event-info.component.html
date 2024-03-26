@@ -1,0 +1,15 @@
+<div class="employee-block" *ngIf="employeeName">
+  <app-event-type-indicator [eventType]="eventType"></app-event-type-indicator>
+
+  <div class="employee-info">
+    <div class="name">
+      {{ employeeName }}
+    </div>
+
+    <div class="date-info">
+      <span>{{ eventDate | date : "short" }}</span>
+      |
+      <span> {{ eventDateOffset | dateOffset }}</span>
+    </div>
+  </div>
+</div>

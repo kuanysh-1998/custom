@@ -1,0 +1,43 @@
+<ng-container *ngIf="link; else itemList">
+  <a [routerLink]="link" routerLinkActive="active">
+    <ng-container *ngTemplateOutlet="itemTmpl"></ng-container>
+  </a>
+</ng-container>
+
+<ng-template #itemList>
+  <ng-container *ngTemplateOutlet="itemTmpl"></ng-container>
+</ng-template>
+<ng-template #itemTmpl>
+  <div
+    #item
+    [tabIndex]="0"
+    [class.active]="active"
+    (keydown.enter)="changeCheckbox(!checked)"
+    (click)="click()"
+    role="button"
+    class="item"
+  >
+    <div class="label">
+      <div *ngIf="withGap" class="gap"></div>
+
+      <wk-checkbox
+        *ngIf="selectionMode"
+        [value]="checked"
+        [tabIndex]="-1"
+        (click)="clickCheckbox($event, item)"
+        (changed)="changeCheckbox($event)"
+        class="checkbox"
+      ></wk-checkbox>
+
+      <wk-svg *ngIf="icon" [icon]="icon" class="list-icon"></wk-svg>
+
+      <span
+        [class.one-rows-max]="!enableWrapTwoRows"
+        [class.two-rows-max]="enableWrapTwoRows"
+        >{{ text }}</span
+      >
+    </div>
+
+    <wk-svg *ngIf="iconRight" [icon]="iconRight" class="icon"></wk-svg>
+  </div>
+</ng-template>

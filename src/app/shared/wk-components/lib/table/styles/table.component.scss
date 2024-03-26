@@ -1,0 +1,103 @@
+@import "header";
+@import "loader";
+@import "selection";
+@import "rows";
+@import "toolbar";
+@import "../../../styles.scss";
+wk-table {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-vertical-l);
+
+  .dx-custom-data-grid-container {
+    @include header;
+    @include loader;
+    @include selection;
+    @include rows;
+    @include toolbar;
+
+    position: relative;
+
+    .dx-datagrid-table.dx-datagrid-table-fixed {
+      margin-bottom: -1px;
+    }
+
+    .dx-bordered-bottom-view.dx-datagrid-rowsview {
+      border-color: var(--datagrid-stroke-rest);
+    }
+
+    .dx-bordered-bottom-view.dx-datagrid-rowsview.dx-empty {
+      height: 200px;
+      border-color: var(--datagrid-stroke-rest);
+      background: var(--datagrid-main-bg-rest);
+    }
+
+    .dx-datagrid-rowsview.dx-datagrid-nowrap.dx-empty {
+      border-top: none;
+    }
+
+    .dx-datagrid-drag-header.dx-datagrid-text-content.dx-widget.dx-state-invisible {
+      display: block;
+    }
+
+    .dx-row.dx-freespace-row.dx-column-lines {
+      display: none;
+    }
+
+    .dx-datagrid-nodata {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background: var(--datagrid-icon-empty-state) no-repeat top;
+      height: 92px;
+      font: var(--font-body-1);
+      color: var(--datagrid-color-empty-state);
+      opacity: 1;
+    }
+
+    .dx-command-select {
+      cursor: pointer;
+    }
+
+    .dx-datagrid-rowsview.dx-last-row-border {
+      border: 1px solid var(--datagrid-stroke-rest);
+      border-top: none;
+    }
+  }
+
+  .dx-custom-data-grid-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--datagrid-stroke-rest);
+    border-radius: 0 0 var(--radius-small) var(--radius-small);
+    border-top: none;
+    height: 36px;
+    width: 100%;
+    padding: 8px;
+    background: var(--datagrid-total-sum-bg);
+    font: var(--font-body-1-strong);
+    color: var(--datagrid-color-rows);
+    text-align: end;
+
+    &.with-menu {
+      padding-right: 48px;
+    }
+    .position {
+      order: 1;
+    }
+    .summary {
+      order: 2;
+    }
+  }
+
+  .dx-custom-data-grid-table-pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-vertical-xl);
+  }
+
+  .dx-datagrid-focus-overlay {
+    display: none;
+  }
+}

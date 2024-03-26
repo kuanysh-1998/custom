@@ -1,0 +1,34 @@
+<div class="dx-custom-text-field" *ngIf="searchInput">
+  <wk-text-field
+    [icon]="iconSearch"
+    [disabled]="isDisabled"
+    (changed)="changeSearch($event)"
+    placeholder="Поиск"
+    class="dx-custom-text-field-input"
+  ></wk-text-field>
+</div>
+
+<dx-tree-view
+  #treeViewWrapper
+  [items]="options"
+  [searchValue]="searchValue"
+  [searchExpr]="['title']"
+  [showCheckBoxesMode]="!multiple ? 'none' : 'normal'"
+  [selectNodesRecursive]="false"
+  [selectByClick]="multiple"
+  [useNativeScrolling]="true"
+  [disabled]="isDisabled"
+  [class.dx-custom-search-mode]="searchInput"
+  [selectionMode]="multiple ? 'multiple' : 'single'"
+  (onItemClick)="changeSingle($event)"
+  (onContentReady)="contentReady.emit($event)"
+  (onItemSelectionChanged)="changeMultiple($event)"
+  keyExpr="id"
+  parentIdExpr="parentId"
+  searchMode="contains"
+  noDataText="Нет результатов"
+>
+  <div *dxTemplate="let item of 'item'">
+    {{ item.title }}
+  </div>
+</dx-tree-view>

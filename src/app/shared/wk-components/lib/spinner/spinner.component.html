@@ -1,0 +1,7 @@
+<div *ngIf="fullScreen; else loader" class="backdrop">
+  <wk-svg [icon]="icon" size="large" class="spinner"></wk-svg>
+</div>
+
+<ng-template #loader>
+  <wk-svg [icon]="icon" [size]="size" class="spinner"></wk-svg>
+</ng-template>

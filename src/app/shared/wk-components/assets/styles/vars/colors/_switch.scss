@@ -1,0 +1,33 @@
+:root {
+  --switch-handle-checked-bg: var(--color-grey-white);
+
+  --switch-handle-bg-rest: var(--color-grey-30);
+  --switch-handle-bg-hover: var(--color-grey-20);
+  --switch-handle-bg-focus: var(--color-grey-10);
+  --switch-handle-bg-disabled: var(--color-grey-80);
+
+  --switch-container-bg-rest: var(--color-grey-white);
+  --switch-container-stroke-rest: var(--color-grey-80);
+
+  --switch-container-checked-bg-rest: var(--color-brand-100);
+  --switch-container-checked-bg-hover: var(--color-brand-90);
+  --switch-container-checked-bg-focus: var(--color-brand-80);
+  --switch-container-checked-bg-disabled: var(--color-grey-80);
+}
+
+body[data-theme='dark'] {
+  --switch-handle-checked-bg: var(--color-grey-10);
+
+  --switch-handle-bg-rest: var(--color-grey-80);
+  --switch-handle-bg-hover: var(--color-grey-50);
+  --switch-handle-bg-focus: var(--color-grey-40);
+  --switch-handle-bg-disabled: var(--color-grey-40);
+
+  --switch-container-bg-rest: var(--color-grey-16);
+  --switch-container-stroke-rest: var(--color-grey-40);
+
+  --switch-container-checked-bg-rest: var(--color-brand-110);
+  --switch-container-checked-bg-hover: var(--color-brand-100);
+  --switch-container-checked-bg-focus: var(--color-brand-90);
+  --switch-container-checked-bg-disabled: var(--color-grey-40);
+}

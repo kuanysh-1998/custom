@@ -1,0 +1,16 @@
+<div [ngClass]="type" class="toast">
+  <div class="header-wrapper">
+    <div class="header">
+      <wk-svg [icon]="icons[type]" class="type-icon"></wk-svg>
+      <div class="header-title">{{ header }}</div>
+    </div>
+
+    <wk-svg
+      [icon]="iconClose"
+      (click)="closed.emit()"
+      class="close-icon"
+    ></wk-svg>
+  </div>
+
+  <div class="message">{{ message }}</div>
+</div>

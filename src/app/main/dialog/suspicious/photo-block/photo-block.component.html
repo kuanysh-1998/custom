@@ -1,0 +1,11 @@
+<div class="photo-block" *ngIf="photos.length > 0">
+  <p class="text">{{ "Фотографии в базе" | translate }}:</p>
+  <div class="photo-wrapper">
+    <img
+      *ngFor="let photoId of photos | slice : 0 : 5"
+      class="photo"
+      [src]="PhotosBaseUrl | secure : photoId | async"
+    />
+  </div>
+</div>
+

@@ -1,0 +1,95 @@
+<div>
+  <div class="personal-info-btns">
+    <dx-button
+      class="custom-dx-export-btn"
+      (onClick)="topUpBalance()"
+      text="{{ 'Пополнить баланс' | translate }}"
+      *hasPermission="PermissionType.AnyPersonalAccountDeposit"
+    ></dx-button>
+
+    <dx-button
+      class="custom-dx-export-btn"
+      (onClick)="addOverdraft()"
+      text="{{ 'Изменить овердрафт' | translate }}"
+      *hasPermission="PermissionType.AnyPersonalAccountOverdraftEdit"
+    >
+    </dx-button>
+  </div>
+  <div class="wrapper">
+    <div class="personal-information">
+      <div class="information">
+        <p class="information-title">{{ "Баланс" | translate }}:</p>
+        <p class="information-description">{{ data?.personal.balance }}</p>
+      </div>
+      <div class="information">
+        <p class="information-title">{{ "Овердрафт" | translate }}:</p>
+        <p class="information-description">{{ data?.personal.overdraft }}</p>
+      </div>
+      <div class="information">
+        <p class="information-title">{{ "Уровень" | translate }}:</p>
+        <p class="information-description">{{ levelName }}</p>
+      </div>
+      <div class="information">
+        <p class="information-title">{{ "Баллы" | translate }}:</p>
+        <p class="information-description">{{ data?.personal.points }}</p>
+      </div>
+    </div>
+    <div>
+      <dx-data-grid
+        id="gridContainer"
+        [dataSource]="balanceHistory"
+        [rowAlternationEnabled]="true"
+        [remoteOperations]="true"
+        [elementAttr]="{ class: 'custom-dx-grid-scroll' }"
+      >
+        <dxo-filter-row [visible]="true"> </dxo-filter-row>
+        <dxi-column
+          dataField="date"
+          caption="{{ 'Дата' | translate }}"
+          dataType="date"
+          format="shortDate"
+          cellTemplate="dateWithMinutesTemplate"
+          minWidth="130"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="operationSum"
+          caption="{{ 'Сумма' | translate }}"
+          dataType="string"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+          minWidth="130"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="balance"
+          caption="{{ 'Баланс' | translate }}"
+          dataType="string"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+          minWidth="130"
+        >
+        </dxi-column>
+        <dxi-column
+          dataField="comment"
+          minWidth="200"
+          width="100%"
+          caption="{{ 'Комментарий' | translate }}"
+          dataType="string"
+          [allowFiltering]="false"
+          [allowSorting]="false"
+        >
+        </dxi-column>
+        <ng-container *dxTemplate="let cellInfo of 'dateWithMinutesTemplate'">
+          {{ cellInfo.value | date : "short" }}
+        </ng-container>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[10, 20, 50, 100]"
+          [visible]="true"
+        ></dxo-pager>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<form [formGroup]="form">
+  <dx-select-box
+    formControlName="scheduleId"
+    [dataSource]="scheduleDataSource"
+    displayExpr="name"
+    [searchEnabled]="true"
+    valueExpr="id"
+    label="{{ 'График работы' | translate }}*"
+    placeholder=""
+    stylingMode="outlined"
+    labelMode="floating"
+    [showClearButton]="false"
+    appValidateControl
+  >
+  </dx-select-box>
+
+  <div class="schedule-time">
+    <div class="date-boxes">
+      <div class="date-box-container">
+        <div class="label">{{ "Дата начала" | translate }}:</div>
+        <dx-date-box
+          width="215"
+          formControlName="startDate"
+          [min]="minDate"
+          [max]="maxDate"
+          [type]="'date'"
+          [pickerType]="'calendar'"
+          [displayFormat]="'dd.MM.yyyy'"
+          appValidateControl
+          (onOptionChanged)="onDateChanged($event, 'startDate')"
+        >
+        </dx-date-box>
+      </div>
+      <div class="date-box-container">
+        <div class="label">{{ "Дата завершения" | translate }}:</div>
+
+        <dx-date-box
+          formControlName="endDate"
+          [min]="minDate"
+          [max]="maxDate"
+          [type]="'date'"
+          [pickerType]="'calendar'"
+          [displayFormat]="'dd.MM.yyyy'"
+          appValidateControl
+          width="215"
+          (onOptionChanged)="onDateChanged($event, 'endDate')"
+        >
+        </dx-date-box>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="popup-btn-container">
+  <dx-button
+    text="{{ 'Отмена' | translate }}"
+    class="custom-dx-normal-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'cancel' }"
+    (onClick)="closeModal()"
+  ></dx-button>
+  <dx-button
+    text="{{ 'Сохранить' | translate }}"
+    class="custom-dx-success-btn"
+    [ngClass]="{ 'global-highlight': activeButton === 'save' }"
+    (onClick)="publish()"
+    [disabled]="isPublishing"
+  ></dx-button>
+</div>

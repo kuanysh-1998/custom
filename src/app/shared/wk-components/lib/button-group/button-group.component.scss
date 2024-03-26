@@ -1,0 +1,50 @@
+@import "../../styles.scss";
+wk-button-group {
+  display: block;
+  width: fit-content;
+}
+
+.dx-custom-button-group {
+  display: flex;
+  flex-wrap: nowrap;
+
+  wk-button {
+    .dx-button {
+      border-radius: 0;
+    }
+
+    &:first-child {
+      .dx-button {
+        border-radius: var(--radius-medium) 0 0 var(--radius-medium);
+      }
+    }
+
+    &:last-child {
+      .dx-button {
+        border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+      }
+    }
+
+    &:not(:last-child) {
+      .dx-button {
+        border-right: none;
+      }
+
+      .dx-button:hover {
+        border-right: none;
+      }
+
+      .dx-button:focus {
+        border-right: none;
+      }
+
+      .dx-button:active {
+        border-right: none;
+      }
+
+      .dx-button.dx-state-disabled {
+        border-right: none;
+      }
+    }
+  }
+}

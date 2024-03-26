@@ -1,0 +1,80 @@
+@import "../../../styles.scss";
+@mixin rows {
+  .dx-datagrid .dx-error-row {
+    display: none;
+  }
+
+  .dx-row.dx-data-row.dx-column-lines,
+  .dx-row.dx-data-row.dx-row-lines {
+    font: var(--font-body-1);
+    height: 36px;
+    color: var(--datagrid-color-rows);
+
+    td {
+      border-color: var(--datagrid-stroke-rest);
+      padding: var(--space-vertical-snudge) var(--space-horizontal-s);
+      background: var(--datagrid-main-bg-rest);
+      transition: background 0.2s;
+    }
+
+    .dx-custom-align-column.middle {
+      vertical-align: middle;
+    }
+
+    .dx-custom-align-column.top {
+      vertical-align: top;
+    }
+
+    .dx-custom-align-column.bottom {
+      vertical-align: bottom;
+    }
+
+    .dx-custom-data-grid-context-menu svg {
+      fill: var(--datagrid-contextmenu-icon-fill);
+    }
+
+    &[aria-selected="true"] {
+      td {
+        background: var(--datagrid-main-bg-active);
+        border-color: var(--datagrid-stroke-rest);
+        padding: var(--space-vertical-snudge) var(--space-horizontal-s);
+        color: var(--datagrid-color-rows);
+      }
+    }
+
+    .dx-custom-data-grid-context-menu {
+      .dx-template-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  .dx-datagrid-rowsview {
+    border-top: none;
+    border-bottom-right-radius: var(--radius-small);
+    border-bottom-left-radius: var(--radius-small);
+  }
+
+  .dx-datagrid-rowsview {
+    border-top: none;
+  }
+}
+
+.dx-custom-data-grid-clickable {
+  .dx-row.dx-data-row.dx-column-lines,
+  .dx-row.dx-data-row.dx-row-lines {
+    &:hover {
+      cursor: pointer;
+
+      td {
+        background: var(--datagrid-main-bg-hover);
+      }
+
+      &[aria-selected="true"] td {
+        background: var(--datagrid-main-bg-active);
+        border-color: var(--datagrid-stroke-rest);
+      }
+    }
+  }
+}

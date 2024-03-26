@@ -1,0 +1,50 @@
+<div class="banner">
+  <div class="banner__image-wrapper">
+    <img
+      src="assets/image/wp-banner.png"
+      alt="Workpace"
+      class="banner__background-image"
+    />
+    <div class="banner__overlay">
+      <img
+        src="assets/image/logo.svg"
+        alt="Workpace Logo"
+        class="banner__logo"
+      />
+      <h1 class="banner__title">{{ instructionTitle | translate }}</h1>
+      <p class="banner__text">{{ instructionDescription | translate }}</p>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <div class="instructions__item" *ngFor="let item of instructionItems">
+      <p>
+        {{ item.content | translate }}
+      </p>
+      <ul *ngIf="item.subItems" class="custom-list-style">
+        <li *ngFor="let subItem of item.subItems">
+          {{ subItem.content | translate }}:
+          <ul *ngIf="subItem.subItems">
+            <li *ngFor="let subSubItem of subItem.subItems">
+              {{ subSubItem.content | translate }}
+              <span *ngIf="subSubItem.isRequired">*</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <img
+        *ngIf="item.imageSrc"
+        [src]="item.imageSrc"
+        [alt]="item.imageAlt"
+        class="instructions__image"
+      />
+      <p *ngIf="item.imageCaption" class="instructions__image-caption">
+        {{ item.imageCaption | translate }}
+      </p>
+    </div>
+
+    <div class="instructions__footer" *ngIf="footerText">
+      <p class="instructions__footer-text">{{ footerText | translate }}</p>
+    </div>
+  </div>
+</div>

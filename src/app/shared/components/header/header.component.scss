@@ -1,0 +1,297 @@
+.toolbar-wrapper {
+  width: 100%;
+  height: 72px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+
+  .title {
+    font-family: "PTRootUIBold";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #060c1f;
+    margin-top: 10px;
+  }
+
+  .action {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .license-information {
+    display: flex;
+    align-items: flex-start;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 6px;
+    margin-right: 20px;
+    margin-top: 10px;
+
+    p {
+      margin-left: 5px;
+      margin-top: -1px;
+    }
+  }
+
+  .license-expired {
+    background: rgba(227, 104, 58, 0.1);
+    color: #2e2c2c6c;
+  }
+
+  .license-active {
+    background: rgba(57, 191, 94, 0.1);
+  }
+
+  .setting-btn {
+    margin-left: 20px;
+  }
+
+  .logout-btn {
+    background-color: #eef0f7;
+    font-family: "PTRootUIBold";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    color: #060c1f;
+  }
+}
+
+.license-content {
+  position: relative;
+  padding: 6px 20px 8px 14px;
+  border-radius: 5px;
+
+  .license-description {
+    font-family: "PTRootUIMedium";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.08px;
+    color: rgba(43, 50, 59, 0.6);
+    text-align: start;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .time {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    font-family: "PTRootUIMedium";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.08px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    color: #2b323b;
+  }
+}
+
+.license-title {
+  // font-family: "PTRootUIMedium";
+  font-family: "PTRootUIBold";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 4px;
+}
+
+.license-title-nested {
+  @extend .license-title;
+  padding: 5px 8px;
+}
+
+.your-rate {
+  @extend .license-title;
+  color: #060c1f;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: -4px;
+  background: transparent !important;
+  display: flex;
+  direction: ltr;
+  column-gap: 3px;
+}
+
+.content-lang {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+}
+
+.menu-item {
+  padding: 6px 8px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  color: #060c1f;
+  @extend .font-style;
+}
+
+.green {
+  color: #39bf5e;
+  margin-left: 50px;
+}
+
+.content-center {
+  line-height: 30px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.arrow-right {
+  margin-right: 4px;
+  margin-left: 10px;
+}
+
+.language-item {
+  @extend .font-style;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #060c1f;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0;
+
+  .info-title {
+    font-family: "PTRootUIBold";
+    margin-bottom: 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    color: #060c1f;
+    white-space: nowrap;
+    direction: ltr;
+  }
+
+  .info-description {
+    font-family: "PTRootUI";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(6, 12, 31, 0.7);
+    margin-bottom: 0;
+  }
+}
+
+.menu-license {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.license-expired-nested {
+  background: rgba(190, 17, 17, 0.1);
+  border-radius: 5px;
+  height: 30px;
+  line-height: 30px;
+  color: #be1111;
+  text-align: center;
+  @extend .font-style;
+}
+
+.license-title-text {
+  color: #4a4a4a;
+  margin-left: 6px;
+}
+
+.gray {
+  margin-top: 0px !important;
+  // color: #4a4a4a;
+  @extend .font-style;
+}
+
+.font-style {
+  font-family: "PTRootUIMedium";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.line {
+  width: 100%;
+  height: 0.5px;
+  background: #ebeff2;
+  margin-top: 8px;
+}
+
+.primary {
+  background: rgba(57, 191, 94, 0.1);
+  color: #39bf5e;
+}
+.accent {
+  background: rgba(226, 163, 0, 0.1);
+  color: #fe8500;
+}
+.warn {
+  background: rgba(190, 17, 17, 0.1);
+  color: #be1111;
+}
+
+.color-primary {
+  color: #39bf5e;
+}
+.color-accent {
+  color: #fe8500;
+}
+.color-warn {
+  color: #be1111;
+}
+
+.color-black {
+  color: #4a4a4a !important;
+}
+
+.gray {
+  color: #a7b1cf;
+}
+
+@media screen and (max-width: 500px) {
+  .toolbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+
+    .title {
+      margin-top: 0;
+    }
+
+    .license-information {
+      height: 40px;
+    }
+  }
+
+  .your-rate {
+    flex-direction: column;
+    align-items: center;
+  }
+  .license-content {
+    padding: 5px;
+  }
+
+  .action {
+    column-gap: 10px;
+  }
+}

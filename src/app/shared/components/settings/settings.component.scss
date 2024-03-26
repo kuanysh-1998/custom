@@ -1,0 +1,55 @@
+.content {
+  height: 100vh;
+  padding: 24px;
+  margin: 0;
+  overflow: scroll;
+
+  .wrapper {
+    height: calc(100% - 56px);
+    background-color: #ffffff;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 24px;
+
+    .title {
+      font-family: "PTRootUIMedium";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 30px;
+      margin-bottom: 32px;
+      color: #060c1f;
+    }
+
+    .items {
+      background: #ffffff;
+      border: 2px solid #e7e7ed;
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 12px 8px;
+        border-radius: 6px;
+        width: 100%;
+        height: 56px;
+      }
+
+      .description {
+        font-family: "RubikRegular";
+        font-style: normal;
+        font-size: 13px;
+        line-height: 150%;
+        color: #060c1f;
+      }
+    }
+    .counter {
+      width: 60px;
+    }
+  }
+}
+
+.item {
+  margin-bottom: 10px;
+}

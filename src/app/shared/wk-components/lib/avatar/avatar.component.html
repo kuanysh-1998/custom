@@ -1,0 +1,7 @@
+<div [ngClass]="avatarClasses">
+  <div *ngIf="initials; else avatar">{{ initials }}</div>
+</div>
+
+<ng-template #avatar>
+  <wk-svg [icon]="avatarIcon" [size]="svgSize" class="icon"></wk-svg>
+</ng-template>

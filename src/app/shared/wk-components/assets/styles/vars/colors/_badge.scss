@@ -1,0 +1,53 @@
+:root {
+  --badge-default-contained-bg-rest: var(--color-brand-100);
+  --badge-default-contained-color-rest: var(--color-grey-white);
+
+  --badge-error-contained-bg-rest: var(--color-semantic-red-150);
+  --badge-error-contained-color-rest: var(--color-grey-white);
+
+  --badge-secondary-contained-bg-rest: var(--color-grey-94);
+  --badge-secondary-contained-color-rest: var(--color-grey-2);
+
+  --badge-default-outlined-bg-rest: var(--color-brand-160);
+  --badge-default-outlined-stroke-rest: var(--color-brand-150);
+  --badge-default-outlined-color-rest: var(--color-brand-100);
+
+  --badge-error-outlined-bg-rest: var(--color-semantic-red-10);
+  --badge-error-outlined-stroke-rest: var(--color-semantic-red-50);
+  --badge-error-outlined-color-rest: var(--color-semantic-red-150);
+
+  --badge-secondary-outlined-bg-rest: var(--color-grey-94);
+  --badge-secondary-outlined-stroke-rest: var(--color-grey-90);
+  --badge-secondary-outlined-color-rest: var(--color-grey-2);
+
+  --badge-default-ghost-color-rest: var(--color-brand-100);
+  --badge-error-ghost-color-rest: var(--color-semantic-red-150);
+  --badge-secondary-ghost-color-rest: var(--color-grey-2);
+}
+
+body[data-theme='dark'] {
+  --badge-default-contained-bg-rest: var(--color-brand-110);
+  --badge-default-contained-color-rest: var(--color-grey-2);
+
+  --badge-error-contained-bg-rest: var(--color-semantic-red-100);
+  --badge-error-contained-color-rest: var(--color-grey-white);
+
+  --badge-secondary-contained-bg-rest: var(--color-grey-10);
+  --badge-secondary-contained-color-rest: var(--color-grey-white);
+
+  --badge-default-outlined-bg-rest: var(--color-brand-40);
+  --badge-default-outlined-stroke-rest: var(--color-brand-50);
+  --badge-default-outlined-color-rest: var(--color-brand-110);
+
+  --badge-error-outlined-bg-rest: var(--color-semantic-red-350);
+  --badge-error-outlined-stroke-rest: var(--color-semantic-red-300);
+  --badge-error-outlined-color-rest: var(--color-semantic-red-100);
+
+  --badge-secondary-outlined-bg-rest: var(--color-grey-10);
+  --badge-secondary-outlined-stroke-rest: var(--color-grey-30);
+  --badge-secondary-outlined-color-rest: var(--color-grey-white);
+
+  --badge-default-ghost-color-rest: var(--color-brand-110);
+  --badge-error-ghost-color-rest: var(--color-semantic-red-100);
+  --badge-secondary-ghost-color-rest: var(--color-grey-white);
+}

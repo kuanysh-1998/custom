@@ -1,0 +1,32 @@
+<div
+  tabindex="0"
+  role="radio"
+  (click)="selectRadio()"
+  (keydown.enter)="selectRadio()"
+  [class.disabled]="isDisabled"
+  [class.open]="checked"
+  class="option"
+>
+  <div class="content">
+    <div *ngIf="header" [class.short]="shortHeader" class="header">
+      {{ header }}
+    </div>
+    <div
+      *ngIf="subtext"
+      [class.short]="shortSubtext"
+      [ngClass]="externalSubtextClass"
+      class="subtext"
+    >
+      {{ subtext }}
+    </div>
+    <ng-content></ng-content>
+  </div>
+  <wk-radio
+    *ngIf="enableRadio"
+    [value]="value"
+    [selectedValue]="selectedValue"
+    [disabled]="isDisabled"
+    tabIndex="-1"
+    class="radio"
+  ></wk-radio>
+</div>

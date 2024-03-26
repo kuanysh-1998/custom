@@ -1,0 +1,23 @@
+:root {
+  --color-font-link: var(--color-brand-90);
+  --color-font-link-hover: var(--color-brand-70);
+  --color-font-link-active: var(--color-brand-50);
+
+  --color-font-link-secondary: var(--color-grey-14);
+  --color-font-link-secondary-hover: var(--color-grey-8);
+  --color-font-link-secondary-active: var(--color-grey-2);
+
+  --color-font-link-disabled: var(--color-grey-80);
+}
+
+body[data-theme='dark'] {
+  --color-font-link: var(--color-brand-110);
+  --color-font-link-hover: var(--color-brand-90);
+  --color-font-link-active: var(--color-brand-70);
+
+  --color-font-link-secondary: var(--color-grey-90);
+  --color-font-link-secondary-hover: var(--color-grey-70);
+  --color-font-link-secondary-active: var(--color-grey-50);
+
+  --color-font-link-disabled: var(--color-grey-30);
+}
